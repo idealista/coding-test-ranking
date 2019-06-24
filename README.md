@@ -48,27 +48,6 @@ A continuación se enumeran los requisitos mínimos para ejecutar el proyecto:
 
 Otras versiones pueden funcionar, pero no han sido probadas y pueden presentar errores.
 
-## Documento de decisiones
-
-Es muy importante para nosotros entender el proceso mental que sigues para llegar a la solución que entregas. Sabemos que esta prueba se puede resolver de muchas formas distintas y el código solo es el producto final. Queremos entender los tradeoffs a los que te has enfrentado y los puntos en los que crees que tu solución podría ser mejor o peor en función del contexto. 
-
-* Incluye junto a la prueba un fichero de texto (formateado con Markdown, AsciiDoc o lo que prefieras) con las decisiones más importantes que hayas tomado durante el desarrollo de tu solución (por qué has usado o no frameworks, por qué has implementado un modelo de dominio u otro, a qué partes has dado más importancia, a cuales menos...)
-
-* Contesta a las siguientes preguntas en el documento de decisiones:
-
-    * ¿Que arquitectura has usado? ¿Se te ocurre alguna otra? ¿Que ventajas y desventajas ofrecería esa alternativa?
-
-    * En el esqueleto te dejamos preparadas algunas clases, entre ellas `PublicAd` y `QualityAd`. ¿Que te aportan? ¿Si lo hicieras desde cero, las eliminarías?
-
-    * ¿Que cambiarías sobre el esqueleto que te hemos proporcionado? ¿Por qué?
-
-    * A continuación te presentamos algunos escenarios en los que podría ejecutarse tu aplicación. Cuéntanos en cada uno que puntos fuertes y débiles ves en tu solución:     
-
-    	* Gran cantidad de peticiones para listar los anuncios
-      * Muchos cambios en los anuncios, por lo que hay que recalcular a menudo su puntuación
-      * Alta concurrencia en el acceso a los datos
-      * Gran cantidad de anuncios
-
 ## Criterios de aceptación
 
 * El código debe compilar y ser ejecutable :dancer:
