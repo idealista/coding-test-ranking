@@ -1,0 +1,79 @@
+# Reto: Servicio para gestión de calidad de los anuncios
+
+Este repositorio contiene un API parcialmente desarrollada para desarrollar un servicio que se encargue de medir la calidad de los anuncios. Tu objetivo será implementar las historias de usuario que se describen más adelante.
+
+Los supuestos están basados en un hipotético *equipo de gestión de calidad de los anuncios*, que demanda una serie de verificaciones automáticas para clasificar los anuncios en base a una serie de características concretas.
+
+## Historias de usuario
+
+* Yo, como encargado del equipo de gestión de calidad de los anuncios quiero asignar una puntuación a un anuncio para que los usuarios de idealista puedan ordenar anuncios de más completos a menos completos:
+
+**Nota**: La puntuación de un anuncio es un valor entre 0 y 100 y se calcula teniendo en cuenta las siguientes reglas:
+
+* Si el anuncio no tiene ninguna foto se restan 10 puntos. Cada foto que tenga el anuncio proporciona 20 puntos si es una foto de alta resolución (HD) o 10 si no lo es.
+* Que el anuncio tenga un texto descriptivo suma 5 puntos.
+
+* El tamaño de la descripción también proporciona puntos cuando el anuncio es sobre un piso o sobre un chalet. En el caso de los pisos, la descripción aporta 10 puntos si tiene entre 20 y 49 palabras o 30 puntos si tiene 50 o mas palabras. En el caso de los chalets, si tiene mas de 50 palabras, añade 20 puntos
+* Que las siguientes palabras aparezcan en la descripción añaden 5 puntos cada una: Luminoso, Nuevo, Céntrico, Reformado, Ático
+
+* Que el anuncio esté completo también aporta puntos. Para considerar un anuncio completo este tiene que tener descripción, al menos una foto y los datos particulares de cada tipología, esto es, en el caso de los pisos tiene que tener también tamaño de vivienda, en el de los chalets, tamaño de vivienda y de jardín. Además, excepcionalmente, en los garajes no es necesario que el anuncio tenga descripción. Si el anuncio tiene todos los datos anteriores, proporciona otros 40 puntos
+
+* Yo como encargado de calidad quiero que los usuarios no vean anuncios irrelevantes para que el usuario siempre vea contenido de calidad en idealista 
+   
+ **Nota**: Un anuncio se considera irrelevante si tiene una puntuación menor a 40
+
+* Yo como encargado de calidad quiero poder ver los anuncios irrelevantes y desde que fecha lo son para medir la calidad media del contenido del portal.
+
+* Yo como usuario de idealista quiero poder ver los anuncios ordenados de mejor a peor para encontrar fácilmente mi vivienda.
+
+## Consideraciones importantes
+
+En este proyecto te proporcionamos un pequeño *esqueleto* escrito en Java usando [Spring Boot](https://spring.io/projects/spring-boot).
+
+En dicho *esqueleto* hemos dejado para que completes un [Controller](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Controller.html) y un [Repository](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Repository.html) en memoria. Puedes crear las clases y métodos que consideres necesarios.
+
+Podrás ejecutar el proyecto usando Maven ejecutando el siguiente comando en la carpeta donde esté el fichero `pom.xml`:
+
+```bash
+$ mvn spring-boot:run
+```
+
+**La persistencia de datos no forma parte del objetivo del reto**. Si no vas a usar el esqueleto que te proporcionamos, te sugerimos que la simplifiques tanto como puedas (con una base de datos embebida, "persistiendo" los objetos en memoria, usando un fichero...). **El diseño de una interfaz gráfica tampoco** forma parte del alcance del reto, por tanto no es necesario que la implementes.
+
+**Nota:** No estás obligado a usar el proyecto proporcionado. Si lo prefieres, puedes usar cualquier otro lenguaje, framework y/o librería. Incluso puedes prescindir de estos últimos si consideras que no son necesarios.
+
+### Requisitos mínimos
+
+A continuación se enumeran los requisitos mínimos para ejecutar el proyecto:
+
+* Java 1.8
+* Apache Maven 3.6.x
+
+Otras versiones pueden funcionar, pero no han sido probadas y pueden presentar errores.
+
+## Documento de decisiones
+
+Es muy importante para nosotros entender el proceso mental que sigues para llegar a la solución que entregas. Sabemos que esta prueba se puede resolver de muchas formas distintas y el código solo es el producto final. Queremos entender los tradeoffs a los que te has enfrentado y los puntos en los que crees que tu solución podría ser mejor o peor en función del contexto. 
+
+* Incluye junto a la prueba un fichero de texto (formateado con Markdown, AsciiDoc o lo que prefieras) con las decisiones más importantes que hayas tomado durante el desarrollo de tu solución (por qué has usado o no frameworks, por qué has implementado un modelo de dominio u otro, a qué partes has dado más importancia, a cuales menos...)
+
+* Contesta a las siguientes preguntas en el documento de decisiones:
+
+    * ¿Que arquitectura has usado? ¿Se te ocurre alguna otra? ¿Que ventajas y desventajas ofrecería esa alternativa?
+
+    * En el esqueleto te dejamos preparadas algunas clases, entre ellas `PublicAd` y `QualityAd`. ¿Que te aportan? ¿Si lo hicieras desde cero, las eliminarías?
+
+    * ¿Que cambiarías sobre el esqueleto que te hemos proporcionado? ¿Por qué?
+
+    * A continuación te presentamos algunos escenarios en los que podría ejecutarse tu aplicación. Cuéntanos en cada uno que puntos fuertes y débiles ves en tu solución:     
+
+    	* Gran cantidad de peticiones para listar los anuncios
+      * Muchos cambios en los anuncios, por lo que hay que recalcular a menudo su puntuación
+      * Alta concurrencia en el acceso a los datos
+      * Gran cantidad de anuncios
+
+## Criterios de aceptación
+
+* El código debe compilar y ser ejecutable :dancer:
+
+* Debes proporcionar 3 endpoints: Uno para calcular la puntuación de todos los anuncios, otro para listar los anuncios para un usuario de idealista y otro para listar los anuncios para el responsable de del departamento de gestión de calidad.
