@@ -35,9 +35,7 @@ public class AdRatingServiceImpl implements AdRatingService {
     private AdVO rateAd(AdVO ad) {
         int score = ratingRuleServices
                 .stream()
-                .mapToInt(ratingRuleService -> {
-                    return ratingRuleService.calculate(ad);
-                })
+                .mapToInt(ratingRuleService -> ratingRuleService.calculate(ad))
                 .sum();
 
         if (score < MIN_SCORE) {
