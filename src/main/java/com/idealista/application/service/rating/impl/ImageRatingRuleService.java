@@ -1,5 +1,6 @@
 package com.idealista.application.service.rating.impl;
 
+import com.idealista.application.service.AdRatingService;
 import com.idealista.application.service.rating.RatingRuleService;
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
@@ -12,9 +13,9 @@ import java.util.Optional;
 
 @Service
 public class ImageRatingRuleService implements RatingRuleService {
-    private static final int NO_PICTURE = -10;
-    private static final int HD_PICTURE = 20;
-    private static final int SD_PICTURE = 10;
+    public static final int NO_PICTURE = -10;
+    public static final int HD_PICTURE = 20;
+    public static final int SD_PICTURE = 10;
 
     private InMemoryPersistence inMemoryPersistence;
 
@@ -22,7 +23,7 @@ public class ImageRatingRuleService implements RatingRuleService {
 
     @Override
     public int calculate(AdVO ad) {
-        List<PictureVO> pictures = getPictures(ad.getPictures());
+        List<PictureVO> pictures = getPictures(ad);
 
         if (pictures.isEmpty()) {
             return NO_PICTURE;
@@ -36,16 +37,18 @@ public class ImageRatingRuleService implements RatingRuleService {
         return score;
     }
 
-    private List<PictureVO> getPictures(List<Integer> pictureIds) {
+    private List<PictureVO> getPictures(AdVO ad) {
         List<PictureVO> pictures = new ArrayList<>();
 
-         pictureIds
-                 .stream()
-                 .forEach(id -> {
-                     Optional<PictureVO> pictureOptional = inMemoryPersistence.findPictureById(id);
+        if (ad.hasPictures()) {
+            ad.getPictures()
+                    .stream()
+                    .forEach(id -> {
+                        Optional<PictureVO> pictureOptional = inMemoryPersistence.findPictureById(id);
 
-                     pictureOptional.ifPresent(pictureVO -> pictures.add(pictureVO));
-                 });
+                        pictureOptional.ifPresent(pictureVO -> pictures.add(pictureVO));
+                    });
+        }
 
          return pictures;
     }
