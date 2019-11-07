@@ -5,7 +5,6 @@ import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import com.idealista.infrastructure.persistence.PictureVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +13,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ImageRatingRuleServiceTest {
-    private ImageRatingRuleService imageRatingRuleService;
+class PictureRatingRuleServiceTest {
+    private PictureRatingRuleService pictureRatingRuleService;
     private InMemoryPersistence inMemoryPersistence;
 
     @BeforeEach
@@ -29,61 +28,61 @@ class ImageRatingRuleServiceTest {
         inMemoryPersistence = new InMemoryPersistence();
         inMemoryPersistence.setPictures(pictures);
 
-        imageRatingRuleService = new ImageRatingRuleService(inMemoryPersistence);
+        pictureRatingRuleService = new PictureRatingRuleService(inMemoryPersistence);
     }
 
     @Test
     void calculateEmptyList() {
         AdVO ad = new AdVO(0, "GARAGE", "", Collections.<Integer>emptyList(), 300, null, null, null);
 
-        assertEquals(imageRatingRuleService.NO_PICTURE, imageRatingRuleService.calculate(ad));
+        assertEquals(pictureRatingRuleService.NO_PICTURE, pictureRatingRuleService.calculate(ad));
     }
 
     @Test
     void calculateNullList() {
         AdVO ad = new AdVO(0, "GARAGE", "", null, 300, null, null, null);
 
-        assertEquals(imageRatingRuleService.NO_PICTURE, imageRatingRuleService.calculate(ad));
+        assertEquals(pictureRatingRuleService.NO_PICTURE, pictureRatingRuleService.calculate(ad));
     }
 
     @Test
     void calculateImagesNotInRepository() {
         AdVO ad = new AdVO(0, "GARAGE", "", Arrays.asList(-1), 300, null, null, null);
 
-        assertEquals(imageRatingRuleService.NO_PICTURE, imageRatingRuleService.calculate(ad));
+        assertEquals(pictureRatingRuleService.NO_PICTURE, pictureRatingRuleService.calculate(ad));
     }
 
     @Test
     void calculateImageHD() {
         AdVO ad = new AdVO(0, "GARAGE", "", Arrays.asList(3), 300, null, null, null);
 
-        assertEquals(imageRatingRuleService.HD_PICTURE, imageRatingRuleService.calculate(ad));
+        assertEquals(pictureRatingRuleService.HD_PICTURE, pictureRatingRuleService.calculate(ad));
     }
 
     @Test
     void calculateMultipleImagesHD() {
         AdVO ad = new AdVO(0, "GARAGE", "", Arrays.asList(3, 4), 300, null, null, null);
 
-        assertEquals(imageRatingRuleService.HD_PICTURE * 2, imageRatingRuleService.calculate(ad));
+        assertEquals(pictureRatingRuleService.HD_PICTURE * 2, pictureRatingRuleService.calculate(ad));
     }
 
     @Test
     void calculateImageSD() {
         AdVO ad = new AdVO(0, "GARAGE", "", Arrays.asList(1), 300, null, null, null);
 
-        assertEquals(imageRatingRuleService.SD_PICTURE, imageRatingRuleService.calculate(ad));
+        assertEquals(pictureRatingRuleService.SD_PICTURE, pictureRatingRuleService.calculate(ad));
     }
 
     @Test
     void calculateMultipleImagesSD() {
         AdVO ad = new AdVO(0, "GARAGE", "", Arrays.asList(1, 2), 300, null, null, null);
 
-        assertEquals(imageRatingRuleService.SD_PICTURE * 2, imageRatingRuleService.calculate(ad));
+        assertEquals(pictureRatingRuleService.SD_PICTURE * 2, pictureRatingRuleService.calculate(ad));
     }
 
     void calculateMixedImages() {
         AdVO ad = new AdVO(0, "GARAGE", "", Arrays.asList(-1, 1, 3), 300, null, null, null);
 
-        assertEquals(imageRatingRuleService.SD_PICTURE + imageRatingRuleService.HD_PICTURE, imageRatingRuleService.calculate(ad));
+        assertEquals(pictureRatingRuleService.SD_PICTURE + pictureRatingRuleService.HD_PICTURE, pictureRatingRuleService.calculate(ad));
     }
 }

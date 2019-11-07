@@ -12,14 +12,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ImageRatingRuleService implements RatingRuleService {
+public class PictureRatingRuleService implements RatingRuleService {
     public static final int NO_PICTURE = -10;
     public static final int HD_PICTURE = 20;
     public static final int SD_PICTURE = 10;
 
     private InMemoryPersistence inMemoryPersistence;
 
-    public ImageRatingRuleService(InMemoryPersistence inMemoryPersistence) { this.inMemoryPersistence = inMemoryPersistence; }
+    public PictureRatingRuleService(InMemoryPersistence inMemoryPersistence) { this.inMemoryPersistence = inMemoryPersistence; }
 
     @Override
     public int calculate(AdVO ad) {
