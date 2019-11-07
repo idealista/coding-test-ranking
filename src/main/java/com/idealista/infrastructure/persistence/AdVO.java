@@ -4,6 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 public class AdVO {
+    public static final String FLAT = "FLAT";
+    public static final String CHALET = "CHALET";
+    public static final String GARAGE = "GARAGE";
 
     private Integer id;
     private String typology;
@@ -94,7 +97,19 @@ public class AdVO {
     /*
         My own methods
      */
-    public boolean isRelevant() { return this.irrelevantSince == null; }
+    public boolean isRelevant() { return irrelevantSince == null; }
 
-    public boolean hasPictures() { return this.pictures != null && !this.pictures.isEmpty(); }
+    public boolean hasPictures() { return (pictures != null) && !pictures.isEmpty(); }
+
+    public boolean hasDescription() { return (description != null) && !description.isEmpty(); }
+
+    public boolean hasHouseSize() { return (houseSize != null) && (houseSize > 0); }
+
+    public boolean hasGardenSize() { return (gardenSize != null) && (gardenSize > 0); }
+
+    public boolean isFlat() { return typology.equals(FLAT); }
+
+    public boolean isChalet() { return typology.equals(CHALET); }
+
+    public boolean isGarage() { return typology.equals(GARAGE); }
 }
