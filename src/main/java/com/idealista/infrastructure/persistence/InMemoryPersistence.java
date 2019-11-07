@@ -2,10 +2,7 @@ package com.idealista.infrastructure.persistence;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class InMemoryPersistence {
@@ -36,4 +33,22 @@ public class InMemoryPersistence {
     }
 
     //TODO crea los métodos que necesites
+    public List<AdVO> findAllAds() {
+        return ads;
+    }
+
+    public void saveAd(AdVO ad) {
+        int index = ads.indexOf(ad);
+
+        if (index < 0)
+            ads.add(ad);
+        else
+            ads.set(index, ad);
+    }
+
+    public Optional<PictureVO> findPictureById(int id) {
+        return pictures.stream()
+                .filter(pictureVO -> pictureVO.getId() == id)
+                .findFirst();
+    }
 }

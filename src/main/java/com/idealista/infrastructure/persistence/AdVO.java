@@ -90,4 +90,11 @@ public class AdVO {
     public void setIrrelevantSince(Date irrelevantSince) {
         this.irrelevantSince = irrelevantSince;
     }
+
+    /*
+        My own methods
+     */
+    public boolean isRelevant() { return this.irrelevantSince == null; }
+
+    public boolean hasPictures() { return this.pictures != null && !this.pictures.isEmpty(); }
 }

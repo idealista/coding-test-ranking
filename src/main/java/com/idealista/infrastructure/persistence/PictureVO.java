@@ -1,6 +1,8 @@
 package com.idealista.infrastructure.persistence;
 
 public class PictureVO {
+    private static final String HD = "HD";
+    private static final String SD = "SD";
 
     private Integer id;
     private String url;
@@ -37,4 +39,11 @@ public class PictureVO {
     public void setQuality(String quality) {
         this.quality = quality;
     }
+
+    /*
+        My own methods
+     */
+    public boolean isHD() { return quality.equals(HD); }
+
+    public boolean isSD() { return quality.equals(SD); }
 }
