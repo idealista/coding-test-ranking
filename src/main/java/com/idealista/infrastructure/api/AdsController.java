@@ -15,9 +15,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/ads")
 public class AdsController {
     private AdRatingService adRatingService;
     private AdService adService;
@@ -27,7 +29,7 @@ public class AdsController {
         this.adService = adService;
     }
 
-    @GetMapping("/ads/quality")
+    @GetMapping("/quality")
     public ResponseEntity<List<QualityAd>> qualityListing() {
         List<AdVO> ads = adService.getAll();
 
@@ -40,7 +42,7 @@ public class AdsController {
         return new ResponseEntity<>(qualityAds, HttpStatus.OK);
     }
 
-    @GetMapping("/ads/irrelevant")
+    @GetMapping("/irrelevant")
     public ResponseEntity<List<QualityAd>> irrelevantListing() {
         List<AdVO> ads = adService.getIrrelevantAds();
 
@@ -53,7 +55,7 @@ public class AdsController {
         return new ResponseEntity<>(qualityAds, HttpStatus.OK);
     }
 
-    @GetMapping("/ads/public")
+    @GetMapping("/public")
     public ResponseEntity<List<PublicAd>> publicListing() {
         List<AdVO> ads = adService.getOrderedRelevantAds();
 
@@ -66,7 +68,7 @@ public class AdsController {
         return new ResponseEntity<>(publicAds, HttpStatus.OK);
     }
 
-    @PostMapping("/ads/rate")
+    @PostMapping("/rate")
     public ResponseEntity<Void> calculateScore() {
         adRatingService.rateAds();
 

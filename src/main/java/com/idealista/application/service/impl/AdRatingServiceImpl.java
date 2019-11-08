@@ -26,6 +26,7 @@ public class AdRatingServiceImpl implements AdRatingService {
 
     @Override
     public void rateAds() {
+
         List<AdVO> ads = inMemoryPersistence.findAllAds();
 
         ads.stream()
