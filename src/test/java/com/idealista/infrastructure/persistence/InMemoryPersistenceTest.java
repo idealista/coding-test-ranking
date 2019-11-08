@@ -15,8 +15,9 @@ class InMemoryPersistenceTest {
         List<AdVO> ads = new ArrayList<>();
         ads.add(new AdVO(1, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 10, new Date()));
         ads.add(new AdVO(2, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 40, null));
-        ads.add(new AdVO(2, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 50, null));
-        ads.add(new AdVO(2, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 0, new Date()));
+        ads.add(new AdVO(3, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 50, null));
+        ads.add(new AdVO(4, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 0, new Date()));
+        ads.add(new AdVO(5, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 0, new Date()));
 
         List<PictureVO> pictures = new ArrayList<>();
         pictures.add((new PictureVO(1, "http://www.idealista.com/pictures/1", "SD")));
@@ -128,5 +129,16 @@ class InMemoryPersistenceTest {
         inMemoryPersistence.setPictures(pictures);
 
         assert(inMemoryPersistence.findAdPicturesUrlById(fakeId).contains(fakeUrl));
+    }
+
+    @Test
+    void findIrrelevantAds() {
+        List<AdVO> ads = inMemoryPersistence.findIrrelevantAds();
+
+        assertEquals(3, ads.size());
+
+        for (AdVO ad : ads) {
+            assert(!ad.isRelevant());
+        }
     }
 }

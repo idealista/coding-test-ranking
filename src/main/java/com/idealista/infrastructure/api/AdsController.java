@@ -26,19 +26,36 @@ public class AdsController {
         this.adRatingService = adRatingService;
         this.adService = adService;
     }
-    @Autowired
-    InMemoryPersistence inMemoryPersistence;
 
-    //TODO añade url del endpoint
+    @GetMapping("/ads/quality")
     public ResponseEntity<List<QualityAd>> qualityListing() {
+        List<AdVO> ads = adService.getAll();
 
-        return ResponseEntity.notFound().build();
+        List qualityAds = ads.stream()
+                .map(ad -> Mapper.mapQualityAd(
+                        ad,
+                        adService.getAdPictureUrls(ad.getId())))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(qualityAds, HttpStatus.OK);
+    }
+
+    @GetMapping("/ads/irrelevant")
+    public ResponseEntity<List<QualityAd>> irrelevantListing() {
+        List<AdVO> ads = adService.getIrrelevantAds();
+
+        List qualityAds = ads.stream()
+                .map(ad -> Mapper.mapQualityAd(
+                        ad,
+                        adService.getAdPictureUrls(ad.getId())))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(qualityAds, HttpStatus.OK);
     }
 
     @GetMapping("/ads/public")
     public ResponseEntity<List<PublicAd>> publicListing() {
         List<AdVO> ads = adService.getOrderedRelevantAds();
-        System.out.println(ads);
 
         List publicAds = ads.stream()
                 .map(ad -> Mapper.mapPublicAd(
@@ -54,10 +71,5 @@ public class AdsController {
         adRatingService.rateAds();
 
         return ResponseEntity.ok().build();
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<List> getAds() {
-        return new ResponseEntity<>(inMemoryPersistence.findAllAds(), HttpStatus.OK);
     }
 }

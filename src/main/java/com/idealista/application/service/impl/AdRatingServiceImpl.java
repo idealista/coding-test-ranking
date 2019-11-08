@@ -29,10 +29,11 @@ public class AdRatingServiceImpl implements AdRatingService {
         List<AdVO> ads = inMemoryPersistence.findAllAds();
 
         ads.stream()
-                .map(this::rateAd);
+                .map(this::rateAd)
+                .forEach(ad -> inMemoryPersistence.saveAd(ad));
     }
 
-    public AdVO rateAd(AdVO ad) {
+    private AdVO rateAd(AdVO ad) {
         int score = ratingRuleServices
                 .stream()
                 .mapToInt(ratingRuleService -> ratingRuleService.calculate(ad))
@@ -48,8 +49,6 @@ public class AdRatingServiceImpl implements AdRatingService {
         if (ad.isRelevant() && score < IRRELEVANT_SCORE) {
             ad.setIrrelevantSince(new Date());
         }
-
-        inMemoryPersistence.saveAd(ad);
 
         return ad;
     }

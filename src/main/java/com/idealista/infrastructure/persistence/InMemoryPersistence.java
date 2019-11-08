@@ -108,4 +108,11 @@ public class InMemoryPersistence {
 
         return urls;
     }
+
+    // SELECT * FROM ad WHERE irrelevant_since IS NOT NULL;
+    public List<AdVO> findIrrelevantAds() {
+        return ads.stream()
+                .filter(ad -> !ad.isRelevant())
+                .collect(Collectors.toList());
+    }
 }

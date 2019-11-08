@@ -14,12 +14,15 @@ public class AdServiceImpl implements AdService {
     public AdServiceImpl(InMemoryPersistence inMemoryPersistence) { this.inMemoryPersistence = inMemoryPersistence; }
 
     @Override
-    public List<AdVO> getOrderedRelevantAds() {
-        return inMemoryPersistence.findAllAdsIrrelevantSinceIsNullOrderByScoreDesc();
-    }
+    public List<AdVO> getOrderedRelevantAds() { return inMemoryPersistence.findAllAdsIrrelevantSinceIsNullOrderByScoreDesc(); }
 
     @Override
     public List<String> getAdPictureUrls(int adId) {
         return inMemoryPersistence.findAdPicturesUrlById(adId);
     }
+
+    @Override
+    public List<AdVO> getAll() { return inMemoryPersistence.findAllAds(); }
+
+    public List<AdVO> getIrrelevantAds() { return inMemoryPersistence.findIrrelevantAds(); };
 }

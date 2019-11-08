@@ -13,6 +13,7 @@ public class Mapper {
         publicAd.setId(ad.getId());
         publicAd.setTypology(ad.getTypology());
         publicAd.setDescription(ad.getDescription());
+        publicAd.setPictureUrls(imageUrls);
         publicAd.setHouseSize(ad.getHouseSize());
         publicAd.setGardenSize(ad.getGardenSize());
 
@@ -25,8 +26,11 @@ public class Mapper {
         qualityAd.setId(ad.getId());
         qualityAd.setTypology(ad.getTypology());
         qualityAd.setDescription(ad.getDescription());
+        qualityAd.setPictureUrls(imageUrls);
         qualityAd.setHouseSize(ad.getHouseSize());
         qualityAd.setGardenSize(ad.getGardenSize());
+        qualityAd.setScore(ad.getScore());
+        qualityAd.setIrrelevantSince(ad.getIrrelevantSince());
 
         return qualityAd;
     }

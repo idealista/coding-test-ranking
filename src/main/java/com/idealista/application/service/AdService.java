@@ -7,4 +7,6 @@ import java.util.List;
 public interface AdService {
     List<AdVO> getOrderedRelevantAds();
     List<String> getAdPictureUrls(int id);
+    List<AdVO> getAll();
+    List<AdVO> getIrrelevantAds();
 }
