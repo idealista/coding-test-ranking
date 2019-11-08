@@ -12,8 +12,9 @@ import java.util.Set;
 
 @Service
 public class AdRatingServiceImpl implements AdRatingService {
-    private static final int MIN_SCORE = 0;
-    private static final int MAX_SCORE = 100;
+    public static final int MIN_SCORE = 0;
+    public static final int MAX_SCORE = 100;
+    public static final int IRRELEVANT_SCORE = 40;
 
     private InMemoryPersistence inMemoryPersistence;
     private Set<RatingRuleService> ratingRuleServices;
@@ -28,11 +29,10 @@ public class AdRatingServiceImpl implements AdRatingService {
         List<AdVO> ads = inMemoryPersistence.findAllAds();
 
         ads.stream()
-                .map(this::rateAd)
-                .forEach(ad -> inMemoryPersistence.saveAd(ad));
+                .map(this::rateAd);
     }
 
-    private AdVO rateAd(AdVO ad) {
+    public AdVO rateAd(AdVO ad) {
         int score = ratingRuleServices
                 .stream()
                 .mapToInt(ratingRuleService -> ratingRuleService.calculate(ad))
@@ -45,9 +45,11 @@ public class AdRatingServiceImpl implements AdRatingService {
         }
 
         ad.setScore(score);
-        if (ad.isRelevant()) {
+        if (ad.isRelevant() && score < IRRELEVANT_SCORE) {
             ad.setIrrelevantSince(new Date());
         }
+
+        inMemoryPersistence.saveAd(ad);
 
         return ad;
     }

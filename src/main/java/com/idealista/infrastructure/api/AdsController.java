@@ -1,8 +1,13 @@
 package com.idealista.infrastructure.api;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.idealista.application.service.AdRatingService;
+import com.idealista.application.service.AdService;
+import com.idealista.infrastructure.api.mapper.Mapper;
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +20,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AdsController {
     private AdRatingService adRatingService;
+    private AdService adService;
 
-    public AdsController(AdRatingService adRatingService) { this.adRatingService = adRatingService; }
+    public AdsController(AdRatingService adRatingService, AdService adService) {
+        this.adRatingService = adRatingService;
+        this.adService = adService;
+    }
     @Autowired
     InMemoryPersistence inMemoryPersistence;
 
     //TODO añade url del endpoint
     public ResponseEntity<List<QualityAd>> qualityListing() {
-        //TODO rellena el cuerpo del método
+
         return ResponseEntity.notFound().build();
     }
 
-    //TODO añade url del endpoint
+    @GetMapping("/ads/public")
     public ResponseEntity<List<PublicAd>> publicListing() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+        List<AdVO> ads = adService.getOrderedRelevantAds();
+        System.out.println(ads);
+
+        List publicAds = ads.stream()
+                .map(ad -> Mapper.mapPublicAd(
+                        ad,
+                        adService.getAdPictureUrls(ad.getId())))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(publicAds, HttpStatus.OK);
     }
 
     @PostMapping("/ads/rate")

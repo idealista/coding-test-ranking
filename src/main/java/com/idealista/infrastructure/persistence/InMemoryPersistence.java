@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.swing.text.html.Option;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryPersistence {
@@ -73,5 +74,38 @@ public class InMemoryPersistence {
 
     public void setAds(List<AdVO> ads) {
         this.ads = ads;
+    }
+
+    // SELECT * FROM ad WHERE irrelevant_since IS NULL ORDER BY score DESC;
+    public List<AdVO> findAllAdsIrrelevantSinceIsNullOrderByScoreDesc() {
+        return ads.stream()
+                .filter(ad -> ad.isRelevant())
+                .sorted(Comparator.comparing(
+                        AdVO::getScore,
+                        Comparator.nullsLast(
+                                Comparator.naturalOrder())
+                        ).reversed()
+                )
+                .collect(Collectors.toList());
+    }
+
+    // SELECT url FROM picture p INNER JOIN ad a on p.ad_id = ad.id;
+    public List<String> findAdPicturesUrlById(int adId) {
+        List<String> urls = new ArrayList<>();
+        Optional<AdVO> optionalAd = findAdById(adId);
+
+        optionalAd.ifPresent(ad -> {
+            if (ad.hasPictures()) {
+                List<Integer> picturesIds = ad.getPictures();
+
+                for (Integer pictureId : picturesIds) {
+                    Optional<PictureVO> pictureOptional = findPictureById(pictureId);
+
+                    pictureOptional.ifPresent(picture -> urls.add(picture.getUrl()));
+                }
+            }
+        });
+
+        return urls;
     }
 }
