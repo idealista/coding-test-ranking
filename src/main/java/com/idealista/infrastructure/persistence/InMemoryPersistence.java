@@ -56,6 +56,8 @@ public class InMemoryPersistence {
         }
     }
 
+    public void saveAds(List<AdVO> ads) { ads.forEach(this::saveAd); }
+
     public Optional<PictureVO> findPictureById(int id) {
         return pictures.stream()
                 .filter(pictureVO -> pictureVO.getId() == id)
@@ -79,7 +81,7 @@ public class InMemoryPersistence {
     // SELECT * FROM ad WHERE irrelevant_since IS NULL ORDER BY score DESC;
     public List<AdVO> findAllAdsIrrelevantSinceIsNullOrderByScoreDesc() {
         return ads.stream()
-                .filter(ad -> ad.isRelevant())
+                .filter(AdVO::isRelevant)
                 .sorted(Comparator.comparing(
                         AdVO::getScore,
                         Comparator.nullsLast(

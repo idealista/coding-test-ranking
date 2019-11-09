@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class AdRatingServiceImpl implements AdRatingService {
     public static final int MIN_SCORE = 0;
     public static final int MAX_SCORE = 100;
-    public static final int IRRELEVANT_SCORE = 40;
+    public static final int RELEVANT_SCORE = 40;
 
     private InMemoryPersistence inMemoryPersistence;
     private Set<RatingRuleService> ratingRuleServices;
@@ -25,32 +26,50 @@ public class AdRatingServiceImpl implements AdRatingService {
     }
 
     @Override
-    public void rateAds() {
-
+    public void rate() {
         List<AdVO> ads = inMemoryPersistence.findAllAds();
 
-        ads.stream()
+        List<AdVO> ratedAds = rateAds(ads);
+
+        inMemoryPersistence.saveAds(ratedAds);
+    }
+
+    private List<AdVO> rateAds(List<AdVO> ads) {
+        return ads.stream()
                 .map(this::rateAd)
-                .forEach(ad -> inMemoryPersistence.saveAd(ad));
+                .collect(Collectors.toList());
     }
 
     private AdVO rateAd(AdVO ad) {
+        int score = calculateScore(ad);
+
+        return setAdScore(ad, score);
+    }
+
+    private AdVO setAdScore(AdVO ad, int score) {
+        if (ad.isRelevant() && score < RELEVANT_SCORE) {
+            ad.setIrrelevantSince(new Date());
+        } else if (score >= RELEVANT_SCORE) {
+            ad.setIrrelevantSince(null);
+        }
+
+        ad.setScore(score);
+
+        return ad;
+    }
+
+    private int calculateScore(AdVO ad) {
         int score = ratingRuleServices
                 .stream()
                 .mapToInt(ratingRuleService -> ratingRuleService.calculate(ad))
                 .sum();
 
-        if (score < MIN_SCORE) {
-            score = MIN_SCORE;
-        } else if (score > MAX_SCORE) {
-            score = MAX_SCORE;
-        }
+        return getScoreBetweenLimits(score);
+    }
 
-        ad.setScore(score);
-        if (ad.isRelevant() && score < IRRELEVANT_SCORE) {
-            ad.setIrrelevantSince(new Date());
-        }
-
-        return ad;
+    private int getScoreBetweenLimits(int score) {
+        return Math.max(
+                Math.min(score, MAX_SCORE),
+                MIN_SCORE);
     }
 }
