@@ -1,6 +1,7 @@
 package com.idealista.infrastructure.api;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PublicAd {
 
@@ -10,6 +11,15 @@ public class PublicAd {
     private List<String> pictureUrls;
     private Integer houseSize;
     private Integer gardenSize;
+
+    public PublicAd(Integer id, String typology, String description, List<String> pictureUrls, Integer houseSize, Integer gardenSize) {
+        this.id = id;
+        this.typology = typology;
+        this.description = description;
+        this.pictureUrls = pictureUrls;
+        this.houseSize = houseSize;
+        this.gardenSize = gardenSize;
+    }
 
     public Integer getId() {
         return id;
@@ -57,5 +67,23 @@ public class PublicAd {
 
     public void setGardenSize(Integer gardenSize) {
         this.gardenSize = gardenSize;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PublicAd publicAd = (PublicAd) o;
+        return Objects.equals(id, publicAd.id) &&
+                Objects.equals(typology, publicAd.typology) &&
+                Objects.equals(description, publicAd.description) &&
+                Objects.equals(pictureUrls, publicAd.pictureUrls) &&
+                Objects.equals(houseSize, publicAd.houseSize) &&
+                Objects.equals(gardenSize, publicAd.gardenSize);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, typology, description, pictureUrls, houseSize, gardenSize);
     }
 }

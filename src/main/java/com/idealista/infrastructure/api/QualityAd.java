@@ -2,6 +2,7 @@ package com.idealista.infrastructure.api;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class QualityAd {
 
@@ -13,6 +14,17 @@ public class QualityAd {
     private Integer gardenSize;
     private Integer score;
     private Date irrelevantSince;
+
+    public QualityAd(Integer id, String typology, String description, List<String> pictureUrls, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
+        this.id = id;
+        this.typology = typology;
+        this.description = description;
+        this.pictureUrls = pictureUrls;
+        this.houseSize = houseSize;
+        this.gardenSize = gardenSize;
+        this.score = score;
+        this.irrelevantSince = irrelevantSince;
+    }
 
     public Integer getId() {
         return id;
@@ -76,5 +88,25 @@ public class QualityAd {
 
     public void setIrrelevantSince(Date irrelevantSince) {
         this.irrelevantSince = irrelevantSince;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QualityAd qualityAd = (QualityAd) o;
+        return Objects.equals(id, qualityAd.id) &&
+                Objects.equals(typology, qualityAd.typology) &&
+                Objects.equals(description, qualityAd.description) &&
+                Objects.equals(pictureUrls, qualityAd.pictureUrls) &&
+                Objects.equals(houseSize, qualityAd.houseSize) &&
+                Objects.equals(gardenSize, qualityAd.gardenSize) &&
+                Objects.equals(score, qualityAd.score) &&
+                Objects.equals(irrelevantSince, qualityAd.irrelevantSince);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, typology, description, pictureUrls, houseSize, gardenSize, score, irrelevantSince);
     }
 }
