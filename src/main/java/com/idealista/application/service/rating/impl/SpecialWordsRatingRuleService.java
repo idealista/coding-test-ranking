@@ -6,7 +6,6 @@ import com.idealista.infrastructure.persistence.AdVO;
 import org.springframework.stereotype.Service;
 
 import java.text.Normalizer;
-import java.util.Arrays;
 
 @Service
 public class SpecialWordsRatingRuleService implements RatingRuleService {

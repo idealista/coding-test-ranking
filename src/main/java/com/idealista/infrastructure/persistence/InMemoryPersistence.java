@@ -2,7 +2,6 @@ package com.idealista.infrastructure.persistence;
 
 import org.springframework.stereotype.Repository;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 

@@ -1,6 +1,5 @@
 package com.idealista.application.service.impl;
 
-import com.idealista.application.service.AdRatingService;
 import com.idealista.application.service.rating.RatingRuleService;
 import com.idealista.application.service.rating.impl.DescriptionRatingRuleService;
 import com.idealista.application.service.rating.impl.FieldsRatingRuleService;
@@ -11,10 +10,7 @@ import com.idealista.infrastructure.persistence.InMemoryPersistence;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;

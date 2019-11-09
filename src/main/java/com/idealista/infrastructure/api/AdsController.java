@@ -1,16 +1,12 @@
 package com.idealista.infrastructure.api;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import com.idealista.application.service.AdRatingService;
 import com.idealista.application.service.AdService;
 import com.idealista.infrastructure.api.mapper.Mapper;
 import com.idealista.infrastructure.persistence.AdVO;
-import com.idealista.infrastructure.persistence.InMemoryPersistence;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
