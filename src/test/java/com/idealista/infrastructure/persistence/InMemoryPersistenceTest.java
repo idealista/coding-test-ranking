@@ -37,9 +37,13 @@ class InMemoryPersistenceTest {
         for (int i = 0; i < num; i++) {
             ads.add(new AdVO(1, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 10, new Date()));
         }
-
         inMemoryPersistence.setAds(ads);
-        assertEquals(num, inMemoryPersistence.findAllAds().size());
+
+        assertEquals(
+                ads,
+                inMemoryPersistence.findAllAds(),
+                "Returned list is not the same as the one in the repository"
+        );
     }
 
     @Test
@@ -49,12 +53,12 @@ class InMemoryPersistenceTest {
         int size = inMemoryPersistence.findAllAds().size();
         inMemoryPersistence.saveAd(ad);
 
-        assertEquals(size + 1, inMemoryPersistence.findAllAds().size());
+        assertEquals(size + 1, inMemoryPersistence.findAllAds().size(), "The size of the list didn't increment by one");
 
         Optional<AdVO> optionalAd = inMemoryPersistence.findAdById(ad.getId());
 
-        assert(optionalAd.isPresent());
-        assertEquals(ad, optionalAd.get());
+        assertTrue(optionalAd.isPresent(), "Did not find the inserted ad");
+        assertEquals(ad, optionalAd.get(), "Inserted ad is not the same as the returned one");
     }
 
     @Test
@@ -64,54 +68,51 @@ class InMemoryPersistenceTest {
         int size = inMemoryPersistence.findAllAds().size();
         inMemoryPersistence.saveAd(ad);
 
-        assertEquals(size, inMemoryPersistence.findAllAds().size());
+        assertEquals(size, inMemoryPersistence.findAllAds().size(), "The size of the list changed");
 
         Optional<AdVO> optionalAd = inMemoryPersistence.findAdById(ad.getId());
 
-        assert(optionalAd.isPresent());
-        assertEquals(ad, optionalAd.get());
+        assertTrue(optionalAd.isPresent(), "Inserted ad is not present");
+        assertEquals(ad, optionalAd.get(), "Found ad is not the same");
     }
 
     @Test
     void findExistingPictureById() {
         Optional<PictureVO> pictureOptional = inMemoryPersistence.findPictureById(1);
 
-        assert(pictureOptional.isPresent());
+        assertTrue(pictureOptional.isPresent(), "Did not find picture with id 1");
     }
 
     @Test
     void findNotExistingPictureById() {
         Optional<PictureVO> pictureOptional = inMemoryPersistence.findPictureById(-1);
 
-        assert(!pictureOptional.isPresent());
+        assertTrue(!pictureOptional.isPresent(), "Found a picture with fake id -1");
     }
 
     @Test
     void findExistingAdById() {
         Optional<AdVO> adOptional = inMemoryPersistence.findAdById(1);
 
-        assert(adOptional.isPresent());
+        assertTrue(adOptional.isPresent(), "Did not find the ad with id 1");
     }
 
     @Test
     void findNotExistingAdById() {
         Optional<AdVO> adOptional = inMemoryPersistence.findAdById(-1);
 
-        assert(!adOptional.isPresent());
+        assertTrue(!adOptional.isPresent(), "Found an ad with the fake id -1");
     }
 
     @Test
-    void findAllAdsIrrelevantSinceIsNullOrderByScoreDesc() {
-        List<AdVO> ads = inMemoryPersistence.findAllAdsIrrelevantSinceIsNullOrderByScoreDesc();
-
-        assertEquals(2, ads.size());
-
-        for (int i = 0; i < ads.size(); i++) {
-            assert(ads.get(i).isRelevant());
-
-            if (i < ads.size() - 1)
-                assert(ads.get(i).getScore() >= ads.get(i+1).getScore());
-        }
+    void findAllAdsIrrelevantSinceIsNullOrderByScoreDesc() {assertEquals(
+        Arrays.asList(
+                new AdVO(3, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 50, null),
+                new AdVO(2, "CHALET", "", Collections.<Integer>emptyList(), 300, null, 40, null)
+            ),
+            inMemoryPersistence.findAllAdsIrrelevantSinceIsNullOrderByScoreDesc(),
+            "The expected list wasn't returned"
+        );
     }
 
     @Test
@@ -128,7 +129,7 @@ class InMemoryPersistenceTest {
         inMemoryPersistence.setAds(ads);
         inMemoryPersistence.setPictures(pictures);
 
-        assert(inMemoryPersistence.findAdPicturesUrlById(fakeId).contains(fakeUrl));
+        assertTrue(inMemoryPersistence.findAdPicturesUrlById(fakeId).contains(fakeUrl), "Picture url is not present");
     }
 
     @Test
@@ -138,7 +139,7 @@ class InMemoryPersistenceTest {
         assertEquals(3, ads.size());
 
         for (AdVO ad : ads) {
-            assert(!ad.isRelevant());
+            assertTrue(!ad.isRelevant(), "Ad is relevant");
         }
     }
 }

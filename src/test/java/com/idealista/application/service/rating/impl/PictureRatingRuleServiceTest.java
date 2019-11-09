@@ -80,6 +80,7 @@ class PictureRatingRuleServiceTest {
         assertEquals(pictureRatingRuleService.SD_PICTURE * 2, pictureRatingRuleService.calculate(ad));
     }
 
+    @Test
     void calculateMixedImages() {
         AdVO ad = new AdVO(0, "GARAGE", "", Arrays.asList(-1, 1, 3), 300, null, null, null);
 

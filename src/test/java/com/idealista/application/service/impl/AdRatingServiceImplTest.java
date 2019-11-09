@@ -32,7 +32,7 @@ class AdRatingServiceImplTest {
         AdVO relevantAd = new AdVO(1, "", "", Arrays.asList(1), 0, 0, null, null);
         AdVO ratedAd = adRatingService.rateAd(relevantAd);
 
-        assertFalse(ratedAd.isRelevant());
+        assertFalse(ratedAd.isRelevant(), "Rated ad is relevant");
     }
 
     @Test
@@ -41,7 +41,7 @@ class AdRatingServiceImplTest {
         AdVO irrelevantAd = new AdVO(1, "", "", Arrays.asList(1), 0, 0, 0, oldDate);
         AdVO ratedAd = adRatingService.rateAd(irrelevantAd);
 
-        assertEquals(oldDate, ratedAd.getIrrelevantSince());
+        assertEquals(oldDate, ratedAd.getIrrelevantSince(), "Rated ad has changed it's irrelevantSince date");
     }
 
     @Test
@@ -49,7 +49,7 @@ class AdRatingServiceImplTest {
         AdVO irrelevantAd = new AdVO(1, "FLAT", "ático céntrico luminoso", Arrays.asList(1), 300, 0, 0, new Date());
         AdVO ratedAd = adRatingService.rateAd(irrelevantAd);
 
-        assertTrue(ratedAd.isRelevant());
+        assertTrue(ratedAd.isRelevant(), "Rated ad is not relevant");
     }
 
     private Set<RatingRuleService> createRuleSet(InMemoryPersistence inMemoryPersistence) {

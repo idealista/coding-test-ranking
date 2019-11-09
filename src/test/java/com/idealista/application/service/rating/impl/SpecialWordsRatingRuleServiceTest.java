@@ -59,7 +59,10 @@ class SpecialWordsRatingRuleServiceTest {
         String description = "abc " + SpecialWords.ETICO.name() + "def" + SpecialWords.ETICO.name();
         AdVO ad = new AdVO(1, AdVO.FLAT, description, Arrays.asList(1), 300, null, null, null);
 
-        assertEquals(specialWordsRatingRuleService.HAS_WORD, specialWordsRatingRuleService.calculate(ad));
+        assertEquals(
+                specialWordsRatingRuleService.HAS_WORD,
+                specialWordsRatingRuleService.calculate(ad),
+                "Repeated word should only count once");
     }
 
     @Test
@@ -67,6 +70,9 @@ class SpecialWordsRatingRuleServiceTest {
         String description = "abc ético NúÉvó";
         AdVO ad = new AdVO(1, AdVO.FLAT, description, Arrays.asList(1), 300, null, null, null);
 
-        assertEquals(specialWordsRatingRuleService.HAS_WORD * 2, specialWordsRatingRuleService.calculate(ad));
+        assertEquals(
+                specialWordsRatingRuleService.HAS_WORD * 2,
+                specialWordsRatingRuleService.calculate(ad),
+                "Words with diacritics and different casing were not recognized");
     }
 }
