@@ -26,7 +26,7 @@ public class AdRatingServiceImpl implements AdRatingService {
     }
 
     @Override
-    public void rate() {
+    public void rateAndSaveAds() {
         List<AdVO> ads = inMemoryPersistence.findAllAds();
 
         List<AdVO> ratedAds = rateAds(ads);
@@ -34,13 +34,13 @@ public class AdRatingServiceImpl implements AdRatingService {
         inMemoryPersistence.saveAds(ratedAds);
     }
 
-    private List<AdVO> rateAds(List<AdVO> ads) {
+    public List<AdVO> rateAds(List<AdVO> ads) {
         return ads.stream()
                 .map(this::rateAd)
                 .collect(Collectors.toList());
     }
 
-    private AdVO rateAd(AdVO ad) {
+    public AdVO rateAd(AdVO ad) {
         int score = calculateScore(ad);
 
         return setAdScore(ad, score);

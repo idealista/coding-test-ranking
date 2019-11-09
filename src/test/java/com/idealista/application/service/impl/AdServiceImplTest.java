@@ -19,7 +19,7 @@ class AdServiceImplTest {
     private String fakeUrl = "URL";
 
     private List<AdVO> allAds;
-    private List<AdVO> irrlevantAds;
+    private List<AdVO> irrelevantAds;
     private List<AdVO> orderedRelevantAds;
 
     @BeforeEach
@@ -31,7 +31,7 @@ class AdServiceImplTest {
                 new AdVO(2, "", "", null, 0, 0, 100, null),
                 new AdVO(3, "", "", null, 0, 0, 100, null));
 
-        irrlevantAds = Arrays.asList(new AdVO(1, "", "", Arrays.asList(1), 0, 0, 0, new Date()));
+        irrelevantAds = Arrays.asList(new AdVO(1, "", "", Arrays.asList(1), 0, 0, 0, new Date()));
 
         orderedRelevantAds = Arrays.asList(
                 new AdVO(2, "", "", null, 0, 0, 100, null),
@@ -66,6 +66,6 @@ class AdServiceImplTest {
 
     @Test
     void getIrrelevantAds() {
-        assertEquals(irrlevantAds, adService.getIrrelevantAds());
+        assertEquals(irrelevantAds, adService.getIrrelevantAds());
     }
 }

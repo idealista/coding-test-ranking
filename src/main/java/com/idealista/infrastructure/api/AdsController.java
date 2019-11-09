@@ -70,7 +70,7 @@ public class AdsController {
 
     @PostMapping("/rate")
     public ResponseEntity<Void> calculateScore() {
-        adRatingService.rate();
+        adRatingService.rateAndSaveAds();
 
         return ResponseEntity.ok().build();
     }
