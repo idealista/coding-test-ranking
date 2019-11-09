@@ -1,6 +1,5 @@
 package com.idealista.application.service.rating.impl;
 
-import com.idealista.application.service.AdRatingService;
 import com.idealista.application.service.rating.RatingRuleService;
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;

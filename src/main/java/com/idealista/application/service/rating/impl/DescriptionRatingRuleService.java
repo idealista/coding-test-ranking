@@ -17,8 +17,6 @@ public class DescriptionRatingRuleService implements RatingRuleService {
 
     @Override
     public int calculate(AdVO ad) {
-        int numberOfWords;
-
         if (!ad.hasDescription()) {
             return 0;
         }
@@ -27,7 +25,7 @@ public class DescriptionRatingRuleService implements RatingRuleService {
             return HAS_DESCRIPTION;
         }
 
-        numberOfWords = ad.getDescription().split(" ").length;
+        int numberOfWords = ad.getDescription().split(" ").length;
 
         if (numberOfWords >= MAX_WORDS) {
             return HAS_DESCRIPTION + maxWordsPoints(ad);
