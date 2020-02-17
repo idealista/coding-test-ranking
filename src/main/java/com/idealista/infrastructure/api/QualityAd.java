@@ -1,8 +1,20 @@
 package com.idealista.infrastructure.api;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 import java.util.List;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class QualityAd {
 
     private Integer id;
@@ -12,69 +24,7 @@ public class QualityAd {
     private Integer houseSize;
     private Integer gardenSize;
     private Integer score;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd@HH:mm:ss")
     private Date irrelevantSince;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getTypology() {
-        return typology;
-    }
-
-    public void setTypology(String typology) {
-        this.typology = typology;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<String> getPictureUrls() {
-        return pictureUrls;
-    }
-
-    public void setPictureUrls(List<String> pictureUrls) {
-        this.pictureUrls = pictureUrls;
-    }
-
-    public Integer getHouseSize() {
-        return houseSize;
-    }
-
-    public void setHouseSize(Integer houseSize) {
-        this.houseSize = houseSize;
-    }
-
-    public Integer getGardenSize() {
-        return gardenSize;
-    }
-
-    public void setGardenSize(Integer gardenSize) {
-        this.gardenSize = gardenSize;
-    }
-
-    public Integer getScore() {
-        return score;
-    }
-
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Date getIrrelevantSince() {
-        return irrelevantSince;
-    }
-
-    public void setIrrelevantSince(Date irrelevantSince) {
-        this.irrelevantSince = irrelevantSince;
-    }
 }
