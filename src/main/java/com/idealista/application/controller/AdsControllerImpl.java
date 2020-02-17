@@ -27,7 +27,7 @@ public class AdsControllerImpl implements AdsController {
     @GetMapping(value = "/quality-ads", params = {"irrelevant"})
     public ResponseEntity<List<QualityAd>> qualityListing(@RequestParam(name = "irrelevant", defaultValue = "false") boolean seeIrrelevant) {
         log.info("Calling method: -> GET /idealista/irrelevant-ads");
-        Validator.validateQualityListing();
+        // Validator.validateQualityListing();
         // calling service
         return new ResponseEntity<>(idealistaService.qualityListing(seeIrrelevant), HttpStatus.OK);
     }
@@ -35,7 +35,7 @@ public class AdsControllerImpl implements AdsController {
     @GetMapping("/public-ads")
     public ResponseEntity<List<PublicAd>> publicListing() {
         log.info("Calling method: -> GET /idealista/public-ads");
-        Validator.validatePublicListing();
+        // Validator.validatePublicListing();
         // calling service
         return new ResponseEntity<>(idealistaService.publicListing(), HttpStatus.OK);
     }
