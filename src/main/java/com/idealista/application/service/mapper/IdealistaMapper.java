@@ -3,6 +3,7 @@ package com.idealista.application.service.mapper;
 import com.idealista.infrastructure.api.PublicAd;
 import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.persistence.AdVO;
+import com.idealista.infrastructure.persistence.PictureVO;
 
 import java.util.Date;
 import java.util.stream.Collectors;
@@ -35,5 +36,9 @@ public class IdealistaMapper {
     public static String mapPictureIdToUrl(Integer pictureId){
         String URL_PICTURES = "http://www.idealista.com/pictures/";
         return String.format("%s%d", URL_PICTURES, pictureId);
+    }
+
+    public static int mapValueFromPhotoQuality(PictureVO pictureVO){
+        return pictureVO.getQuality().equals("HD") ? 20 : 10;
     }
 }

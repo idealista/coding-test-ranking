@@ -47,17 +47,22 @@ public class IdealistaServiceImpl implements IdealistaService {
 
     @Override
     public void assignScore(Integer id) throws IdealistaException {
-        AdVO adVO = inMemoryPersistence.getAds().stream().filter(ad -> ad.getId().equals(id)).findFirst().orElse(null);
+        AdVO adVO = inMemoryPersistence.getAds().stream()
+                .filter(ad -> ad.getId().equals(id))
+                .findFirst()
+                .orElse(null);
         // check if adVO is not null
         if(adVO == null) throw new IdealistaException(HttpStatus.NOT_FOUND, "This 'id' is not found",
                 ErrorDTO.builder().field("id").description("'id' is not valid").level(Level.ERROR).build());
 
-        // meybe the Ad not have any photo attached
-        PictureVO pictureVO = inMemoryPersistence.getPictures().stream().filter(picture -> picture.getId().equals(id)).findFirst().orElse(null);
+        // maybe the Ad not have any photo attached
+        List<PictureVO> pictureVOList = inMemoryPersistence.getPictures().stream()
+                .filter(pictureX -> adVO.getPictures().contains(pictureX.getId()))
+                .collect(Collectors.toList());
 
         int score = 0;
         // the photo in Ad is in HD (20 points) / SD (10 points)
-        score += Boolean.FALSE.equals(pictureVO == null) ? (pictureVO.getQuality().equals("HD") ? 20 : 10) : 0;
+        score += pictureVOList.stream().mapToInt(IdealistaMapper::mapValueFromPhotoQuality).sum();
         // the Ad contains a non empty description (5 points)
         score += StringUtils.isNotBlank(adVO.getDescription()) ? 5 : 0;
         // the Ad is a Flat and have a 20-49 chars in description (10 points) or 50+ chars (30 points)
@@ -71,20 +76,20 @@ public class IdealistaServiceImpl implements IdealistaService {
         // the Ad is complete (40 points) in case of FLAT
         score += adVO.getTypology().equals("FLAT")
                 && StringUtils.isNotBlank(adVO.getDescription())
-                && Boolean.FALSE.equals(pictureVO == null)
+                && Boolean.FALSE.equals(pictureVOList.isEmpty())
                 && Boolean.FALSE.equals(adVO.getHouseSize() == null)
                 && adVO.getHouseSize() > 0 ? 40 : 0;
         // the Ad is complete (40 points) in case of CHALET
         score += adVO.getTypology().equals("CHALET")
                 && StringUtils.isNotBlank(adVO.getDescription())
-                && Boolean.FALSE.equals(pictureVO == null)
+                && Boolean.FALSE.equals(pictureVOList.isEmpty())
                 && Boolean.FALSE.equals(adVO.getHouseSize() == null)
                 && adVO.getHouseSize() > 0
                 && Boolean.FALSE.equals(adVO.getGardenSize() == null)
                 && adVO.getGardenSize() > 0 ? 40 : 0;
         // the Ad is complete (40 points) in case of GARAGE
         score += adVO.getTypology().equals("GARAGE")
-                && Boolean.FALSE.equals(pictureVO == null)
+                && Boolean.FALSE.equals(pictureVOList.isEmpty())
                 && Boolean.FALSE.equals(adVO.getHouseSize() == null)
                 && adVO.getHouseSize() > 0 ? 40 : 0;
 
