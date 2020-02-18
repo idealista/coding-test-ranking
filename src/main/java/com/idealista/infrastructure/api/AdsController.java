@@ -9,6 +9,6 @@ public interface AdsController {
 
     ResponseEntity<List<QualityAd>> qualityListing(boolean seeIrrelevant);
     ResponseEntity<List<PublicAd>> publicListing();
-    ResponseEntity<Void> calculateScore(String id) throws ValidationException;
+    ResponseEntity<Void> assignScore(String id) throws ValidationException;
 
 }

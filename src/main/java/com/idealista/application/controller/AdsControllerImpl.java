@@ -40,12 +40,12 @@ public class AdsControllerImpl implements AdsController {
         return new ResponseEntity<>(idealistaService.publicListing(), HttpStatus.OK);
     }
 
-    @GetMapping("/ad/{id}")
-    public ResponseEntity<Void> calculateScore(@PathVariable String id) throws ValidationException {
+    @PutMapping("/ad/{id}")
+    public ResponseEntity<Void> assignScore(@PathVariable String id) throws ValidationException {
         log.info("Calling method: -> GET /idealista/ad/{}", id);
         Validator.validateCalculateScore(id);
         // calling service
         idealistaService.calculateScore(Integer.valueOf(id));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }
