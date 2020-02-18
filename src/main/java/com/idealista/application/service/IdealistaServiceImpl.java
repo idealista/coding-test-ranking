@@ -3,6 +3,7 @@ package com.idealista.application.service;
 import com.idealista.application.bean.Level;
 import com.idealista.application.exception.IdealistaException;
 import com.idealista.application.exception.dto.ErrorDTO;
+import com.idealista.application.service.mapper.IdealistaMapper;
 import com.idealista.infrastructure.api.PublicAd;
 import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.persistence.AdVO;
@@ -31,16 +32,16 @@ public class IdealistaServiceImpl implements IdealistaService {
         inMemoryPersistence.getAds().forEach(adVO -> calculateScore(adVO.getId()));
 
         return seeIrrelevant
-                ? inMemoryPersistence.getAds().stream().filter(adVO -> adVO.getScore() < 40).map(this::mapAdVOToQualityAd)
+                ? inMemoryPersistence.getAds().stream().filter(adVO -> adVO.getScore() < 40).map(IdealistaMapper::mapAdVOToQualityAd)
                         .sorted(Comparator.comparing(QualityAd::getIrrelevantSince)).collect(Collectors.toList())
-                : inMemoryPersistence.getAds().stream().filter(adVO -> adVO.getScore() >= 40).map(this::mapAdVOToQualityAd).collect(Collectors.toList());
+                : inMemoryPersistence.getAds().stream().filter(adVO -> adVO.getScore() >= 40).map(IdealistaMapper::mapAdVOToQualityAd).collect(Collectors.toList());
     }
 
     @Override
     public List<PublicAd> publicListing() {
         return qualityListing(false).stream().
                 sorted(Comparator.comparing(QualityAd::getScore))
-                .map(this::mapQualityAdToPublicAd)
+                .map(IdealistaMapper::mapQualityAdToPublicAd)
                 .collect(Collectors.toList());
     }
 
@@ -92,36 +93,6 @@ public class IdealistaServiceImpl implements IdealistaService {
 
         adVO.setScore(score);
 
-        return;
-    }
-
-    private QualityAd mapAdVOToQualityAd(AdVO adVO){
-        return QualityAd.builder()
-                .id(adVO.getId())
-                .description(adVO.getDescription())
-                .houseSize(adVO.getHouseSize())
-                .gardenSize(adVO.getGardenSize())
-                .typology(adVO.getTypology())
-                .score(adVO.getScore())
-                .irrelevantSince(adVO.getScore() < 40 ? (adVO.getIrrelevantSince() == null ? adVO.getIrrelevantSince() : new Date()) : null)
-                .pictureUrls(adVO.getPictures().stream().map(this::mapPictureIdToUrl).collect(Collectors.toList()))
-                .build();
-    }
-
-    private PublicAd mapQualityAdToPublicAd(QualityAd qualityAd){
-        return PublicAd.builder()
-                .id(qualityAd.getId())
-                .description(qualityAd.getDescription())
-                .houseSize(qualityAd.getHouseSize())
-                .gardenSize(qualityAd.getGardenSize())
-                .typology(qualityAd.getTypology())
-                .pictureUrls(qualityAd.getPictureUrls())
-                .build();
-    }
-
-    private String mapPictureIdToUrl(Integer pictureId){
-        String URL_PICTURES = "http://www.idealista.com/pictures/";
-        return String.format("%s%d", URL_PICTURES, pictureId);
     }
 
 }
