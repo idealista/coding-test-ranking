@@ -10,5 +10,5 @@ import java.util.List;
 public interface IdealistaService {
     List<QualityAd> qualityListing(boolean seeIrrelevant);
     List<PublicAd> publicListing();
-    void calculateScore(Integer id) throws ValidationException;
+    void assignScore(Integer id) throws ValidationException;
 }

@@ -45,7 +45,7 @@ public class AdsControllerImpl implements AdsController {
         log.info("Calling method: -> GET /idealista/ad/{}", id);
         Validator.validateCalculateScore(id);
         // calling service
-        idealistaService.calculateScore(Integer.valueOf(id));
+        idealistaService.assignScore(Integer.valueOf(id));
         return ResponseEntity.noContent().build();
     }
 }

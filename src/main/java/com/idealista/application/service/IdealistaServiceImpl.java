@@ -29,7 +29,7 @@ public class IdealistaServiceImpl implements IdealistaService {
 
     @Override
     public List<QualityAd> qualityListing(boolean seeIrrelevant) {
-        inMemoryPersistence.getAds().forEach(adVO -> calculateScore(adVO.getId()));
+        inMemoryPersistence.getAds().forEach(adVO -> assignScore(adVO.getId()));
 
         return seeIrrelevant
                 ? inMemoryPersistence.getAds().stream().filter(adVO -> adVO.getScore() < 40).map(IdealistaMapper::mapAdVOToQualityAd)
@@ -46,7 +46,7 @@ public class IdealistaServiceImpl implements IdealistaService {
     }
 
     @Override
-    public void calculateScore(Integer id) throws IdealistaException {
+    public void assignScore(Integer id) throws IdealistaException {
         AdVO adVO = inMemoryPersistence.getAds().stream().filter(ad -> ad.getId().equals(id)).findFirst().orElse(null);
         // check if adVO is not null
         if(adVO == null) throw new IdealistaException(HttpStatus.NOT_FOUND, "This 'id' is not found",
@@ -57,7 +57,7 @@ public class IdealistaServiceImpl implements IdealistaService {
 
         int score = 0;
         // the photo in Ad is in HD (20 points) / SD (10 points)
-        score += Boolean.FALSE.equals(pictureVO == null) && pictureVO.getQuality().equals("HD") ? 20 : 10;
+        score += Boolean.FALSE.equals(pictureVO == null) ? (pictureVO.getQuality().equals("HD") ? 20 : 10) : 0;
         // the Ad contains a non empty description (5 points)
         score += StringUtils.isNotBlank(adVO.getDescription()) ? 5 : 0;
         // the Ad is a Flat and have a 20-49 chars in description (10 points) or 50+ chars (30 points)
