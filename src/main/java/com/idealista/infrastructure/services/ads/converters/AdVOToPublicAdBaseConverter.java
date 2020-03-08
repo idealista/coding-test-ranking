@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.services.converters;
+package com.idealista.infrastructure.services.ads.converters;
 
 import com.idealista.infrastructure.controllers.PublicAd;
 import com.idealista.infrastructure.entities.AdVO;

@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.services.converters;
+package com.idealista.infrastructure.services.ads.converters;
 
 import com.idealista.infrastructure.controllers.PublicAd;
 import com.idealista.infrastructure.entities.AdVO;
@@ -8,6 +8,7 @@ import static java.util.Objects.nonNull;
 
 public class AdVOToPublicAdConverter extends AdVOToPublicAdBaseConverter implements Converter<AdVO, PublicAd> {
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public PublicAd convert(AdVO in) {
         PublicAd out = null;

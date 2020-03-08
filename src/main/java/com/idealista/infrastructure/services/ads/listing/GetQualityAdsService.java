@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.services;
+package com.idealista.infrastructure.services.ads.listing;
 
 import com.idealista.infrastructure.controllers.QualityAd;
 

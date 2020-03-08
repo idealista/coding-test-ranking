@@ -2,14 +2,13 @@ package com.idealista.infrastructure.controllers;
 
 import java.util.List;
 
-import com.idealista.infrastructure.services.GetPublicAdsService;
-import com.idealista.infrastructure.services.GetQualityAdsService;
-import com.idealista.infrastructure.services.ScoreAdsService;
+import com.idealista.infrastructure.services.ads.listing.GetPublicAdsService;
+import com.idealista.infrastructure.services.ads.listing.GetQualityAdsService;
+import com.idealista.infrastructure.services.ads.scoring.ScoreAdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import static org.springframework.util.CollectionUtils.isEmpty;

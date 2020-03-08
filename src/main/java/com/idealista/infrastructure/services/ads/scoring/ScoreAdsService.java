@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.services;
+package com.idealista.infrastructure.services.ads.scoring;
 
 @FunctionalInterface
 public interface ScoreAdsService {
