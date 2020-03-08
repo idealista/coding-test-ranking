@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.persistence;
+package com.idealista.infrastructure.entities;
 
 import java.util.Date;
 import java.util.List;
@@ -8,7 +8,7 @@ public class AdVO {
     private Integer id;
     private String typology;
     private String description;
-    private List<Integer> pictures;
+    private List<PictureVO> pictures;
     private Integer houseSize;
     private Integer gardenSize;
     private Integer score;
@@ -16,7 +16,7 @@ public class AdVO {
 
     public AdVO() {}
 
-    public AdVO(Integer id, String typology, String description, List<Integer> pictures, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
+    public AdVO(Integer id, String typology, String description, List<PictureVO> pictures, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
         this.id = id;
         this.typology = typology;
         this.description = description;
@@ -51,11 +51,11 @@ public class AdVO {
         this.description = description;
     }
 
-    public List<Integer> getPictures() {
+    public List<PictureVO> getPictures() {
         return pictures;
     }
 
-    public void setPictures(List<Integer> pictures) {
+    public void setPictures(List<PictureVO> pictures) {
         this.pictures = pictures;
     }
 
