@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.services.ads.scoring;
+package com.idealista.infrastructure.services.ads.scoring.strategy;
 
 import com.idealista.infrastructure.entities.AdVO;
 

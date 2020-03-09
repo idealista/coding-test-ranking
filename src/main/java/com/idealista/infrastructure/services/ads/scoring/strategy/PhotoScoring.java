@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.services.ads.scoring;
+package com.idealista.infrastructure.services.ads.scoring.strategy;
 
 import com.idealista.infrastructure.entities.AdVO;
 import com.idealista.infrastructure.entities.PictureVO;
@@ -7,10 +7,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static java.util.Objects.nonNull;
 import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
-public class PhotoScoring extends AbstractScoring implements Scoring {
+public class PhotoScoring extends AbstractScoring { //implements Scoring
 
     private static Integer SCORE_NO_PHOTO = -10;
 
@@ -50,6 +49,7 @@ public class PhotoScoring extends AbstractScoring implements Scoring {
         }
         return score;
     }
+
     private Integer getPicturesScoring(List<PictureVO> pictures) {
         return pictures.stream()
                 .map(this::getPictureScoring)

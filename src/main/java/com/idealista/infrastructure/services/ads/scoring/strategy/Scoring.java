@@ -1,7 +1,6 @@
-package com.idealista.infrastructure.services.ads.scoring;
+package com.idealista.infrastructure.services.ads.scoring.strategy;
 
 import com.idealista.infrastructure.entities.AdVO;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.function.UnaryOperator;
 

@@ -29,6 +29,7 @@ public class AdsController {
     }
 
     @GetMapping("/admin/ads" )
+    //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<QualityAd>> qualityListing() {
         List<QualityAd> out = getQualityAdsService.get();
         if(isEmpty(out))
@@ -44,7 +45,7 @@ public class AdsController {
         return ResponseEntity.ok().body(out);
     }
 
-    @PostMapping("/ads")
+    @PostMapping("/ads/score")
     public ResponseEntity<Void> calculateScore() {
         scoreAdsService.score();
         return ResponseEntity.noContent().build();
