@@ -2,7 +2,7 @@ package com.idealista.infrastructure.services.ads.scoring.strategy;
 
 import com.idealista.infrastructure.entities.AdVO;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static com.idealista.infrastructure.services.ads.common.AdVOConditions.hasDescription;
 
 public class DescriptionFilledScoring extends AbstractScoring { //implements Scoring
 
@@ -11,7 +11,7 @@ public class DescriptionFilledScoring extends AbstractScoring { //implements Sco
     @Override
     public Integer calculateScoring(AdVO adVO) {
         Integer score = DEFAULT_SCORE;
-        if(isNotBlank(adVO.getDescription())) {
+        if(hasDescription(adVO).getAsBoolean()) {
             score = SCORE;
         }
         return score;

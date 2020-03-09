@@ -5,6 +5,7 @@ import com.idealista.infrastructure.entities.AdVO;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.idealista.infrastructure.services.ads.common.AdVOConditions.hasDescription;
 import static org.apache.commons.lang3.StringUtils.countMatches;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
@@ -18,7 +19,7 @@ public class DescriptionHighlightedWordsScoring extends AbstractScoring { //impl
     @Override
     public Integer calculateScoring(AdVO adVO) {
         Integer score = DEFAULT_SCORE;
-        if(isNotBlank(adVO.getDescription())) {
+        if(hasDescription(adVO).getAsBoolean()) {
             score = calculateScoring(adVO.getDescription());
         }
         return score;

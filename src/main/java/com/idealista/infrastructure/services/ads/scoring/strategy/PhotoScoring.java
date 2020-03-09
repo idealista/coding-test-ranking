@@ -2,11 +2,13 @@ package com.idealista.infrastructure.services.ads.scoring.strategy;
 
 import com.idealista.infrastructure.entities.AdVO;
 import com.idealista.infrastructure.entities.PictureVO;
+import com.idealista.infrastructure.services.ads.common.AdVOConditions;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.idealista.infrastructure.services.ads.common.AdVOConditions.*;
 import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
 
 public class PhotoScoring extends AbstractScoring { //implements Scoring
@@ -44,7 +46,8 @@ public class PhotoScoring extends AbstractScoring { //implements Scoring
     @Override
     public Integer calculateScoring(AdVO adVO) {
         Integer score = SCORE_NO_PHOTO;
-        if(isNotEmpty(adVO.getPictures())) {
+
+        if(hasPhoto(adVO).getAsBoolean()) {
             score = getPicturesScoring(adVO.getPictures());
         }
         return score;
