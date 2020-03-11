@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 import static org.apache.commons.lang3.ObjectUtils.max;
@@ -22,7 +21,7 @@ public class ScoreAdsServiceImpl extends AdsService implements ScoreAdsService {
     private static final Integer MAX_SCORE = 100;
 
     private Scoring scoring = Stream.<Scoring>of(new DescriptionFilledScoring(),
-            new DescriptionByTipologyScoring(),
+            new DescriptionByTypologyScoring(),
             new DescriptionHighlightedWordsScoring(),
             new PhotoScoring(),
             new CompleteDataScoring()).reduce(v -> v, Scoring::combine);

@@ -12,7 +12,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class DescriptionByTipologyScoring extends AbstractScoring {
+public class DescriptionByTypologyScoring extends AbstractScoring {
 
     private enum DescriptionByTipologyScore {
 
@@ -64,7 +64,7 @@ public class DescriptionByTipologyScoring extends AbstractScoring {
 
     @Override
     @SuppressWarnings("ConstantConditions")
-    public Integer calculateScoring(AdVO adVO) {
+    protected Integer calculateScoring(AdVO adVO) {
          return Optional.ofNullable(adVO.getTypology())
                     .map(DescriptionByTipologyScore::lookupByName)
                     .filter(Objects::nonNull)

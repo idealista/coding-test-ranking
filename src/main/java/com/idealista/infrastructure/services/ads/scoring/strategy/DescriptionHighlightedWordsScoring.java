@@ -7,7 +7,6 @@ import java.util.List;
 
 import static com.idealista.infrastructure.services.ads.common.AdVOConditions.hasDescription;
 import static org.apache.commons.lang3.StringUtils.countMatches;
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 public class DescriptionHighlightedWordsScoring extends AbstractScoring {
 
@@ -25,7 +24,7 @@ public class DescriptionHighlightedWordsScoring extends AbstractScoring {
         return score;
     }
 
-    private Integer calculateScoring(String in) {
+    protected Integer calculateScoring(String in) {
         final String description = in.toUpperCase();
         Integer totalWords = HIGHLIGHTED_WORDS.stream()
                 .map(w ->  countMatches(description, w)).mapToInt(Integer::intValue).sum();

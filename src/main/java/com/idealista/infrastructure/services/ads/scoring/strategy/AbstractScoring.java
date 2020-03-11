@@ -18,5 +18,5 @@ public abstract class AbstractScoring implements Scoring {
         return adVO;
     }
 
-    public abstract Integer calculateScoring(AdVO adVO);
+    protected abstract Integer calculateScoring(AdVO adVO);
 }

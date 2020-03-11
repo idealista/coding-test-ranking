@@ -9,7 +9,7 @@ public class DescriptionFilledScoring extends AbstractScoring {
     private static Integer SCORE = 5;
 
     @Override
-    public Integer calculateScoring(AdVO adVO) {
+    protected Integer calculateScoring(AdVO adVO) {
         Integer score = DEFAULT_SCORE;
         if(hasDescription(adVO).getAsBoolean()) {
             score = SCORE;

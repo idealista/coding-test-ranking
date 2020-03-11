@@ -6,6 +6,7 @@ import com.idealista.infrastructure.entities.AdVO;
 import com.idealista.infrastructure.entities.PictureVO;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.core.convert.converter.Converter;
 
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ import static org.junit.Assert.assertThat;
 
 public class AdVOToQualityAdConverterTest {
 
-    private AdVOToQualityAdConverter converter = new AdVOToQualityAdConverter();
+    private Converter<AdVO, QualityAd> converter;
 
     @Before
     public void setUp() {

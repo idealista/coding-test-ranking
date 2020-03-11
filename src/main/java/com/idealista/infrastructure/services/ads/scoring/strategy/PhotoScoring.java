@@ -42,7 +42,7 @@ public class PhotoScoring extends AbstractScoring {
     }
 
     @Override
-    public Integer calculateScoring(AdVO adVO) {
+    protected Integer calculateScoring(AdVO adVO) {
         Integer score = SCORE_NO_PHOTO;
 
         if(hasPhoto(adVO).getAsBoolean()) {

@@ -7,6 +7,7 @@ import com.idealista.infrastructure.entities.PictureVO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.stream.Collectors;
@@ -21,7 +22,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AdVOToPublicAdConverterTest {
 
-    private AdVOToPublicAdConverter converter = new AdVOToPublicAdConverter();
+    private Converter<AdVO, PublicAd> converter;
 
     @Before
     public void setUp() {

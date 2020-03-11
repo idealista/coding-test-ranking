@@ -2,7 +2,6 @@ package com.idealista.infrastructure.services.ads.scoring.strategy;
 
 import com.idealista.infrastructure.entities.AdVO;
 import com.idealista.infrastructure.services.ads.common.AdVOConditions;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -72,7 +71,7 @@ public class CompleteDataScoring extends AbstractScoring {
 
     @Override
     @SuppressWarnings("ConstantConditions")
-    public Integer calculateScoring(AdVO adVO) {
+    protected Integer calculateScoring(AdVO adVO) {
        return Optional.ofNullable(adVO.getTypology())
                 .map(CompleteDataByTipology::lookupByName)
                 .filter(Objects::nonNull)
