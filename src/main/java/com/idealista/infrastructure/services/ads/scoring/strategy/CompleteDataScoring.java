@@ -34,7 +34,7 @@ public class CompleteDataScoring extends AbstractScoring {
                     .map(BooleanSupplier::getAsBoolean).reduce(true, Boolean::logicalAnd);
             }
         },
-        GARAJE("GARAJE") {
+        GARAGE("GARAGE") {
             @Override
             Boolean execute(AdVO adVO) {
                 return AdVOConditions.hasPhoto(adVO).getAsBoolean();

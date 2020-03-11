@@ -97,7 +97,7 @@ public class DescriptionHighlightedWordsScoringTest {
         AdVO out = scoring.apply(in);
         //then
         assertThat(out, is(notNullValue()));
-        assertThat(out.getScore(), is(initialScore + 5 + 5));
+        assertThat(out.getScore(), is(initialScore + 5));
     }
 
     @Test

@@ -26,8 +26,7 @@ public class DescriptionHighlightedWordsScoring extends AbstractScoring {
 
     protected Integer calculateScoring(String in) {
         final String description = in.toUpperCase();
-        Integer totalWords = HIGHLIGHTED_WORDS.stream()
-                .map(w ->  countMatches(description, w)).mapToInt(Integer::intValue).sum();
-        return totalWords * WORD_SCORE;
+        Long totalWords = HIGHLIGHTED_WORDS.stream().filter(description::contains).count();
+        return (int) (totalWords * WORD_SCORE);
     }
 }
