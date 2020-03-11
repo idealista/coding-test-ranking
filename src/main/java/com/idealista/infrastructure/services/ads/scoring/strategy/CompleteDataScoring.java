@@ -13,7 +13,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class CompleteDataScoring extends AbstractScoring { //implements Scoring
+import static org.apache.commons.lang3.ObjectUtils.*;
+
+public class CompleteDataScoring extends AbstractScoring {
 
     private static Integer SCORE = 40;
 
@@ -62,7 +64,7 @@ public class CompleteDataScoring extends AbstractScoring { //implements Scoring
                         .collect(Collectors.toMap(CompleteDataByTipology::getTypology, Function.identity()));
 
         public static CompleteDataByTipology lookupByName(String name) {
-            return ObjectUtils.defaultIfNull(nameIndex.get(name), DEFAULT);
+            return defaultIfNull(nameIndex.get(name), DEFAULT);
         }
 
         abstract Boolean execute(AdVO adVO);

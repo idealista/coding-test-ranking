@@ -4,7 +4,7 @@ import com.idealista.infrastructure.entities.AdVO;
 
 import static com.idealista.infrastructure.services.ads.common.AdVOConditions.hasDescription;
 
-public class DescriptionFilledScoring extends AbstractScoring { //implements Scoring
+public class DescriptionFilledScoring extends AbstractScoring {
 
     private static Integer SCORE = 5;
 

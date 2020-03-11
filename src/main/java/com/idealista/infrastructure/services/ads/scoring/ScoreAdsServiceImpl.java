@@ -1,6 +1,7 @@
 package com.idealista.infrastructure.services.ads.scoring;
 
 import com.idealista.infrastructure.entities.AdVO;
+import com.idealista.infrastructure.exceptions.ScoringIncompleteException;
 import com.idealista.infrastructure.persistence.AdsRepository;
 import com.idealista.infrastructure.services.ads.common.AdsService;
 import com.idealista.infrastructure.services.ads.scoring.strategy.*;
@@ -32,11 +33,16 @@ public class ScoreAdsServiceImpl extends AdsService implements ScoreAdsService {
     }
 
     @Override
-    public void score() {
-        adsVORepository.findAll().stream()
-                .map(scoring)
-                .map(this::normalize)
-                .forEach(adsVORepository::saveOrUpdate);
+    public void score() throws ScoringIncompleteException {
+        try {
+            adsVORepository.findAll().stream()
+                    .map(scoring)
+                    .map(this::normalize)
+                    .forEach(adsVORepository::saveOrUpdate);
+
+        } catch (Exception e) {
+            throw new ScoringIncompleteException("Error during scoring", e.getCause());
+        }
     }
 
     private AdVO normalize(AdVO adVO) {

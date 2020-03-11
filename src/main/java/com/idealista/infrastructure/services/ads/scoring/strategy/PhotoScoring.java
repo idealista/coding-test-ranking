@@ -2,16 +2,14 @@ package com.idealista.infrastructure.services.ads.scoring.strategy;
 
 import com.idealista.infrastructure.entities.AdVO;
 import com.idealista.infrastructure.entities.PictureVO;
-import com.idealista.infrastructure.services.ads.common.AdVOConditions;
 
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.idealista.infrastructure.services.ads.common.AdVOConditions.*;
-import static org.apache.commons.collections.CollectionUtils.isNotEmpty;
+import static com.idealista.infrastructure.services.ads.common.AdVOConditions.hasPhoto;
 
-public class PhotoScoring extends AbstractScoring { //implements Scoring
+public class PhotoScoring extends AbstractScoring {
 
     private static Integer SCORE_NO_PHOTO = -10;
 

@@ -9,7 +9,7 @@ import static com.idealista.infrastructure.services.ads.common.AdVOConditions.ha
 import static org.apache.commons.lang3.StringUtils.countMatches;
 import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
-public class DescriptionHighlightedWordsScoring extends AbstractScoring { //implements Scoring
+public class DescriptionHighlightedWordsScoring extends AbstractScoring {
 
     private static Integer WORD_SCORE = 5;
 
