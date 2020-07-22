@@ -1,6 +1,6 @@
 package com.idealista.infrastructure.persistence;
 
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -23,6 +23,6 @@ public class AdVO {
   private Integer houseSize;
   private Integer gardenSize;
   private Integer score;
-  private Date irrelevantSince;
+  private OffsetDateTime irrelevantSince;
 
 }

@@ -1,13 +1,14 @@
 package com.idealista.application.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.PictureVO;
 
 public interface AdRepository {
-  //TODO crea los métodos que necesites
+
   List<AdVO> findAdVO();
 
-  List<PictureVO> findPictureVO();
+  Optional<PictureVO> findPictureVOById(Integer id);
 }

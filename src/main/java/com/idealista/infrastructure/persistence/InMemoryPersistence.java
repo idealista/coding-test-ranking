@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import com.idealista.application.repository.AdRepository;
 import org.springframework.stereotype.Repository;
@@ -48,13 +49,11 @@ public class InMemoryPersistence implements AdRepository {
 
   @Override
   public List<AdVO> findAdVO() {
-      //TODO Logic
     return ads;
   }
 
   @Override
-  public List<PictureVO> findPictureVO() {
-      //TODO Logic
-    return pictures;
+  public Optional<PictureVO> findPictureVOById(Integer id) {
+    return Optional.ofNullable(pictures.get(id));
   }
 }
