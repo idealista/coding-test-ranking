@@ -5,3 +5,5 @@ target/
 
 .project
 .classpath
+/.idea/
+/ad-ranking-challenge.iml
