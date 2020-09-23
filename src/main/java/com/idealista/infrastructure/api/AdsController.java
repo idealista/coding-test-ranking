@@ -1,28 +1,48 @@
 package com.idealista.infrastructure.api;
 
-import java.util.List;
-
+import com.idealista.application.service.publicAd.PublicAdResponse;
+import com.idealista.application.service.publicAd.PublicAdsService;
+import com.idealista.application.service.qualityAd.QualityAdResponse;
+import com.idealista.application.service.qualityAd.QualityAdsService;
+import com.idealista.application.service.score.ScoreService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class AdsController {
 
-    //TODO añade url del endpoint
-    public ResponseEntity<List<QualityAd>> qualityListing() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+    private final PublicAdsService publicAdsService;
+    private final QualityAdsService qualityAdsService;
+    private final ScoreService scoreService;
+
+    public AdsController(
+            PublicAdsService publicAdsService,
+            QualityAdsService qualityAdsService,
+            ScoreService scoreService) {
+        this.publicAdsService = publicAdsService;
+        this.qualityAdsService = qualityAdsService;
+        this.scoreService = scoreService;
     }
 
-    //TODO añade url del endpoint
-    public ResponseEntity<List<PublicAd>> publicListing() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+    @GetMapping("/ads")
+    public ResponseEntity<List<PublicAdResponse>> publicListing() {
+        final List<PublicAdResponse> publicAdResponses = publicAdsService.getAds();
+        return ResponseEntity.ok(publicAdResponses);
     }
 
-    //TODO añade url del endpoint
+    @GetMapping("/ads/quality")
+    public ResponseEntity<List<QualityAdResponse>> qualityListing() {
+        final List<QualityAdResponse> qualityAdResponses = qualityAdsService.getAds();
+        return ResponseEntity.ok(qualityAdResponses);
+    }
+
+    @PostMapping("/ads/score")
     public ResponseEntity<Void> calculateScore() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+        scoreService.calculateAdsScore();
+        return ResponseEntity.noContent().build();
     }
 }

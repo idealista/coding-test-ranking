@@ -1,0 +1,10 @@
+### GET Public Ads
+GET http://localhost:8080/ads/
+
+### GET Quality Ads
+GET http://localhost:8080/ads/quality
+
+### POST Calculate the score of all ad's
+POST http://localhost:8080/ads/score
+
+###

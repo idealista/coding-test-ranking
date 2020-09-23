@@ -1,0 +1,32 @@
+score:
+  min: 0
+  max: 100
+  min-relevant-score: 40
+
+  rules:
+
+    picture:
+      empty-points: -10
+      sd-points: 10
+      hd-points: 20
+
+    description:
+      points: 5
+
+    description-typology:
+      flat:
+        min-points: 10
+        min-words: 20
+        full-points: 30
+        full-words: 50
+      chalet:
+        full-points: 20
+        full-words: 50
+
+    relevant-words:
+      points: 5
+      words: luminoso,nuevo,céntrico,reformado,ático
+
+    completed:
+      points: 40
+
