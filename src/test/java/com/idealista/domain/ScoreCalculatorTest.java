@@ -5,8 +5,7 @@ import com.idealista.domain.services.ScoreCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.idealista.domain.mothers.AdMother.createAdWithASingleHDPicture;
-import static com.idealista.domain.mothers.AdMother.createAdWithAThreeHDPictures;
+import static com.idealista.domain.mothers.AdMother.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -40,6 +39,20 @@ public class ScoreCalculatorTest {
         //then
         assertNotNull(calculatedScoreAd);
         assertEquals(Integer.valueOf(60), calculatedScoreAd.getScore());
+    }
+
+    @Test
+    @DisplayName("Given an ad with a SD pictures When the score is calculated Then The score should be 10")
+    public void should_Calculate_The_Score_For_An_Ad_With_A_SD_Picture() {
+        //given
+        final Ad ad = createAdWithASingleSDPicture();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(10), calculatedScoreAd.getScore());
     }
 
 
