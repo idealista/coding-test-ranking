@@ -23,16 +23,19 @@ public final class ScoreCalculator {
 
     public Consumer<Ad> calculateScoreForCompleteAdsWithFlatTypology(final AtomicInteger scoreCounter) {
         return ad -> {
-            if (hasDescription(ad) && containsPictures(ad)) {
-                if (hasFlatTypology(ad)) {
+            if (containsPictures(ad)) {
+                if (hasFlatTypology(ad) && hasDescription(ad)) {
                     if (hasHouseSize(ad)) {
                         scoreCounter.getAndAdd(COMPLETE_AD_SCORE);
                     }
                 }
-                if (hasChaletTypology(ad)){
-                    if (hasHouseSize(ad) && hasGardenSize(ad)){
+                if (hasChaletTypology(ad) && hasDescription(ad)) {
+                    if (hasHouseSize(ad) && hasGardenSize(ad)) {
                         scoreCounter.getAndAdd(COMPLETE_AD_SCORE);
                     }
+                }
+                if (hasGarageTypology(ad)) {
+                    scoreCounter.getAndAdd(COMPLETE_AD_SCORE);
                 }
             }
         };
@@ -61,7 +64,7 @@ public final class ScoreCalculator {
         });
     }
 
-    public Consumer<Ad> calculateScoreForDescription(final AtomicInteger scoreCounter){
+    public Consumer<Ad> calculateScoreForDescription(final AtomicInteger scoreCounter) {
         return ad -> {
             if (hasDescription(ad)) {
                 scoreCounter.getAndAdd(5);
@@ -110,6 +113,10 @@ public final class ScoreCalculator {
 
     private boolean hasChaletTypology(Ad ad) {
         return ad.getTypology().equals("CHALET");
+    }
+
+    private boolean hasGarageTypology(Ad ad) {
+        return ad.getTypology().equals("GARAGE");
     }
 
     private boolean hasDescription(Ad ad) {
