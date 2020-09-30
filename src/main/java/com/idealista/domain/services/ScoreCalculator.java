@@ -33,12 +33,19 @@ public final class ScoreCalculator {
                 if (hasFlatTypology(ad) && hasDescriptionLengthBetween20And49(ad)) {
                     scoreCounter.getAndAdd(10);
                 }
+                if (hasFlatTypology(ad) && hasDescriptionWithLengthGreaterThan50(ad)) {
+                    scoreCounter.getAndAdd(30);
+                }
             }
         };
     }
 
+    private boolean hasDescriptionWithLengthGreaterThan50(Ad ad) {
+        return ad.getDescription().length() >= 50;
+    }
+
     private boolean hasDescriptionLengthBetween20And49(Ad ad) {
-        return ad.getDescription().length() > 20 && ad.getDescription().length() <= 49;
+        return ad.getDescription().length() >= 20 && ad.getDescription().length() <= 49;
     }
 
     private boolean hasFlatTypology(Ad ad) {
