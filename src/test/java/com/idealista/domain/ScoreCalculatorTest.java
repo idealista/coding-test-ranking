@@ -59,6 +59,7 @@ public class ScoreCalculatorTest {
     }
 
     @Test
+    @DisplayName("Given an ad with a description When the score is calculated Then the score should be 5")
     void should_Calculate_The_Score_For_An_Ad_With_Description() {
         //given
         final Ad ad = new Ad(new AdIdentifer(1), null, "This is a description", null, null, null, null, null);
@@ -70,4 +71,6 @@ public class ScoreCalculatorTest {
         assertNotNull(calculatedScoreAd);
         assertEquals(Integer.valueOf(5), calculatedScoreAd.getScore());
     }
+
+
 }

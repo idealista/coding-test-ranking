@@ -21,7 +21,7 @@ public final class Ad {
     public Ad(AdIdentifer id, String typology, String description, List<Picture> pictures, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
         this.id = id;
         this.typology = typology;
-        this.description = description;
+        this.description = null == description ? "" : description;
         this.pictures = null == pictures ? emptyList() : unmodifiableList(pictures);
         this.houseSize = houseSize;
         this.gardenSize = gardenSize;

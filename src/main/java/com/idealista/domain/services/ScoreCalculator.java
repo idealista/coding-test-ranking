@@ -1,6 +1,7 @@
 package com.idealista.domain.services;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 public final class ScoreCalculator {
 
@@ -9,7 +10,13 @@ public final class ScoreCalculator {
 
     public Ad execute(Ad ad) {
         final AtomicInteger scoreCounter = new AtomicInteger();
-        ad.getPictures().forEach(p -> {
+        calculateScoreForPictures(scoreCounter).andThen(calculateScoreForDescription(scoreCounter)).accept(ad);
+
+        return ad.withScore(scoreCounter.get());
+    }
+
+    public Consumer<Ad> calculateScoreForPictures(final AtomicInteger scoreCounter){
+        return ad -> ad.getPictures().forEach(p -> {
             //TODO add condition for ad without pictures
             if (hasHighResolutionPicture(p)) {
                 scoreCounter.getAndAdd(PICTURE_HD_SCORE);
@@ -17,12 +24,18 @@ public final class ScoreCalculator {
                 scoreCounter.getAndAdd(PICTURE_SD_SCORE);
             }
         });
+    }
 
-        if (!ad.getDescription().isEmpty()) {
-            scoreCounter.getAndAdd(5);
-        }
+    public Consumer<Ad> calculateScoreForDescription(final AtomicInteger scoreCounter){
+        return ad -> {
+            if (hasDescription(ad)) {
+                scoreCounter.getAndAdd(5);
+            }
+        };
+    }
 
-        return ad.withScore(scoreCounter.get());
+    private boolean hasDescription(Ad ad) {
+        return !ad.getDescription().isEmpty();
     }
 
     private boolean hasHighResolutionPicture(Picture p) {
