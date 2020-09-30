@@ -10,6 +10,7 @@ public final class ScoreCalculator {
     public static final int PICTURE_HD_SCORE = 20;
     public static final int PICTURE_SD_SCORE = 10;
     public static final int SPECIAL_WORD_FACTOR = 5;
+    public static final int COMPLETE_AD_SCORE = 40;
 
     public Ad execute(Ad ad) {
         final AtomicInteger scoreCounter = new AtomicInteger();
@@ -24,12 +25,25 @@ public final class ScoreCalculator {
         return ad -> {
             if (hasDescription(ad) && containsPictures(ad)) {
                 if (hasFlatTypology(ad)) {
-                    if (null != ad.getHouseSize()) {
-                        scoreCounter.getAndAdd(40);
+                    if (hasHouseSize(ad)) {
+                        scoreCounter.getAndAdd(COMPLETE_AD_SCORE);
+                    }
+                }
+                if (hasChaletTypology(ad)){
+                    if (hasHouseSize(ad) && hasGardenSize(ad)){
+                        scoreCounter.getAndAdd(COMPLETE_AD_SCORE);
                     }
                 }
             }
         };
+    }
+
+    private boolean hasGardenSize(Ad ad) {
+        return null != ad.getGardenSize();
+    }
+
+    private boolean hasHouseSize(Ad ad) {
+        return null != ad.getHouseSize();
     }
 
     private boolean containsPictures(Ad ad) {
