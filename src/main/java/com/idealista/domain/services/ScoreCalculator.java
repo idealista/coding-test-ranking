@@ -1,5 +1,6 @@
 package com.idealista.domain.services;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
@@ -7,6 +8,7 @@ public final class ScoreCalculator {
 
     public static final int PICTURE_HD_SCORE = 20;
     public static final int PICTURE_SD_SCORE = 10;
+    public static final int SPECIAL_WORD_FACTOR = 5;
 
     public Ad execute(Ad ad) {
         final AtomicInteger scoreCounter = new AtomicInteger();
@@ -40,7 +42,16 @@ public final class ScoreCalculator {
             if (hasChaletTypology(ad) && hasDescriptionWithLengthGreaterThan50(ad)) {
                 scoreCounter.getAndAdd(20);
             }
+            increaseScoreWhenDescriptionContainsSpecialWords(scoreCounter, ad);
         };
+    }
+
+    private void increaseScoreWhenDescriptionContainsSpecialWords(AtomicInteger scoreCounter, Ad ad) {
+        final long specialWordCounter = Arrays.stream(ad.getDescription().split(" "))
+                .distinct()
+                .filter(s -> s.equalsIgnoreCase("LUMINOSO"))
+                .count();
+        scoreCounter.getAndAdd(Long.valueOf(specialWordCounter * SPECIAL_WORD_FACTOR).intValue());
     }
 
     private boolean hasDescriptionWithLengthGreaterOrEqualsThan50(Ad ad) {
