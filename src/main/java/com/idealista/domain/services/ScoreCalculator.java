@@ -10,12 +10,18 @@ public final class ScoreCalculator {
     public Ad execute(Ad ad) {
         final AtomicInteger scoreCounter = new AtomicInteger();
         ad.getPictures().forEach(p -> {
+            //TODO add condition for ad without pictures
             if (hasHighResolutionPicture(p)) {
                 scoreCounter.getAndAdd(PICTURE_HD_SCORE);
             } else {
                 scoreCounter.getAndAdd(PICTURE_SD_SCORE);
             }
         });
+
+        if (!ad.getDescription().isEmpty()) {
+            scoreCounter.getAndAdd(5);
+        }
+
         return ad.withScore(scoreCounter.get());
     }
 
