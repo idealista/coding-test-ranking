@@ -30,18 +30,25 @@ public final class ScoreCalculator {
         return ad -> {
             if (hasDescription(ad)) {
                 scoreCounter.getAndAdd(5);
-                if (hasFlatTypology(ad) && hasDescriptionLengthBetween20And49(ad)) {
-                    scoreCounter.getAndAdd(10);
-                }
-                if (hasFlatTypology(ad) && hasDescriptionWithLengthGreaterThan50(ad)) {
-                    scoreCounter.getAndAdd(30);
-                }
+            }
+            if (hasFlatTypology(ad) && hasDescriptionLengthBetween20And49(ad)) {
+                scoreCounter.getAndAdd(10);
+            }
+            if (hasFlatTypology(ad) && hasDescriptionWithLengthGreaterOrEqualsThan50(ad)) {
+                scoreCounter.getAndAdd(30);
+            }
+            if (hasChaletTypology(ad) && hasDescriptionWithLengthGreaterThan50(ad)) {
+                scoreCounter.getAndAdd(20);
             }
         };
     }
 
-    private boolean hasDescriptionWithLengthGreaterThan50(Ad ad) {
+    private boolean hasDescriptionWithLengthGreaterOrEqualsThan50(Ad ad) {
         return ad.getDescription().length() >= 50;
+    }
+
+    private boolean hasDescriptionWithLengthGreaterThan50(Ad ad) {
+        return ad.getDescription().length() > 50;
     }
 
     private boolean hasDescriptionLengthBetween20And49(Ad ad) {
@@ -50,6 +57,10 @@ public final class ScoreCalculator {
 
     private boolean hasFlatTypology(Ad ad) {
         return ad.getTypology().equals("FLAT");
+    }
+
+    private boolean hasChaletTypology(Ad ad) {
+        return ad.getTypology().equals("CHALET");
     }
 
     private boolean hasDescription(Ad ad) {
