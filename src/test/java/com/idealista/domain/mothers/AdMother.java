@@ -11,6 +11,10 @@ import static java.util.Collections.singletonList;
 
 public class AdMother {
 
+    public static Ad createAdWithoutPictures() {
+        return new Ad(new AdIdentifer(1), "FLAT", null, null, null, null, null, null);
+    }
+
     public static Ad createAdWithASingleHDPicture() {
         return new Ad(new AdIdentifer(1), "FLAT", null, Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
     }
@@ -54,5 +58,9 @@ public class AdMother {
 
     public static Ad createCompleteAdWithChaletTypology() {
         return new Ad(new AdIdentifer(1), "CHALET", "This is a complete ad description", singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), 70, 25, null, null);
+    }
+
+    public static Ad createCompleteAdWithGarageTypology() {
+        return new Ad(new AdIdentifer(1), "GARAGE", null, singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), 70, 25, null, null);
     }
 }

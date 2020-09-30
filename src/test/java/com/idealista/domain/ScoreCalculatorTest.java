@@ -160,7 +160,7 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an complete ad for a chalet When the score is calculated Then the score should be increased in 40.")
     void should_Calculate_The_Score_For_A_Complete_Ad_With_Chalet_Typology() {
         //given
-        final Ad ad = AdMother.createCompleteAdWithChaletTypology();
+        final Ad ad = createCompleteAdWithChaletTypology();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -168,5 +168,19 @@ public class ScoreCalculatorTest {
         //then
         assertNotNull(calculatedScoreAd);
         assertEquals(Integer.valueOf(65), calculatedScoreAd.getScore());
+    }
+
+    @Test
+    @DisplayName("Given an complete ad for a garage When the score is calculated Then the score should be increased in 40.")
+    void should_Calculate_The_Score_For_A_Complete_Ad_With_Garage_Typology() {
+        //given
+        final Ad ad = createCompleteAdWithGarageTypology();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(60), calculatedScoreAd.getScore());
     }
 }
