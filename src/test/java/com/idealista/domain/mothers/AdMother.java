@@ -51,4 +51,8 @@ public class AdMother {
     public static Ad createCompleteAdWithFlatTypology() {
         return new Ad(new AdIdentifer(1), "FLAT", "This is a complete ad description", singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), 70, null, null, null);
     }
+
+    public static Ad createCompleteAdWithChaletTypology() {
+        return new Ad(new AdIdentifer(1), "CHALET", "This is a complete ad description", singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), 70, 25, null, null);
+    }
 }

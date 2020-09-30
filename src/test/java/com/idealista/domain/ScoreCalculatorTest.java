@@ -155,4 +155,18 @@ public class ScoreCalculatorTest {
         assertNotNull(calculatedScoreAd);
         assertEquals(Integer.valueOf(75), calculatedScoreAd.getScore());
     }
+
+    @Test
+    @DisplayName("Given an complete ad for a chalet When the score is calculated Then the score should be increased in 40.")
+    void should_Calculate_The_Score_For_A_Complete_Ad_With_Chalet_Typology() {
+        //given
+        final Ad ad = AdMother.createCompleteAdWithChaletTypology();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(65), calculatedScoreAd.getScore());
+    }
 }
