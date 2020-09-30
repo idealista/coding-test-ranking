@@ -2,6 +2,8 @@ package com.idealista.domain;
 
 import com.idealista.domain.mothers.AdMother;
 import com.idealista.domain.services.Ad;
+import com.idealista.domain.services.AdIdentifer;
+import com.idealista.domain.services.Picture;
 import com.idealista.domain.services.ScoreCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import static com.idealista.domain.mothers.AdMother.*;
 import static com.idealista.domain.services.ScoreCalculator.PICTURE_HD_SCORE;
 import static com.idealista.domain.services.ScoreCalculator.PICTURE_SD_SCORE;
+import static java.util.Collections.singletonList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -142,4 +145,17 @@ public class ScoreCalculatorTest {
         assertEquals(Integer.valueOf(25), calculatedScoreAd.getScore());
     }
 
+    @Test
+    @DisplayName("Given an complete ad for a flat When the score is calculated Then the score should be increased in 40.")
+    void should_Calculate_The_Score_For_A_Complete_Ad_With_Flat_Typology() {
+        //given
+        final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "This is a complete ad description", singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), 70, null, null, null);
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(75), calculatedScoreAd.getScore());
+    }
 }
