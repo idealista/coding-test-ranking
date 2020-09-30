@@ -7,6 +7,7 @@ import com.idealista.domain.services.Picture;
 import java.util.Collections;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 public class AdMother {
 
@@ -45,5 +46,9 @@ public class AdMother {
 
     public static Ad createAdWithMultipleSpecialWordsInDescription(){
         return new Ad(new AdIdentifer(1), "FLAT", "Contains luminoso and reformado", null, null, null, null, null);
+    }
+
+    public static Ad createCompleteAdWithFlatTypology() {
+        return new Ad(new AdIdentifer(1), "FLAT", "This is a complete ad description", singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), 70, null, null, null);
     }
 }
