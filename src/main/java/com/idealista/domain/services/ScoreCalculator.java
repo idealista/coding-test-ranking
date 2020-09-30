@@ -18,7 +18,19 @@ public final class ScoreCalculator {
                 .andThen(calculateScoreForDescription(scoreCounter))
                 .andThen(calculateScoreForCompleteAdsWithFlatTypology(scoreCounter))
                 .accept(ad);
-        return ad.withScore(scoreCounter.get());
+        return ad.withScore(getFinalScore(scoreCounter));
+    }
+
+    private int getFinalScore(AtomicInteger scoreCounter) {
+        return isNegativeValue(scoreCounter) ? transformNegativeScore(scoreCounter) : scoreCounter.get();
+    }
+
+    private int transformNegativeScore(final AtomicInteger scoreCounter) {
+        return scoreCounter.updateAndGet(score -> score = 0);
+    }
+
+    private boolean isNegativeValue(AtomicInteger scoreCounter) {
+        return scoreCounter.get() < 0;
     }
 
     public Consumer<Ad> calculateScoreForCompleteAdsWithFlatTypology(final AtomicInteger scoreCounter) {
