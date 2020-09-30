@@ -73,7 +73,7 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    @DisplayName("Given an ad with a description with lenght between 20 and 49 and typology 'FLAT' When the score is calculated Then the score should be 15")
+    @DisplayName("Given an ad with a description with length between 20 and 49 and typology 'FLAT' When the score is calculated Then the score should be 15")
     void should_Calculate_The_Score_For_An_Ad_With_Description_Between_20_And_49_And_Typology_Flat() {
         //given
         final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "This is a description", null, null, null, null, null);
@@ -84,6 +84,20 @@ public class ScoreCalculatorTest {
         //then
         assertNotNull(calculatedScoreAd);
         assertEquals(Integer.valueOf(15), calculatedScoreAd.getScore());
+    }
+
+    @Test
+    @DisplayName("Given an ad with a description with length greater than 50 and typology 'FLAT' When the score is calculated Then the score should be 35")
+    void should_Calculate_The_Score_For_An_Ad_With_Description_Greater_Than_50_And_Typology_Flat() {
+        //given
+        final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "This is a description too much long to check the score calculator", null, null, null, null, null);
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(35), calculatedScoreAd.getScore());
     }
 
 
