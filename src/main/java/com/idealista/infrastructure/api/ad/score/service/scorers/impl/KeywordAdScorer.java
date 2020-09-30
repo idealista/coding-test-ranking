@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
+import static com.idealista.infrastructure.utils.StringFormatterUtils.normalize;
+
 @Component
 @RequiredArgsConstructor
 public class KeywordAdScorer implements AdScorer {
@@ -30,7 +32,8 @@ public class KeywordAdScorer implements AdScorer {
 
     @Override
     public Integer getScore(Ad ad) {
-        return getTokenizedDescription(ad.getDescription()).parallelStream()
+        String normalizedDescription = normalize(ad.getDescription());
+        return getTokenizedDescription(normalizedDescription).parallelStream()
                 .distinct()
                 .filter(keywordScoreConfiguration.getKeywords()::contains)
                 .collect(Collectors.toSet())
