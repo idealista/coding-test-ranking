@@ -27,6 +27,10 @@ public final class Ad {
         this.irrelevantSince = irrelevantSince;
     }
 
+    public Ad withScore(Integer score) {
+        return new Ad(this.id, this.typology, this.description, this.pictures, this.houseSize, this.gardenSize, score, this.irrelevantSince);
+    }
+
     public AdIdentifer getId() {
         return id;
     }
