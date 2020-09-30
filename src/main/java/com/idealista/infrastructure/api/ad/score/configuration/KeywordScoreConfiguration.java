@@ -6,6 +6,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +16,9 @@ import java.util.stream.Collectors;
 @Data
 public class KeywordScoreConfiguration {
 
+    @NotEmpty
     private List<String> keywords;
+    @NotNull
     private Integer score;
 
     @PostConstruct

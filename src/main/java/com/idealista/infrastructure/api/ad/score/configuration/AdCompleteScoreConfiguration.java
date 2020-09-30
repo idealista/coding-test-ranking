@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
+
 @Component
 @ConfigurationProperties(prefix="ads.complete")
 @NoArgsConstructor
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Data
 public class AdCompleteScoreConfiguration {
 
+    @NotNull
     private Integer score;
 
 }
