@@ -4,8 +4,6 @@ import com.idealista.infrastructure.api.ad.score.configuration.AdCompleteScoreCo
 import com.idealista.infrastructure.api.ad.search.domain.Ad;
 import org.springframework.stereotype.Component;
 
-import static java.util.Objects.isNull;
-
 @Component
 public class ChaletAdCompleteAdScorer extends AdCompleteAdScorer {
 
@@ -18,6 +16,6 @@ public class ChaletAdCompleteAdScorer extends AdCompleteAdScorer {
         if (ad.isNotChalet()){
             return false;
         }
-        return !isNull(ad.getGardenSize());
+        return ad.getGardenSize().isPresent();
     }
 }

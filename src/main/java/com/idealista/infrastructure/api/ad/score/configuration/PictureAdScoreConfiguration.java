@@ -1,7 +1,6 @@
 package com.idealista.infrastructure.api.ad.score.configuration;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.idealista.infrastructure.persistence.PictureQuality;
+import com.idealista.infrastructure.api.ad.search.domain.AdPictureQuality;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,11 +19,11 @@ import java.util.Optional;
 public class PictureAdScoreConfiguration {
 
     @NotNull
-    private Map<PictureQuality, Integer> pictureQualityScore;
+    private Map<AdPictureQuality, Integer> pictureQualityScore;
     @NotNull
     private Integer noPicturePenalty;
 
-    public Integer getScoreByPictureQuality(PictureQuality pictureQuality){
-        return Optional.ofNullable(pictureQualityScore.get(pictureQuality)).orElseThrow(NullPointerException::new);
+    public Integer getScoreByPictureQuality(AdPictureQuality adPictureQuality){
+        return Optional.ofNullable(pictureQualityScore.get(adPictureQuality)).orElse(0);
     }
 }

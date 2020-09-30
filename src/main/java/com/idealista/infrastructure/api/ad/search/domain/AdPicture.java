@@ -5,17 +5,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static com.idealista.infrastructure.api.ad.search.domain.PictureQuality.HD;
+import static com.idealista.infrastructure.api.ad.search.domain.AdPictureQuality.HD;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Picture {
+public class AdPicture {
 
     private Integer id;
     private String url;
-    private PictureQuality quality;
+    private AdPictureQuality quality;
 
     public boolean isPictureHighQuality(){
         return this.quality.equals(HD);

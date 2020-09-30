@@ -12,7 +12,7 @@ import static org.apache.commons.lang3.StringUtils.isBlank;
 
 @RequiredArgsConstructor
 @Component
-public class DescriptionWordLengthScorer implements AdScorer {
+public class DescriptionWordLengthAdScorer implements AdScorer {
 
     private final WordRangeByTypologyConfiguration wordRangeByTypologyConfiguration;
 

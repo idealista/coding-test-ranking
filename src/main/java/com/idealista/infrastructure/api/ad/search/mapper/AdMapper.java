@@ -6,14 +6,11 @@ import com.idealista.infrastructure.api.ad.search.domain.AdTypology;
 import com.idealista.infrastructure.api.ad.search.dto.AdResponse;
 import com.idealista.infrastructure.api.ad.search.dto.AdsResponse;
 import com.idealista.infrastructure.persistence.AdVO;
-import com.idealista.infrastructure.persistence.Picture;
+import com.idealista.infrastructure.api.ad.search.domain.AdPicture;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static com.idealista.infrastructure.api.ad.search.domain.AdQuality.NOT_SCORED;
-import static java.util.Objects.isNull;
 
 public class AdMapper {
 
@@ -26,7 +23,7 @@ public class AdMapper {
             .houseSize(ad.getHouseSize())
             .adQuality(ad.getAdQuality().name())
             .irrelevantSince(ad.getIrrelevantSince().orElse(null))
-            .pictures(ad.getPictures().stream().map(Picture::getId).collect(Collectors.toList()))
+            .pictures(ad.getAdPictures().stream().map(AdPicture::getId).collect(Collectors.toList()))
             .score(ad.getScore())
             .build();
     }
@@ -37,7 +34,7 @@ public class AdMapper {
             .gardenSize(Optional.ofNullable(adVo.getGardenSize()))
             .houseSize(adVo.getHouseSize())
             .irrelevantSince(Optional.ofNullable(adVo.getIrrelevantSince()))
-            .pictures(null)
+            .adPictures(null)
             .score(adVo.getScore())
             .id(adVo.getId())
             .adQuality(AdQuality.valueOf(adVo.getAdQuality()))
@@ -58,7 +55,7 @@ public class AdMapper {
             .gardenSize(ad.getGardenSize().orElse(null))
             .houseSize(ad.getHouseSize())
             .irrelevantSince(ad.getIrrelevantSince().orElse(null))
-            .pictures(ad.getPictures())
+            .adPictures(ad.getAdPictures())
             .score(ad.getScore())
             .typology(ad.getTypology())
             .adQuality(ad.getAdQuality())

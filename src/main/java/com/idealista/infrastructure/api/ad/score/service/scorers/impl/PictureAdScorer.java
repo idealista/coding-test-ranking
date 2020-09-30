@@ -6,8 +6,6 @@ import com.idealista.infrastructure.api.ad.search.domain.Ad;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.validation.Valid;
-
 @Component
 @RequiredArgsConstructor
 public class PictureAdScorer implements AdScorer {
@@ -16,10 +14,10 @@ public class PictureAdScorer implements AdScorer {
 
     @Override
     public Integer getScore(Ad ad) {
-        if (ad.getPictures().isEmpty()){
+        if (ad.getAdPictures().isEmpty()){
             return pictureAdScoreConfiguration.getNoPicturePenalty();
         }
-        return ad.getPictures().stream()
+        return ad.getAdPictures().stream()
                 .mapToInt(picture -> pictureAdScoreConfiguration.getScoreByPictureQuality(picture.getQuality()))
                 .sum();
     }

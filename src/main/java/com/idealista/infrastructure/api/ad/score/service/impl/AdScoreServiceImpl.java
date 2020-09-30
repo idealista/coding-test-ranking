@@ -10,7 +10,6 @@ import com.idealista.infrastructure.api.ad.search.domain.AdQuality;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.time.Instant;
 import java.util.*;
 
@@ -21,7 +20,6 @@ import static com.idealista.infrastructure.api.ad.search.domain.AdQuality.IRRELE
 public class AdScoreServiceImpl implements AdScoreService {
 
     private final List<AdScorer> adScorers;
-    @Valid
     private final AdScoreConfiguration adScoreConfiguration;
     private final AdSearchRepositoryAdapter adSearchRepositoryAdapter;
     private final AdUpdateRepositoryAdapter adUpdateRepositoryAdapter;

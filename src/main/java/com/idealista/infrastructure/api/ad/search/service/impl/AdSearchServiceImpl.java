@@ -10,7 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
+import static com.idealista.infrastructure.api.ad.search.domain.AdQuality.NOT_SCORED;
+import static com.idealista.infrastructure.api.ad.search.domain.AdQuality.RELEVANT;
 import static java.util.Comparator.comparing;
 
 @Service
@@ -33,10 +36,15 @@ public class AdSearchServiceImpl implements AdSearchService {
     }
 
     private List<Ad> getAdsByQuality(AdQuality adQuality){
-        return this.getAllAds().stream()
+        List<Ad> filteredAds = this.getAllAds().stream()
             .filter(ad -> ad.isOfQuality(adQuality))
-            .sorted(comparing(Ad::getScore).reversed())
             .collect(Collectors.toList());
+        if (adQuality == RELEVANT){
+            return filteredAds.stream()
+                .sorted(comparing(Ad::getScore).reversed())
+                .collect(Collectors.toList());
+        }
+        return filteredAds;
     }
 
     private List<Ad> getAllAds(){

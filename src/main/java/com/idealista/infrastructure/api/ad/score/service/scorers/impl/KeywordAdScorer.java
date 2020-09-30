@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -22,22 +21,14 @@ public class KeywordAdScorer implements AdScorer {
 
     private final KeywordScoreConfiguration keywordScoreConfiguration;
 
-    @PostConstruct
-    public void normalizeKeywords(){
-        List<String> normalizedKeywords = keywordScoreConfiguration.getKeywords().stream()
-            .map(StringFormatterUtils::normalize)
-            .collect(Collectors.toList());
-        this.keywordScoreConfiguration.setKeywords(normalizedKeywords);
-    }
-
     @Override
     public Integer getScore(Ad ad) {
         String normalizedDescription = normalize(ad.getDescription());
-        return getTokenizedDescription(normalizedDescription).parallelStream()
+        Long matchingKeywordsCount = getTokenizedDescription(normalizedDescription).parallelStream()
                 .distinct()
                 .filter(keywordScoreConfiguration.getKeywords()::contains)
-                .collect(Collectors.toSet())
-                .size() * keywordScoreConfiguration.getScore();
+                .count();
+        return matchingKeywordsCount.intValue() * keywordScoreConfiguration.getScore();
     }
 
     private List<String> getTokenizedDescription(String description){

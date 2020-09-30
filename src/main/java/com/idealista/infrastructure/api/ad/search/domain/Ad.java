@@ -1,6 +1,5 @@
 package com.idealista.infrastructure.api.ad.search.domain;
 
-import com.idealista.infrastructure.persistence.Picture;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +20,7 @@ public class Ad {
     private Integer id;
     private AdTypology typology;
     private String description;
-    private List<Picture> pictures;
+    private List<AdPicture> adPictures;
     private Integer houseSize;
     private Optional<Integer> gardenSize;
     private Integer score;

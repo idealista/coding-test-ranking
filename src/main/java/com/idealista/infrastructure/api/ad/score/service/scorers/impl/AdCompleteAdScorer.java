@@ -21,7 +21,7 @@ public abstract class AdCompleteAdScorer implements AdScorer {
     }
 
     private boolean isAdComplete(Ad ad){
-        return hasAdDescription(ad) && hasAtLeastOnePicture(ad) && isAdCategoryComplete(ad);
+        return isAdCategoryComplete(ad) && hasAdDescription(ad) && hasAtLeastOnePicture(ad);
     }
 
     protected abstract boolean isAdCategoryComplete(Ad ad);
@@ -31,6 +31,6 @@ public abstract class AdCompleteAdScorer implements AdScorer {
     }
 
     protected boolean hasAtLeastOnePicture(Ad ad){
-        return !ad.getPictures().isEmpty();
+        return !ad.getAdPictures().isEmpty();
     }
 }

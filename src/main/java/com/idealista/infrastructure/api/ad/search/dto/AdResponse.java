@@ -3,7 +3,7 @@ package com.idealista.infrastructure.api.ad.search.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.idealista.infrastructure.api.ad.search.domain.AdQuality;
 import com.idealista.infrastructure.api.ad.search.domain.AdTypology;
-import com.idealista.infrastructure.persistence.Picture;
+import com.idealista.infrastructure.api.ad.search.domain.AdPicture;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +23,7 @@ public class AdResponse {
     private Integer id;
     private AdTypology typology;
     private String description;
-    private List<Picture> pictures;
+    private List<AdPicture> adPictures;
     private Integer houseSize;
     private Integer gardenSize;
     private Integer score;

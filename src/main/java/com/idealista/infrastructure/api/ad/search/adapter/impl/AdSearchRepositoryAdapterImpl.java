@@ -5,7 +5,7 @@ import com.idealista.infrastructure.api.ad.search.adapter.AdSearchRepositoryAdap
 import com.idealista.infrastructure.api.ad.search.domain.Ad;
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistenceImpl;
-import com.idealista.infrastructure.persistence.Picture;
+import com.idealista.infrastructure.api.ad.search.domain.AdPicture;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ public class AdSearchRepositoryAdapterImpl implements AdSearchRepositoryAdapter 
     public List<Ad> getAllAds() {
         List<AdVO> adsVo = inMemoryPersistenceImpl.getAllAds();
         List<Ad> ads = adsVOtoAds(adsVo);
-        ads.forEach(ad -> ad.setPictures(getPicturesFromAd(adsVo.get(ad.getId()))));
+        ads.forEach(ad -> ad.setAdPictures(getPicturesFromAd(adsVo.get(ad.getId()))));
         return ads;
     }
 
@@ -33,11 +33,11 @@ public class AdSearchRepositoryAdapterImpl implements AdSearchRepositoryAdapter 
     public Ad getAdById(Integer id) {
         AdVO adVo = inMemoryPersistenceImpl.getAdById(id).orElseThrow(NoSuchElementException::new);
         Ad ad = AdMapper.adVOToAd(adVo);
-        ad.setPictures(getPicturesFromAd(adVo));
+        ad.setAdPictures(getPicturesFromAd(adVo));
         return ad;
     }
 
-    private List<Picture> getPicturesFromAd(AdVO adVo){
+    private List<AdPicture> getPicturesFromAd(AdVO adVo){
         return picturesVOToPictures(inMemoryPersistenceImpl.getPicturesById(adVo.getPictures()));
     }
 }
