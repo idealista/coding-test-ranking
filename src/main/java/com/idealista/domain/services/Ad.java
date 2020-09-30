@@ -1,9 +1,11 @@
 package com.idealista.domain.services;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
+import static java.util.Collections.emptyList;
+import static java.util.Collections.unmodifiableList;
 
 public final class Ad {
 
@@ -20,7 +22,7 @@ public final class Ad {
         this.id = id;
         this.typology = typology;
         this.description = description;
-        this.pictures = Collections.unmodifiableList(pictures);
+        this.pictures = null == pictures ? emptyList() : unmodifiableList(pictures);
         this.houseSize = houseSize;
         this.gardenSize = gardenSize;
         this.score = score;
