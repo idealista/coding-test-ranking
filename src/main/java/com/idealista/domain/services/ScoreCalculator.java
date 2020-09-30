@@ -13,9 +13,27 @@ public final class ScoreCalculator {
 
     public Ad execute(Ad ad) {
         final AtomicInteger scoreCounter = new AtomicInteger();
-        calculateScoreForPictures(scoreCounter).andThen(calculateScoreForDescription(scoreCounter)).accept(ad);
-
+        calculateScoreForPictures(scoreCounter)
+                .andThen(calculateScoreForDescription(scoreCounter))
+                .andThen(calculateScoreForCompleteAdsWithFlatTypology(scoreCounter))
+                .accept(ad);
         return ad.withScore(scoreCounter.get());
+    }
+
+    public Consumer<Ad> calculateScoreForCompleteAdsWithFlatTypology(final AtomicInteger scoreCounter) {
+        return ad -> {
+            if (hasDescription(ad) && containsPictures(ad)) {
+                if (hasFlatTypology(ad)) {
+                    if (null != ad.getHouseSize()) {
+                        scoreCounter.getAndAdd(40);
+                    }
+                }
+            }
+        };
+    }
+
+    private boolean containsPictures(Ad ad) {
+        return ad.getPictures().size() >= 1;
     }
 
     public Consumer<Ad> calculateScoreForPictures(final AtomicInteger scoreCounter){
