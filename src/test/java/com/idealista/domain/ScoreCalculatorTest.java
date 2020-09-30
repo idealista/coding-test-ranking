@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.idealista.domain.mothers.AdMother.*;
+import static com.idealista.domain.services.ScoreCalculator.PICTURE_HD_SCORE;
+import static com.idealista.domain.services.ScoreCalculator.PICTURE_SD_SCORE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -24,7 +26,7 @@ public class ScoreCalculatorTest {
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(20), calculatedScoreAd.getScore());
+        assertEquals(Integer.valueOf(PICTURE_HD_SCORE), calculatedScoreAd.getScore());
     }
 
     @Test
@@ -52,8 +54,6 @@ public class ScoreCalculatorTest {
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(10), calculatedScoreAd.getScore());
+        assertEquals(Integer.valueOf(PICTURE_SD_SCORE), calculatedScoreAd.getScore());
     }
-
-
 }
