@@ -6,6 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.idealista.domain.mothers.AdMother.createAdWithASingleHDPicture;
+import static com.idealista.domain.mothers.AdMother.createAdWithAThreeHDPictures;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -25,6 +26,20 @@ public class ScoreCalculatorTest {
         //then
         assertNotNull(calculatedScoreAd);
         assertEquals(Integer.valueOf(20), calculatedScoreAd.getScore());
+    }
+
+    @Test
+    @DisplayName("Given an ad with three HD pictures When the score is calculated Then The score should be 60")
+    public void should_Calculate_The_Score_For_An_Ad_With_Three_HD_Picture() {
+        //given
+        final Ad ad = createAdWithAThreeHDPictures();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(60), calculatedScoreAd.getScore());
     }
 
 
