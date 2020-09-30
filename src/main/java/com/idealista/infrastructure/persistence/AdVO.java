@@ -15,11 +15,13 @@ public class AdVO {
     private Integer houseSize;
     private Integer gardenSize;
     private Integer score;
+    private String adQuality;
     private Date irrelevantSince;
 
     public AdVO() {}
 
-    public AdVO(Integer id, String typology, String description, List<Integer> pictures, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
+    public AdVO(Integer id, String typology, String description, List<Integer> pictures, Integer houseSize,
+                Integer gardenSize, Integer score, String adQuality, Date irrelevantSince) {
         this.id = id;
         this.typology = typology;
         this.description = description;
@@ -27,6 +29,7 @@ public class AdVO {
         this.houseSize = houseSize;
         this.gardenSize = gardenSize;
         this.score = score;
+        this.adQuality = adQuality;
         this.irrelevantSince = irrelevantSince;
     }
 
@@ -84,6 +87,14 @@ public class AdVO {
 
     public void setScore(Integer score) {
         this.score = score;
+    }
+
+    public String getAdQuality(){
+        return this.adQuality;
+    }
+
+    public void setAdQuality(String adQuality){
+        this.adQuality = adQuality;
     }
 
     public Date getIrrelevantSince() {
