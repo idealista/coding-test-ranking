@@ -15,11 +15,11 @@ En cuanto a la paquetización, he estructurado los paquetes por dominio / caso d
 
 ## Endpoints
 Una vez levantada, la app expone 3 endpoints.
-    - GET http://localhost:8080/ads?quality={"IRRELEVANT"|"RELEVANT"|"NOT_SCORED"}
-    Devuelve todos los anuncios de la calidad proporcionada o si no se proporciona ninguna calidad devuelve todos los anuncios. En el caso de los anuncios de tipo RELEVANT, los devuelve ordenados descendientemente por score. El orden en el resto de casos es por id.
-    - GET http://localhost:8080/ads/{adId}
-    Devuelve el anuncio con el id dado. (Por conveniencia)
-    - POST http://localhost:8080/scores
-    Calcula los scores para todos los Ads y persiste el resultado en memoria. Los ads tendrán score mientras la app siga levantada. Una vez que se reinicia se tiene que volver a invocar a este método para recalcular los scores. En este caso estoy usando un POST puesto que la operación crea un nuevo recurso en la colección de ads. En este caso me gustaría comentar que no estoy del todo convencido con la ruta usada. En cualquier caso /ads/scores no se puede usar puesto que ya existe /ads/{adId} y generaría ambigüedad en la resolución de rutas. 
+   * GET http://localhost:8080/ads?quality={"IRRELEVANT"|"RELEVANT"|"NOT_SCORED"}
+     * Devuelve todos los anuncios de la calidad proporcionada o si no se proporciona ninguna calidad devuelve todos los anuncios. En el caso de los anuncios de tipo RELEVANT, los devuelve ordenados descendientemente por score. El orden en el resto de casos es por id.
+   * GET http://localhost:8080/ads/{adId}
+     * Devuelve el anuncio con el id dado. (Por conveniencia)
+   * POST http://localhost:8080/scores
+     * Calcula los scores para todos los Ads y persiste el resultado en memoria. Los ads tendrán score mientras la app siga levantada. Una vez que se reinicia se tiene que volver a invocar a este método para recalcular los scores. En este caso estoy usando un POST puesto que la operación crea un nuevo recurso en la colección de ads. En este caso me gustaría comentar que no estoy del todo convencido con la ruta usada. En cualquier caso /ads/scores no se puede usar puesto que ya existe /ads/{adId} y generaría ambigüedad en la resolución de rutas. 
     
 Cabe comentar que en un caso real, una solución más apropiada sería calcular el score de un anuncio cuando este se cree o modifique, sin necesidad de exponer un endpoint para calcular dichos scores. Es posible que si se usasen distintos roles para el gestor de la calidad y el usuario (que debiera), entonecs un único endpoint no sería apropiado y debieran separarse en dos. Uno que no admitiera parámetros /public/ads y otro que admitiera parámetros /internal/ads (por poner un ejemplo).
