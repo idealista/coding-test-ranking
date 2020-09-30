@@ -128,5 +128,19 @@ public class ScoreCalculatorTest {
         assertEquals(Integer.valueOf(10), calculatedScoreAd.getScore());
     }
 
+    @Test
+    @DisplayName("Given an ad with a description that contains two special When the score is calculated Then the score should be increased in 5 for each word.")
+    void should_Calculate_The_Score_For_An_Ad_With_Description_That_Contains_Two_Special_Words() {
+        //given
+        final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "Contains luminoso and reformado", null, null, null, null, null);
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(25), calculatedScoreAd.getScore());
+    }
+
 
 }
