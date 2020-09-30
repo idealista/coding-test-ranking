@@ -114,5 +114,19 @@ public class ScoreCalculatorTest {
         assertEquals(Integer.valueOf(25), calculatedScoreAd.getScore());
     }
 
+    @Test
+    @DisplayName("Given an ad with a description that contains the word 'luminoso' When the score is calculated Then the score should be 10")
+    void should_Calculate_The_Score_For_An_Ad_With_Description_That_Contains_A_Special_Word() {
+        //given
+        final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "This is so luminoso", null, null, null, null, null);
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(10), calculatedScoreAd.getScore());
+    }
+
 
 }
