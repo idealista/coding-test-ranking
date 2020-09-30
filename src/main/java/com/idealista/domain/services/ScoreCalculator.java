@@ -30,8 +30,19 @@ public final class ScoreCalculator {
         return ad -> {
             if (hasDescription(ad)) {
                 scoreCounter.getAndAdd(5);
+                if (hasFlatTypology(ad) && hasDescriptionLengthBetween20And49(ad)) {
+                    scoreCounter.getAndAdd(10);
+                }
             }
         };
+    }
+
+    private boolean hasDescriptionLengthBetween20And49(Ad ad) {
+        return ad.getDescription().length() > 20 && ad.getDescription().length() <= 49;
+    }
+
+    private boolean hasFlatTypology(Ad ad) {
+        return ad.getTypology().equals("FLAT");
     }
 
     private boolean hasDescription(Ad ad) {
