@@ -34,7 +34,7 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an ad without pictures When the score is calculated Then The score should be decreased in 10")
     void should_Calculate_The_Score_For_An_Ad_Without_Pictures() {
         //given
-        final Ad ad = createAdOfFlatTypologyWithShortDescription();
+        final Ad ad = createAdOfFlatTypologyWithShortDescriptionWithoutPictures();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -45,7 +45,7 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    @DisplayName("Given an ad with a HD picture When the score is calculated Then The score should be 20")
+    @DisplayName("Given an ad with a HD picture When the score is calculated Then The score should be increased in 20")
     public void should_Calculate_The_Score_For_An_Ad_With_HD_Picture() {
         //given
         final Ad ad = createAdWithASingleHDPicture();
@@ -59,7 +59,7 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    @DisplayName("Given an ad with three HD pictures When the score is calculated Then The score should be 60")
+    @DisplayName("Given an ad with three HD pictures When the score is calculated Then The score should be increased in 60")
     public void should_Calculate_The_Score_For_An_Ad_With_Three_HD_Picture() {
         //given
         final Ad ad = createAdWithAThreeHDPictures();
@@ -73,7 +73,7 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    @DisplayName("Given an ad with a SD pictures When the score is calculated Then The score should be 10")
+    @DisplayName("Given an ad with a SD pictures When the score is calculated Then The score should be increased in 10")
     public void should_Calculate_The_Score_For_An_Ad_With_A_SD_Picture() {
         //given
         final Ad ad = createAdWithASingleSDPicture();
@@ -87,52 +87,10 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    @DisplayName("Given an ad with a description When the score is calculated Then the score should be 5")
+    @DisplayName("Given an ad with a description When the score is calculated Then the score should be increased in 5")
     void should_Calculate_The_Score_For_An_Ad_With_Description() {
         //given
         final Ad ad = createAdWithDescription();
-
-        //when
-        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
-
-        //then
-        assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(5), calculatedScoreAd.getScore());
-    }
-
-    @Test
-    @DisplayName("Given an ad with a description with length between 20 and 49 and typology 'FLAT' When the score is calculated Then the score should be 15")
-    void should_Calculate_The_Score_For_An_Ad_With_Description_Between_20_And_49_And_Typology_Flat() {
-        //given
-        final Ad ad = createAdOfFlatTypologyWithShortDescription();
-
-        //when
-        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
-
-        //then
-        assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(15), calculatedScoreAd.getScore());
-    }
-
-    @Test
-    @DisplayName("Given an ad with a description with length greater than 50 and typology 'FLAT' When the score is calculated Then the score should be 35")
-    void should_Calculate_The_Score_For_An_Ad_With_Description_Greater_Than_50_And_Typology_Flat() {
-        //given
-        final Ad ad = createAdOfFlatTypologyWithLongDescription();
-
-        //when
-        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
-
-        //then
-        assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(35), calculatedScoreAd.getScore());
-    }
-
-    @Test
-    @DisplayName("Given an ad with a description with length greater than 50 and typology 'CHALET' When the score is calculated Then the score should be 35")
-    void should_Calculate_The_Score_For_An_Ad_With_Description_Greater_Than_50_And_Typology_Chalet() {
-        //given
-        final Ad ad = AdMother.createAdOfChaletTypologyWithLongDescription();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -143,7 +101,49 @@ public class ScoreCalculatorTest {
     }
 
     @Test
-    @DisplayName("Given an ad with a description that contains the word 'luminoso' When the score is calculated Then the score should be 10")
+    @DisplayName("Given an ad with a description with length between 20 and 49 and typology 'FLAT' When the score is calculated Then the score should be increased in 10")
+    void should_Calculate_The_Score_For_An_Ad_With_Description_Between_20_And_49_And_Typology_Flat() {
+        //given
+        final Ad ad = createAdOfFlatTypologyWithShortDescription();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(35), calculatedScoreAd.getScore());
+    }
+
+    @Test
+    @DisplayName("Given an ad with a description with length greater than 50 and typology 'FLAT' When the score is calculated Then the score should be increased in 30")
+    void should_Calculate_The_Score_For_An_Ad_With_Description_Greater_Than_50_And_Typology_Flat() {
+        //given
+        final Ad ad = createAdOfFlatTypologyWithLongDescription();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(55), calculatedScoreAd.getScore());
+    }
+
+    @Test
+    @DisplayName("Given an ad with a description with length greater than 50 and typology 'CHALET' When the score is calculated Then the score should be increased in 20")
+    void should_Calculate_The_Score_For_An_Ad_With_Description_Greater_Than_50_And_Typology_Chalet() {
+        //given
+        final Ad ad = AdMother.createAdOfChaletTypologyWithLongDescription();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(45), calculatedScoreAd.getScore());
+    }
+
+    @Test
+    @DisplayName("Given an ad with a description that contains a special word When the score is calculated Then the score should be increased in 5")
     void should_Calculate_The_Score_For_An_Ad_With_Description_That_Contains_A_Special_Word() {
         //given
         final Ad ad = createAdWithSpecialWordInDescription();
@@ -153,7 +153,7 @@ public class ScoreCalculatorTest {
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(10), calculatedScoreAd.getScore());
+        assertEquals(Integer.valueOf(30), calculatedScoreAd.getScore());
     }
 
     @Test
@@ -167,7 +167,7 @@ public class ScoreCalculatorTest {
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(25), calculatedScoreAd.getScore());
+        assertEquals(Integer.valueOf(45), calculatedScoreAd.getScore());
     }
 
     @Test

@@ -29,27 +29,31 @@ public class AdMother {
     }
 
     public static Ad createAdWithDescription(){
-        return new Ad(new AdIdentifer(1), null, "This is a description", null, null, null, null, null);
+        return new Ad(new AdIdentifer(1), null, "This is a description", Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
     }
 
     public static Ad createAdOfFlatTypologyWithShortDescription(){
+        return new Ad(new AdIdentifer(1), "FLAT", "This is a description", Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
+    }
+
+    public static Ad createAdOfFlatTypologyWithShortDescriptionWithoutPictures(){
         return new Ad(new AdIdentifer(1), "FLAT", "This is a description", null, null, null, null, null);
     }
 
     public static Ad createAdOfFlatTypologyWithLongDescription(){
-        return new Ad(new AdIdentifer(1), "FLAT", "This is a description too much long to check the score calculator", null, null, null, null, null);
+        return new Ad(new AdIdentifer(1), "FLAT", "This is a description too much long to check the score calculator", Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
     }
 
     public static Ad createAdOfChaletTypologyWithLongDescription(){
-        return new Ad(new AdIdentifer(1), "CHALET", "This is a description too much long to check the score calculator", null, null, null, null, null);
+        return new Ad(new AdIdentifer(1), "CHALET", "This is a description too much long to check the score calculator", Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
     }
 
     public static Ad createAdWithSpecialWordInDescription(){
-        return new Ad(new AdIdentifer(1), "FLAT", "This is so luminoso", null, null, null, null, null);
+        return new Ad(new AdIdentifer(1), "FLAT", "This is so luminoso", Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
     }
 
     public static Ad createAdWithMultipleSpecialWordsInDescription(){
-        return new Ad(new AdIdentifer(1), "FLAT", "Contains luminoso and reformado", null, null, null, null, null);
+        return new Ad(new AdIdentifer(1), "FLAT", "Contains luminoso and reformado", Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
     }
 
     public static Ad createCompleteAdWithFlatTypology() {
