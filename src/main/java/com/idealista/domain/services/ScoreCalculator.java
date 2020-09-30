@@ -3,6 +3,7 @@ package com.idealista.domain.services;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public final class ScoreCalculator {
 
@@ -47,9 +48,14 @@ public final class ScoreCalculator {
     }
 
     private void increaseScoreWhenDescriptionContainsSpecialWords(AtomicInteger scoreCounter, Ad ad) {
+        final Predicate<String> containsLuminoso = s -> s.equalsIgnoreCase("LUMINOSO");
+        final Predicate<String> containsNuevo = s -> s.equalsIgnoreCase("NUEVO");
+        final Predicate<String> containsCentrico = s -> s.equalsIgnoreCase("CENTRICO");
+        final Predicate<String> containsReformado = s -> s.equalsIgnoreCase("REFORMADO");
+        final Predicate<String> containsAtico = s -> s.equalsIgnoreCase("ATICO");
         final long specialWordCounter = Arrays.stream(ad.getDescription().split(" "))
                 .distinct()
-                .filter(s -> s.equalsIgnoreCase("LUMINOSO"))
+                .filter(containsLuminoso.or(containsNuevo).or(containsCentrico).or(containsReformado).or(containsAtico))
                 .count();
         scoreCounter.getAndAdd(Long.valueOf(specialWordCounter * SPECIAL_WORD_FACTOR).intValue());
     }
