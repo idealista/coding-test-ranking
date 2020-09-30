@@ -20,14 +20,14 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an ad without pictures When the score is calculated Then The score should be decreased in 10")
     void should_Calculate_The_Score_For_An_Ad_Without_Pictures() {
         //given
-        final Ad ad = createAdWithASingleHDPicture();
+        final Ad ad = createAdOfFlatTypologyWithShortDescription();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(10), calculatedScoreAd.getScore());
+        assertEquals(Integer.valueOf(5), calculatedScoreAd.getScore());
     }
 
     @Test
