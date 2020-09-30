@@ -53,15 +53,20 @@ public final class ScoreCalculator {
         return ad.getPictures().size() >= 1;
     }
 
-    public Consumer<Ad> calculateScoreForPictures(final AtomicInteger scoreCounter){
-        return ad -> ad.getPictures().forEach(p -> {
-            //TODO add condition for ad without pictures
-            if (hasHighResolutionPicture(p)) {
-                scoreCounter.getAndAdd(PICTURE_HD_SCORE);
+    public Consumer<Ad> calculateScoreForPictures(final AtomicInteger scoreCounter) {
+        return ad -> {
+            if (ad.getPictures().isEmpty()) {
+                scoreCounter.updateAndGet(score -> score - 10);
             } else {
-                scoreCounter.getAndAdd(PICTURE_SD_SCORE);
+                ad.getPictures().forEach(p -> {
+                    if (hasHighResolutionPicture(p)) {
+                        scoreCounter.getAndAdd(PICTURE_HD_SCORE);
+                    } else {
+                        scoreCounter.getAndAdd(PICTURE_SD_SCORE);
+                    }
+                });
             }
-        });
+        };
     }
 
     public Consumer<Ad> calculateScoreForDescription(final AtomicInteger scoreCounter) {
