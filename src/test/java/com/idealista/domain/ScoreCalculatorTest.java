@@ -1,7 +1,7 @@
 package com.idealista.domain;
 
+import com.idealista.domain.mothers.AdMother;
 import com.idealista.domain.services.Ad;
-import com.idealista.domain.services.AdIdentifer;
 import com.idealista.domain.services.ScoreCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -62,7 +62,7 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an ad with a description When the score is calculated Then the score should be 5")
     void should_Calculate_The_Score_For_An_Ad_With_Description() {
         //given
-        final Ad ad = new Ad(new AdIdentifer(1), null, "This is a description", null, null, null, null, null);
+        final Ad ad = createAdWithDescription();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -76,7 +76,7 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an ad with a description with length between 20 and 49 and typology 'FLAT' When the score is calculated Then the score should be 15")
     void should_Calculate_The_Score_For_An_Ad_With_Description_Between_20_And_49_And_Typology_Flat() {
         //given
-        final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "This is a description", null, null, null, null, null);
+        final Ad ad = createAdOfFlatTypologyWithShortDescription();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -90,7 +90,7 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an ad with a description with length greater than 50 and typology 'FLAT' When the score is calculated Then the score should be 35")
     void should_Calculate_The_Score_For_An_Ad_With_Description_Greater_Than_50_And_Typology_Flat() {
         //given
-        final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "This is a description too much long to check the score calculator", null, null, null, null, null);
+        final Ad ad = createAdOfFlatTypologyWithLongDescription();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -104,7 +104,7 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an ad with a description with length greater than 50 and typology 'CHALET' When the score is calculated Then the score should be 35")
     void should_Calculate_The_Score_For_An_Ad_With_Description_Greater_Than_50_And_Typology_Chalet() {
         //given
-        final Ad ad = new Ad(new AdIdentifer(1), "CHALET", "This is a description too much long to check the score calculator", null, null, null, null, null);
+        final Ad ad = AdMother.createAdOfChaletTypologyWithLongDescription();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -118,7 +118,7 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an ad with a description that contains the word 'luminoso' When the score is calculated Then the score should be 10")
     void should_Calculate_The_Score_For_An_Ad_With_Description_That_Contains_A_Special_Word() {
         //given
-        final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "This is so luminoso", null, null, null, null, null);
+        final Ad ad = createAdWithSpecialWordInDescription();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -132,7 +132,7 @@ public class ScoreCalculatorTest {
     @DisplayName("Given an ad with a description that contains two special When the score is calculated Then the score should be increased in 5 for each word.")
     void should_Calculate_The_Score_For_An_Ad_With_Description_That_Contains_Two_Special_Words() {
         //given
-        final Ad ad = new Ad(new AdIdentifer(1), "FLAT", "Contains luminoso and reformado", null, null, null, null, null);
+        final Ad ad = createAdWithMultipleSpecialWordsInDescription();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -141,6 +141,5 @@ public class ScoreCalculatorTest {
         assertNotNull(calculatedScoreAd);
         assertEquals(Integer.valueOf(25), calculatedScoreAd.getScore());
     }
-
 
 }
