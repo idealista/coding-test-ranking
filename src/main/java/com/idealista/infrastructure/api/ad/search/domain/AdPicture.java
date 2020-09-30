@@ -1,11 +1,11 @@
-package com.idealista.infrastructure.persistence;
+package com.idealista.infrastructure.api.ad.search.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static com.idealista.infrastructure.persistence.PictureQuality.HD;
+import static com.idealista.infrastructure.api.ad.search.domain.PictureQuality.HD;
 
 @Data
 @Builder
