@@ -17,6 +17,20 @@ public class ScoreCalculatorTest {
     private final ScoreCalculator scoreCalculator = new ScoreCalculator();
 
     @Test
+    @DisplayName("Given an ad without properties to obtain score and without pictures When the score is calculated Then The score should be 0")
+    void should_Calculate_The_Score_For_An_Ad_Without_Properties_To_Obtain_Score() {
+        //given
+        final Ad ad = createAdWithoutPictures();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertEquals(Integer.valueOf(0), calculatedScoreAd.getScore());
+    }
+
+    @Test
     @DisplayName("Given an ad without pictures When the score is calculated Then The score should be decreased in 10")
     void should_Calculate_The_Score_For_An_Ad_Without_Pictures() {
         //given
