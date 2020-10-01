@@ -1,9 +1,6 @@
-package com.idealista.infrastructure;
+package com.idealista.infrastructure.persistence;
 
-import com.idealista.infrastructure.config.RepositoryTest;
-import com.idealista.infrastructure.persistence.AdVO;
-import com.idealista.infrastructure.persistence.InMemoryPersistence;
-import com.idealista.infrastructure.persistence.PictureVO;
+import com.idealista.infrastructure.persistence.config.RepositoryTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

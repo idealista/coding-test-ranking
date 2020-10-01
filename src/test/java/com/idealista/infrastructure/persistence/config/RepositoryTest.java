@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.config;
+package com.idealista.infrastructure.persistence.config;
 
 import org.springframework.test.context.ContextConfiguration;
 
