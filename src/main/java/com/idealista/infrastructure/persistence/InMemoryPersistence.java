@@ -53,8 +53,12 @@ public class InMemoryPersistence {
         return new ArrayList<>(ads.values());
     }
 
-
     public void updateAd(AdVO updatedAd) {
         ads.put(updatedAd.getId(), updatedAd);
+    }
+
+
+    public PictureVO findPictureById(final Integer id) {
+        return pictures.get(id);
     }
 }

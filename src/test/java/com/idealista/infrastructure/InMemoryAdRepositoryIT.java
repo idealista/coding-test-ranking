@@ -3,6 +3,7 @@ package com.idealista.infrastructure;
 import com.idealista.infrastructure.config.RepositoryTest;
 import com.idealista.infrastructure.persistence.AdVO;
 import com.idealista.infrastructure.persistence.InMemoryPersistence;
+import com.idealista.infrastructure.persistence.PictureVO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,15 @@ public class InMemoryAdRepositoryIT {
         final AdVO updatedAd = inMemoryPersistence.findById(1);
         assertNotNull(updatedAd);
         assertEquals(20, updatedAd.getScore());
+    }
+
+    @Test
+    void shouldRetrievedAPictureById() {
+        //when
+        final PictureVO storedPicture = inMemoryPersistence.findPictureById(1);
+
+        //then
+        assertNotNull(storedPicture);
+        assertEquals(1, storedPicture.getId());
     }
 }
