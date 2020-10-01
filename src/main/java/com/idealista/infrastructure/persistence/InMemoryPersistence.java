@@ -45,8 +45,16 @@ public class InMemoryPersistence {
         };
     }
 
+    public AdVO findById(final Integer id) {
+        return ads.get(id);
+    }
+
     public List<AdVO> findAllAds() {
         return new ArrayList<>(ads.values());
     }
 
+
+    public void updateAd(AdVO updatedAd) {
+        ads.put(updatedAd.getId(), updatedAd);
+    }
 }
