@@ -1,4 +1,4 @@
-package com.idealista.domain.services;
+package com.idealista.domain;
 
 import java.util.Objects;
 

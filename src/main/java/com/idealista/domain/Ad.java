@@ -1,8 +1,9 @@
-package com.idealista.domain.services;
+package com.idealista.domain;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import static java.util.Collections.emptyList;
 import static java.util.Collections.unmodifiableList;
@@ -10,7 +11,7 @@ import static java.util.Collections.unmodifiableList;
 public final class Ad {
 
     private final AdIdentifer id;
-    private final String typology;
+    private final Optional<Typology> typology;
     private final String description;
     private final List<Picture> pictures;
     private final Integer houseSize;
@@ -20,7 +21,18 @@ public final class Ad {
 
     public Ad(AdIdentifer id, String typology, String description, List<Picture> pictures, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
         this.id = id;
-        this.typology = null == typology ? "" : typology;
+        this.typology = Typology.find(typology);
+        this.description = null == description ? "" : description;
+        this.pictures = null == pictures ? emptyList() : unmodifiableList(pictures);
+        this.houseSize = houseSize;
+        this.gardenSize = gardenSize;
+        this.score = score;
+        this.irrelevantSince = irrelevantSince;
+    }
+
+    public Ad(AdIdentifer id, Optional<Typology> typology, String description, List<Picture> pictures, Integer houseSize, Integer gardenSize, Integer score, Date irrelevantSince) {
+        this.id = id;
+        this.typology = typology;
         this.description = null == description ? "" : description;
         this.pictures = null == pictures ? emptyList() : unmodifiableList(pictures);
         this.houseSize = houseSize;
@@ -37,8 +49,8 @@ public final class Ad {
         return id;
     }
 
-    public String getTypology() {
-        return typology;
+    public Typology getTypology() {
+        return typology.orElse(Typology.EMPTY);
     }
 
     public String getDescription() {

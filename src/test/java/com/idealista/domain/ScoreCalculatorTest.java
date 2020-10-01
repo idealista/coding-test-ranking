@@ -1,14 +1,13 @@
 package com.idealista.domain;
 
 import com.idealista.domain.mothers.AdMother;
-import com.idealista.domain.services.Ad;
 import com.idealista.domain.services.ScoreCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.idealista.domain.mothers.AdMother.*;
-import static com.idealista.domain.services.ScoreCalculator.PICTURE_HD_SCORE;
-import static com.idealista.domain.services.ScoreCalculator.PICTURE_SD_SCORE;
+import static com.idealista.domain.accumulators.PicturesScoreAccumulator.PICTURE_HD_SCORE;
+import static com.idealista.domain.accumulators.PicturesScoreAccumulator.PICTURE_SD_SCORE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 

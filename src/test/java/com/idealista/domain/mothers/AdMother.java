@@ -1,10 +1,11 @@
 package com.idealista.domain.mothers;
 
-import com.idealista.domain.services.Ad;
-import com.idealista.domain.services.AdIdentifer;
-import com.idealista.domain.services.Picture;
+import com.idealista.domain.Ad;
+import com.idealista.domain.AdIdentifer;
+import com.idealista.domain.Picture;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -29,7 +30,7 @@ public class AdMother {
     }
 
     public static Ad createAdWithDescription(){
-        return new Ad(new AdIdentifer(1), null, "This is a description", Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
+        return new Ad(new AdIdentifer(1), Optional.empty(), "This is a description", Collections.singletonList(new Picture(1, "http://this-is-a-url.com", "HD")), null, null, null, null);
     }
 
     public static Ad createAdOfFlatTypologyWithShortDescription(){

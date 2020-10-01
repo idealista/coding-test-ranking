@@ -1,8 +1,8 @@
-package com.idealista.domain.services;
+package com.idealista.domain;
 
 import java.util.Objects;
 
-public class AdIdentifer {
+public final class AdIdentifer {
 
     private final Integer value;
 
