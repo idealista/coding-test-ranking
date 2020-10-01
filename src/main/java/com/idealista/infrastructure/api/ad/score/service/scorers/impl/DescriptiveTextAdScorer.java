@@ -6,7 +6,7 @@ import com.idealista.infrastructure.api.ad.search.domain.Ad;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 
 @Component
 @RequiredArgsConstructor
@@ -16,6 +16,9 @@ public class DescriptiveTextAdScorer implements AdScorer {
 
     @Override
     public Integer getScore(Ad ad) {
-        return isBlank(ad.getDescription()) ? 0 : adDescriptionScoreConfiguration.getScore();
+        if (ad.getDescription().isPresent() && isNotEmpty(ad.getDescription().get())) {
+            return adDescriptionScoreConfiguration.getScore();
+        }
+        return 0;
     }
 }

@@ -18,12 +18,15 @@ public class DescriptionWordLengthAdScorer implements AdScorer {
 
     @Override
     public Integer getScore(Ad ad) {
-        Integer descriptionWordCount = countWords(ad.getDescription());
-        return wordRangeByTypologyConfiguration.getWordRangesByAdTypology(ad.getTypology()).stream()
-            .filter(wordRange -> wordRange.isWordCountWithinRange(descriptionWordCount))
-            .findFirst()
-            .orElse(WordRange.builder().score(0).build())
-            .getScore();
+        if (ad.getDescription().isPresent()){
+            Integer descriptionWordCount = countWords(ad.getDescription().get());
+            return wordRangeByTypologyConfiguration.getWordRangesByAdTypology(ad.getTypology()).stream()
+                .filter(wordRange -> wordRange.isWordCountWithinRange(descriptionWordCount))
+                .findFirst()
+                .orElse(WordRange.builder().score(0).build())
+                .getScore();
+        }
+        return 0;
     }
 
     private Integer countWords(String description){

@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.api.ad.score.service;
+package com.idealista.infrastructure.api.ad.score.service.scorers;
 
 import com.idealista.infrastructure.api.ad.score.configuration.AdDescriptionScoreConfiguration;
 import com.idealista.infrastructure.api.ad.score.service.scorers.AdScorer;
@@ -6,6 +6,8 @@ import com.idealista.infrastructure.api.ad.score.service.scorers.impl.Descriptiv
 import com.idealista.infrastructure.api.ad.search.domain.Ad;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static com.idealista.infrastructure.api.ad.search.domain.AdTestData.emptyAd;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -38,9 +40,9 @@ public class DescriptiveTextAdScorerTest {
     }
 
     @Test
-    public void givenNoDescription_whenGetScore_thenExpectPoints(){
+    public void givenDescription_whenGetScore_thenExpectPoints(){
         //given
-        Ad adWithDescription = emptyAd().description("Test Description").build();
+        Ad adWithDescription = emptyAd().description(Optional.of("Test Description")).build();
         Integer descriptiveTextScore = 5;
         adDescriptionScoreConfiguration.setScore(descriptiveTextScore);
 

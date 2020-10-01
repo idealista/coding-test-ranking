@@ -19,7 +19,7 @@ public class Ad {
 
     private Integer id;
     private AdTypology typology;
-    private String description;
+    private Optional<String> description;
     private List<AdPicture> adPictures;
     private Optional<Integer> houseSize;
     private Optional<Integer> gardenSize;

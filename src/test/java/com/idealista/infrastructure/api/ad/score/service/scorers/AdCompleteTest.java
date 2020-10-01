@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.api.ad.score.service;
+package com.idealista.infrastructure.api.ad.score.service.scorers;
 
 import com.idealista.infrastructure.api.ad.score.configuration.AdCompleteScoreConfiguration;
 import com.idealista.infrastructure.api.ad.score.service.scorers.AdScorer;
@@ -38,7 +38,7 @@ public class AdCompleteTest {
     public void givenIncompleteFlat_whenGetScore_expectNoPoints(){
         //given
         Ad incompleteAd = flat()
-            .description(LoremIpsum.getInstance().getWords(1))
+            .description(Optional.of(LoremIpsum.getInstance().getWords(1)))
             .adPictures(Arrays.asList(emptyAdPicture().build()))
             .houseSize(Optional.empty())
             .build();
@@ -55,7 +55,7 @@ public class AdCompleteTest {
     public void givenCompleteFlat_whenGetScore_expectCompleteAdScore(){
         //given
         Ad incompleteAd = flat()
-            .description(LoremIpsum.getInstance().getWords(1))
+            .description(Optional.of(LoremIpsum.getInstance().getWords(1)))
             .adPictures(Arrays.asList(emptyAdPicture().build()))
             .houseSize(Optional.of(100))
             .build();
@@ -72,9 +72,8 @@ public class AdCompleteTest {
     public void givenIncompleteChalet_whenGetScore_expectNoPoints(){
         //given
         Ad incompleteAd = chalet()
-            .description(LoremIpsum.getInstance().getWords(1))
+            .description(Optional.of(LoremIpsum.getInstance().getWords(1)))
             .adPictures(Arrays.asList(emptyAdPicture().build()))
-            .gardenSize(Optional.empty())
             .build();
         Integer expectedScore = 0;
 
@@ -89,7 +88,7 @@ public class AdCompleteTest {
     public void givenCompleteChalet_whenGetScore_expectCompleteAdScore(){
         //given
         Ad incompleteAd = chalet()
-            .description(LoremIpsum.getInstance().getWords(1))
+            .description(Optional.of(LoremIpsum.getInstance().getWords(1)))
             .adPictures(Arrays.asList(emptyAdPicture().build()))
             .gardenSize(Optional.of(100))
             .houseSize(Optional.of(100))

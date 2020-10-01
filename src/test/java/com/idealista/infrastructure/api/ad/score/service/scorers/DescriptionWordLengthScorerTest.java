@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.api.ad.score.service;
+package com.idealista.infrastructure.api.ad.score.service.scorers;
 
 import com.idealista.infrastructure.api.ad.score.configuration.WordRangeByTypologyConfiguration;
 import com.idealista.infrastructure.api.ad.score.service.scorers.AdScorer;
@@ -10,10 +10,7 @@ import com.thedeanda.lorem.LoremIpsum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static com.idealista.infrastructure.api.ad.search.domain.AdTestData.flat;
 import static com.idealista.infrastructure.api.ad.search.domain.AdTypology.FLAT;
@@ -37,7 +34,7 @@ public class DescriptionWordLengthScorerTest {
     public void givenWordsOutOfRanges_whenGetScore_expectNoPoints(){
         //when
         String adDescriptionWithFewWords = LoremIpsum.getInstance().getWords(1);
-        Ad adWithFewWords = flat().description(adDescriptionWithFewWords).build();
+        Ad adWithFewWords = flat().description(Optional.of(adDescriptionWithFewWords)).build();
         WordRange wordRange = new WordRange(20, 40, 10);
         Map<AdTypology, List<WordRange>> wordRangeByTypology = new HashMap<AdTypology, List<WordRange>>() {{
             put(FLAT, Arrays.asList(wordRange));
@@ -57,7 +54,7 @@ public class DescriptionWordLengthScorerTest {
     public void givenWordsInRanges_whenGetScore_expectPoints(){
         //when
         String adDescriptionWithFewWords = LoremIpsum.getInstance().getWords(30);
-        Ad adWithFewWords = flat().description(adDescriptionWithFewWords).build();
+        Ad adWithFewWords = flat().description(Optional.of(adDescriptionWithFewWords)).build();
         Integer score = 10;
         WordRange wordRange = new WordRange(20, 40, score);
         Map<AdTypology, List<WordRange>> wordRangeByTypology = new HashMap<AdTypology, List<WordRange>>() {{

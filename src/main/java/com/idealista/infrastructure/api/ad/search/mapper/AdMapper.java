@@ -18,7 +18,7 @@ public class AdMapper {
         return AdVO.builder()
             .id(ad.getId())
             .typology(ad.getTypology().name())
-            .description(ad.getDescription())
+            .description(ad.getDescription().orElse(null))
             .gardenSize(ad.getGardenSize().orElse(null))
             .houseSize(ad.getHouseSize().orElse(null))
             .adQuality(ad.getAdQuality().name())
@@ -30,7 +30,7 @@ public class AdMapper {
 
     public static Ad adVOToAd(AdVO adVo){
         return Ad.builder()
-            .description(adVo.getDescription())
+            .description(Optional.ofNullable(adVo.getDescription()))
             .gardenSize(Optional.ofNullable(adVo.getGardenSize()))
             .houseSize(Optional.ofNullable(adVo.getHouseSize()))
             .irrelevantSince(Optional.ofNullable(adVo.getIrrelevantSince()))
@@ -51,7 +51,7 @@ public class AdMapper {
     public static AdResponse adToAdResponse(Ad ad){
         return AdResponse.builder()
             .id(ad.getId())
-            .description(ad.getDescription())
+            .description(ad.getDescription().orElse(null))
             .gardenSize(ad.getGardenSize().orElse(null))
             .houseSize(ad.getHouseSize().orElse(null))
             .irrelevantSince(ad.getIrrelevantSince().orElse(null))

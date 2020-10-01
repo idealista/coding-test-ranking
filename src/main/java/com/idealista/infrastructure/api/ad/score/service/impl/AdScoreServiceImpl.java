@@ -10,6 +10,7 @@ import com.idealista.infrastructure.api.ad.search.domain.AdQuality;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Clock;
 import java.time.Instant;
 import java.util.*;
 
@@ -23,6 +24,7 @@ public class AdScoreServiceImpl implements AdScoreService {
     private final AdScoreConfiguration adScoreConfiguration;
     private final AdSearchRepositoryAdapter adSearchRepositoryAdapter;
     private final AdUpdateRepositoryAdapter adUpdateRepositoryAdapter;
+    private final Clock clock;
 
     @Override
     public void calculateAdsScore() {
@@ -37,7 +39,7 @@ public class AdScoreServiceImpl implements AdScoreService {
         AdQuality adQuality = adScoreConfiguration.getAdQuality(score);
         ad.setAdQuality(adQuality);
         if (adQuality.equals(IRRELEVANT)){
-            ad.setIrrelevantSince(Optional.of(Date.from(Instant.now())));
+            ad.setIrrelevantSince(Optional.of(Date.from(clock.instant())));
         }
     }
 

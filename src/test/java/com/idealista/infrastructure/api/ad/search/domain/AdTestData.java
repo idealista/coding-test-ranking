@@ -1,12 +1,20 @@
 package com.idealista.infrastructure.api.ad.search.domain;
 
+import java.util.Collections;
+import java.util.Optional;
+
 import static com.idealista.infrastructure.api.ad.search.domain.AdQuality.*;
 import static com.idealista.infrastructure.api.ad.search.domain.AdTypology.*;
 
 public class AdTestData {
 
     public static Ad.AdBuilder emptyAd(){
-        return Ad.builder();
+        return Ad.builder()
+            .description(Optional.empty())
+            .houseSize(Optional.empty())
+            .adPictures(Collections.emptyList())
+            .gardenSize(Optional.empty())
+            .irrelevantSince(Optional.empty());
     }
 
     public static Ad.AdBuilder irrelevantAd(){

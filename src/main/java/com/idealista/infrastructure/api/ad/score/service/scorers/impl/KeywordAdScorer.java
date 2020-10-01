@@ -20,12 +20,15 @@ public class KeywordAdScorer implements AdScorer {
 
     @Override
     public Integer getScore(Ad ad) {
-        String normalizedDescription = normalize(ad.getDescription());
-        Long matchingKeywordsCount = getTokenizedDescription(normalizedDescription).parallelStream()
+        if (ad.getDescription().isPresent()) {
+            String normalizedDescription = normalize(ad.getDescription().get());
+            Long matchingKeywordsCount = getTokenizedDescription(normalizedDescription).parallelStream()
                 .distinct()
                 .filter(keywordScoreConfiguration.getKeywords()::contains)
                 .count();
-        return matchingKeywordsCount.intValue() * keywordScoreConfiguration.getScore();
+            return matchingKeywordsCount.intValue() * keywordScoreConfiguration.getScore();
+        }
+        return 0;
     }
 
     private List<String> getTokenizedDescription(String description){

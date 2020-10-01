@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.api.ad.score.service;
+package com.idealista.infrastructure.api.ad.score.service.scorers;
 
 import com.idealista.infrastructure.api.ad.score.configuration.KeywordScoreConfiguration;
 import com.idealista.infrastructure.api.ad.score.service.scorers.AdScorer;
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static com.idealista.infrastructure.api.ad.search.domain.AdTestData.emptyAd;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,7 +38,7 @@ public class KeywordAdScorerTest {
         keywordScoreConfiguration.setKeywords(keywords);
         keywordScoreConfiguration.setScore(score);
 
-        Ad adWithNoKeywords = emptyAd().description(LoremIpsum.getInstance().getWords(5)).build();
+        Ad adWithNoKeywords = emptyAd().description(Optional.of(LoremIpsum.getInstance().getWords(5))).build();
 
         //when
         Integer actualScore = keywordAdScorer.getScore(adWithNoKeywords);
@@ -56,7 +57,7 @@ public class KeywordAdScorerTest {
         keywordScoreConfiguration.normalizeKeywords();
         keywordScoreConfiguration.setScore(score);
 
-        Ad adWithKeywords = emptyAd().description("keyword anotherKeyword yetAnotherKeyword").build();
+        Ad adWithKeywords = emptyAd().description(Optional.of("keyword anotherKeyword yetAnotherKeyword")).build();
 
         //when
         Integer actualScore = keywordAdScorer.getScore(adWithKeywords);

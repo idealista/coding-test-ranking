@@ -5,7 +5,7 @@ import com.idealista.infrastructure.api.ad.score.service.scorers.AdScorer;
 import com.idealista.infrastructure.api.ad.search.domain.Ad;
 import lombok.RequiredArgsConstructor;
 
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.logging.log4j.util.Strings.isNotEmpty;
 
 @RequiredArgsConstructor
 public abstract class AdCompleteAdScorer implements AdScorer {
@@ -27,7 +27,7 @@ public abstract class AdCompleteAdScorer implements AdScorer {
     protected abstract boolean isAdCategoryComplete(Ad ad);
 
     protected boolean hasAdDescription(Ad ad){
-        return isNotBlank(ad.getDescription());
+        return ad.getDescription().isPresent() && isNotEmpty(ad.getDescription().get());
     }
 
     protected boolean hasAtLeastOnePicture(Ad ad){

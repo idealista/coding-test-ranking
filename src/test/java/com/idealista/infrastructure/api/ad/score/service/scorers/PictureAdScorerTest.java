@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.api.ad.score.service;
+package com.idealista.infrastructure.api.ad.score.service.scorers;
 
 import com.idealista.infrastructure.api.ad.score.configuration.PictureAdScoreConfiguration;
 import com.idealista.infrastructure.api.ad.score.service.scorers.AdScorer;
@@ -40,7 +40,7 @@ public class PictureAdScorerTest {
     @Test
     public void givenNoAdPictures_whenGetScore_expectPenalty(){
         //given
-        Ad adWithNoPictures = emptyAd().adPictures(Collections.emptyList()).build();
+        Ad adWithNoPictures = emptyAd().build();
         Integer noPicturePenalty = -10;
 
         pictureAdScoreConfiguration.setNoPicturePenalty(noPicturePenalty);
