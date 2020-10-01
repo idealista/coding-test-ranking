@@ -3,15 +3,12 @@ package com.idealista.infrastructure.api.ad.score.service.scorers.impl;
 import com.idealista.infrastructure.api.ad.score.configuration.KeywordScoreConfiguration;
 import com.idealista.infrastructure.api.ad.score.service.scorers.AdScorer;
 import com.idealista.infrastructure.api.ad.search.domain.Ad;
-import com.idealista.infrastructure.utils.StringFormatterUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.stream.Collectors;
 
 import static com.idealista.infrastructure.utils.StringFormatterUtils.normalize;
 
