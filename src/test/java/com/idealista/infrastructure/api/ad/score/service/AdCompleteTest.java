@@ -40,6 +40,7 @@ public class AdCompleteTest {
         Ad incompleteAd = flat()
             .description(LoremIpsum.getInstance().getWords(1))
             .adPictures(Arrays.asList(emptyAdPicture().build()))
+            .houseSize(Optional.empty())
             .build();
         Integer expectedScore = 0;
 
@@ -56,7 +57,7 @@ public class AdCompleteTest {
         Ad incompleteAd = flat()
             .description(LoremIpsum.getInstance().getWords(1))
             .adPictures(Arrays.asList(emptyAdPicture().build()))
-            .houseSize(100)
+            .houseSize(Optional.of(100))
             .build();
         Integer expectedScore = adCompleteScoreConfiguration.getScore();
 
@@ -91,6 +92,7 @@ public class AdCompleteTest {
             .description(LoremIpsum.getInstance().getWords(1))
             .adPictures(Arrays.asList(emptyAdPicture().build()))
             .gardenSize(Optional.of(100))
+            .houseSize(Optional.of(100))
             .build();
         Integer expectedScore = adCompleteScoreConfiguration.getScore();
 

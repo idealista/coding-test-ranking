@@ -18,6 +18,6 @@ public class FlatAdCompleteAdScorer extends AdCompleteAdScorer {
         if (ad.isNotFlat()){
             return false;
         }
-        return !isNull(ad.getHouseSize());
+        return ad.getHouseSize().isPresent();
     }
 }

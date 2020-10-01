@@ -21,7 +21,7 @@ public class Ad {
     private AdTypology typology;
     private String description;
     private List<AdPicture> adPictures;
-    private Integer houseSize;
+    private Optional<Integer> houseSize;
     private Optional<Integer> gardenSize;
     private Integer score;
     private Optional<Date> irrelevantSince;
