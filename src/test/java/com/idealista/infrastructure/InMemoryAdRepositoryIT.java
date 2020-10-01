@@ -31,4 +31,18 @@ public class InMemoryAdRepositoryIT {
         assertFalse(allAds.isEmpty());
         assertEquals(8, allAds.size());
     }
+
+    @Test
+    void shouldUpdateAListOfAds() {
+        //given
+        final AdVO adWithScore = new AdVO(1, "CHALET", "Este piso es una ganga, compra, compra, COMPRA!!!!!", emptyList(), 300, null, 20, null);
+
+        //when
+        inMemoryPersistence.updateAd(adWithScore);
+
+        //then
+        final AdVO updatedAd = inMemoryPersistence.findById(1);
+        assertNotNull(updatedAd);
+        assertEquals(20, updatedAd.getScore());
+    }
 }
