@@ -5,21 +5,30 @@ import com.idealista.domain.services.ScoreCalculator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.idealista.domain.mothers.AdMother.*;
+import java.sql.Date;
+import java.time.Clock;
+import java.time.Instant;
+
 import static com.idealista.domain.accumulators.PicturesScoreAccumulator.PICTURE_HD_SCORE;
 import static com.idealista.domain.accumulators.PicturesScoreAccumulator.PICTURE_SD_SCORE;
+import static com.idealista.domain.mothers.AdMother.*;
+import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ScoreCalculatorTest {
 
-    private final ScoreCalculator scoreCalculator = new ScoreCalculator();
+    private final Clock clock = mock(Clock.class);
+    private final ScoreCalculator scoreCalculator = new ScoreCalculator(clock);
 
     @Test
     @DisplayName("Given an ad without properties to obtain score and without pictures When the score is calculated Then The score should be 0")
     void should_Calculate_The_Score_For_An_Ad_Without_Properties_To_Obtain_Score() {
         //given
         final Ad ad = createAdWithoutPictures();
+        mockInstantNowExecution();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -34,6 +43,7 @@ public class ScoreCalculatorTest {
     void should_Calculate_The_Score_For_An_Ad_Without_Pictures() {
         //given
         final Ad ad = createAdOfFlatTypologyWithShortDescriptionWithoutPictures();
+        mockInstantNowExecution();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -48,6 +58,7 @@ public class ScoreCalculatorTest {
     public void should_Calculate_The_Score_For_An_Ad_With_HD_Picture() {
         //given
         final Ad ad = createAdWithASingleHDPicture();
+        mockInstantNowExecution();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -76,6 +87,7 @@ public class ScoreCalculatorTest {
     public void should_Calculate_The_Score_For_An_Ad_With_A_SD_Picture() {
         //given
         final Ad ad = createAdWithASingleSDPicture();
+        mockInstantNowExecution();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -90,6 +102,7 @@ public class ScoreCalculatorTest {
     void should_Calculate_The_Score_For_An_Ad_With_Description() {
         //given
         final Ad ad = createAdWithDescription();
+        mockInstantNowExecution();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -104,6 +117,7 @@ public class ScoreCalculatorTest {
     void should_Calculate_The_Score_For_An_Ad_With_Description_Between_20_And_49_And_Typology_Flat() {
         //given
         final Ad ad = createAdOfFlatTypologyWithShortDescription();
+        mockInstantNowExecution();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -146,6 +160,7 @@ public class ScoreCalculatorTest {
     void should_Calculate_The_Score_For_An_Ad_With_Description_That_Contains_A_Special_Word() {
         //given
         final Ad ad = createAdWithSpecialWordInDescription();
+        mockInstantNowExecution();
 
         //when
         final Ad calculatedScoreAd = scoreCalculator.execute(ad);
@@ -209,5 +224,27 @@ public class ScoreCalculatorTest {
         //then
         assertNotNull(calculatedScoreAd);
         assertEquals(Integer.valueOf(60), calculatedScoreAd.getScore());
+    }
+
+    @Test
+    @DisplayName("Given an ad When his score is less to 40 Then the date should be stored")
+    void should_Add_The_Date_Of_The_Execution_If_The_Score_Is_Irrelevant() {
+        //given
+        final Ad ad = new Ad(new AdIdentifer(1), "CHALET", "Este piso es una ganga, compra, compra, COMPRA!!!!!", emptyList(), 70, 25, null, null);
+        final Instant instant = mockInstantNowExecution();
+
+        //when
+        final Ad calculatedScoreAd = scoreCalculator.execute(ad);
+
+        //then
+        assertNotNull(calculatedScoreAd);
+        assertNotNull(calculatedScoreAd.getIrrelevantSince());
+        assertEquals(Date.from(instant), calculatedScoreAd.getIrrelevantSince());
+    }
+
+    private Instant mockInstantNowExecution() {
+        final Instant instant = Instant.now();
+        when(clock.instant()).thenReturn(instant);
+        return instant;
     }
 }
