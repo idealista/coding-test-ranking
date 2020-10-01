@@ -57,7 +57,6 @@ public class InMemoryPersistence {
         ads.put(updatedAd.getId(), updatedAd);
     }
 
-
     public PictureVO findPictureById(final Integer id) {
         return pictures.get(id);
     }
