@@ -2,10 +2,7 @@ package com.idealista.infrastructure.persistence;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -59,5 +56,9 @@ public class InMemoryPersistence {
 
     public PictureVO findPictureById(final Integer id) {
         return pictures.get(id);
+    }
+
+    public PictureVO findPictureByUrl(String url) {
+        return pictures.values().stream().filter(pictureVO -> pictureVO.getUrl().equals(url)).findFirst().get();
     }
 }

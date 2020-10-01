@@ -30,8 +30,8 @@ public class InMemoryCollectionStub implements AdsCollection {
     }
 
     @Override
-    public void updateAllAds(List<Ad> updatedAds) {
-        adStorage.addAll(updatedAds);
+    public void updateAllAds(Ad updatedAds) {
+        adStorage.add(updatedAds);
     }
 
     public List<Ad> getAllAds() {

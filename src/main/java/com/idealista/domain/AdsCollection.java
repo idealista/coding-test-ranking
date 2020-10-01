@@ -8,5 +8,5 @@ public interface AdsCollection {
 
     List<Ad> getAllAds();
 
-    void updateAllAds(List<Ad> updatedAds);
+    void updateAllAds(final Ad updatedAds);
 }
