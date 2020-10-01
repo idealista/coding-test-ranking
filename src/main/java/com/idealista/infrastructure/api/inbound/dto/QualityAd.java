@@ -1,4 +1,4 @@
-package com.idealista.infrastructure.api;
+package com.idealista.infrastructure.api.inbound.dto;
 
 import java.util.Date;
 import java.util.List;
