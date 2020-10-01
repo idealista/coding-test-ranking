@@ -12,7 +12,7 @@ public class StringFormatterUtils {
 
     /**
      * Normalizes the input string by removing accents, converting it to lower case, replacing all non-alphabetic
-     * characters by spaces and all trimming spaces.
+     * characters by spaces, trimming spaces and removing extra spaces.
      *
      * @param input
      * @return
