@@ -35,5 +35,7 @@ public class InMemoryPersistence {
         pictures.add(new PictureVO(8, "http://www.idealista.com/pictures/8", "HD"));
     }
 
-    //TODO crea los métodos que necesites
+    public List<AdVO> getAllAds() {
+        throw new UnsupportedOperationException("Not implemented");
+    }
 }
