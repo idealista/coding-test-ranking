@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class InMemoryCollectionStub implements AdsCollection {
 
-    private final List<Ad> adStorage = new ArrayList<>();
+    private List<Ad> adStorage = new ArrayList<>();
 
     @Override
     public List<Ad> getAllAdsWithScore() {
@@ -19,5 +19,15 @@ public class InMemoryCollectionStub implements AdsCollection {
     @Override
     public void saveAll(List<Ad> storedAds) {
         adStorage.addAll(storedAds);
+    }
+
+    @Override
+    public List<Ad> getAllAds() {
+        return adStorage;
+    }
+
+    @Override
+    public void updateAllAds(List<Ad> updatedAds) {
+        adStorage.addAll(updatedAds);
     }
 }

@@ -35,8 +35,8 @@ public class CalculateAdScoreTest {
         //then
         final List<Ad> allAdsWithCalculatedScore = adsCollection.getAllAdsWithScore();
         assertFalse(allAdsWithCalculatedScore.isEmpty());
-        allAdsWithCalculatedScore.forEach(ad -> {
-            assertNotNull(ad.getScore());
-        });
+        allAdsWithCalculatedScore.forEach(ad ->
+            assertNotNull(ad.getScore())
+        );
     }
 }
