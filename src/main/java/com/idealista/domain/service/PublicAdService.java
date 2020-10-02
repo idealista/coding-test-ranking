@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.idealista.infrastructure.api.PublicAd;
 
-public interface PublicAdsService {
+public interface PublicAdService {
 
 	List<PublicAd> getAds();
 

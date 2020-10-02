@@ -18,7 +18,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.idealista.domain.service.PublicAdsService;
+import com.idealista.domain.service.PublicAdService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -31,7 +31,7 @@ public class AdsControllerTest {
 	private MockMvc mock;
 	
 	@MockBean
-	private PublicAdsService publicAdService;
+	private PublicAdService publicAdService;
 	
 	@Test
 	public void whenPublicListingAndEmptyPublicAds_shouldReturnNoAds() throws Exception{
