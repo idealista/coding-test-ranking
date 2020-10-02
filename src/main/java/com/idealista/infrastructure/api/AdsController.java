@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.idealista.domain.service.PublicAdService;
 import com.idealista.domain.service.QualityAdService;
+import com.idealista.domain.service.ScoreAdService;
 
 @RequestMapping("/ads")
 @RestController
@@ -20,6 +22,9 @@ public class AdsController {
 	
 	@Autowired
 	private QualityAdService qualityAdService;
+	
+	@Autowired
+	private ScoreAdService scoreAdService;
 
     @GetMapping("/quality")
     public ResponseEntity<List<QualityAd>> qualityListing() {
@@ -31,9 +36,9 @@ public class AdsController {
         return ResponseEntity.ok(publicAdService.getAds());
     }
 
-    //TODO añade url del endpoint
+    @PostMapping("/score")
     public ResponseEntity<Void> calculateScore() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+        scoreAdService.calculateScore();
+        return ResponseEntity.noContent().build();
     }
 }

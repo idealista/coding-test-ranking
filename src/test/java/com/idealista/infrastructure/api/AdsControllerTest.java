@@ -1,9 +1,13 @@
 package com.idealista.infrastructure.api;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,6 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.idealista.domain.service.PublicAdService;
 import com.idealista.domain.service.QualityAdService;
+import com.idealista.domain.service.ScoreAdService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -36,6 +41,9 @@ public class AdsControllerTest {
 	
 	@MockBean
 	private QualityAdService qualityAdService;
+	
+	@MockBean
+	private ScoreAdService scoreAdService;
 	
 	@Test
 	public void whenPublicListingAndEmptyPublicAds_shouldReturnNoAds() throws Exception{
@@ -91,6 +99,18 @@ public class AdsControllerTest {
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(jsonPath("$").isArray())
 		.andExpect(jsonPath("$").value(hasSize(2)));
+	}
+	
+	@Test
+	public void whenCalculateScore_shouldRespondWithNoContentMessage() throws Exception {
+		mock.perform(post("/ads/score")).andExpect(status().isNoContent());
+	}
+	
+	@Test
+	public void whenCalculateScore_shouldCallCalculateScoreMethodFromScoreAdService() throws Exception {
+		mock.perform(post("/ads/score"));
+		
+		verify(scoreAdService, times(1)).calculateScore();
 	}
 
 }
