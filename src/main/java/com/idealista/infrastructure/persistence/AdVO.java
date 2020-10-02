@@ -5,7 +5,9 @@ import java.util.List;
 
 public class AdVO {
 
-    private Integer id;
+    private static final int RELEVANT_SCORE_THRESHOLD = 40;
+    
+	private Integer id;
     private String typology;
     private String description;
     private List<Integer> pictures;
@@ -90,4 +92,8 @@ public class AdVO {
     public void setIrrelevantSince(Date irrelevantSince) {
         this.irrelevantSince = irrelevantSince;
     }
+
+	public boolean isRelevant() {
+		return this.score >= RELEVANT_SCORE_THRESHOLD;
+	}
 }

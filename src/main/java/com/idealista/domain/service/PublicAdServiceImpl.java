@@ -22,7 +22,7 @@ public class PublicAdServiceImpl implements PublicAdService {
 	@Override
 	public List<PublicAd> getAds() {
 		return repository.getAds().stream()
-				.filter(ad -> ad.getScore() >= 40)
+				.filter(ad -> ad.isRelevant())
 				.map(ad -> mapper.adVOToPublicAd(ad))
 				.collect(Collectors.toList());
 	}

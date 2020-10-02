@@ -31,7 +31,6 @@ public class Generator {
 		}
 		return ads;
 	}
-	
 
 	@SafeVarargs
 	public static <T> List<T> joinLists(List<T>... lists) {

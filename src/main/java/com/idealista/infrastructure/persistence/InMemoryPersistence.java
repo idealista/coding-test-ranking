@@ -39,14 +39,15 @@ public class InMemoryPersistence implements AdRepository{
 
 	@Override
 	public List<AdVO> getAds() {
-		// TODO Auto-generated method stub
-		return null;
+		return ads;
 	}
 
 	@Override
 	public PictureVO findPictureById(int picId) {
-		// TODO Auto-generated method stub
-		return null;
+		return pictures.stream()
+				.filter(pic -> pic.getId() == picId)
+				.findFirst()
+				.get();
 	}
 
 
