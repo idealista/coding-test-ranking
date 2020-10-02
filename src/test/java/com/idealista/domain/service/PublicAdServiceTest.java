@@ -26,31 +26,31 @@ public class PublicAdServiceTest {
 	private PublicAdService service;
 	
 	@MockBean
-	private AdRepository publicAdRepository;
+	private AdRepository repository;
 
 	@Test
 	public void whenNoRelevantAds_shouldReturnEmptyList() {
-		when(publicAdRepository.getAds()).thenReturn(Collections.emptyList());
+		when(repository.getAds()).thenReturn(Collections.emptyList());
 		
 		assertEquals(Collections.emptyList(), service.getAds());
 	}
 	
 	@Test
 	public void whenThereAreTwoRelevantAds_shouldReturnTwoSizeList() {
-		List<AdVO> ads = Generator.generateRelevantsAdVOList(2);
+		List<AdVO> ads = Generator.generateRelevantAdsVOList(2);
 		
-		when(publicAdRepository.getAds()).thenReturn(ads);
+		when(repository.getAds()).thenReturn(ads);
 		
 		assertEquals(ads.size(), service.getAds().size());
 	}
 	
 	@Test
-	public void whenThereAreThreeRelevantAdsAndTwoIrrelevantsAds_shouldReturnThreeSizeList() {
-		List<AdVO> relevantAds = Generator.generateRelevantsAdVOList(2);
+	public void whenThereAreThreeRelevantAdsAndTwoIrrelevantAds_shouldReturnThreeSizeList() {
+		List<AdVO> relevantAds = Generator.generateRelevantAdsVOList(2);
 		List<AdVO> irrelevantAds = Generator.generateAdVOList(2);
 		List<AdVO> ads = Generator.joinLists(relevantAds, irrelevantAds);
 		
-		when(publicAdRepository.getAds()).thenReturn(ads);
+		when(repository.getAds()).thenReturn(ads);
 		
 		assertEquals(relevantAds.size(), service.getAds().size());
 	}

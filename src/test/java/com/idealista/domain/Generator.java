@@ -24,7 +24,7 @@ public class Generator {
 		return ads;
 	}
 
-	public static List<AdVO> generateRelevantsAdVOList(int number) {
+	public static List<AdVO> generateRelevantAdsVOList(int number) {
 		List<AdVO> ads = new ArrayList<AdVO>();
 		for(int i = 0; i<number; i++) {
 			ads.add(new AdVO(i, "", "", Collections.emptyList(), 0, 0, 40+i, new Date()));
@@ -37,6 +37,14 @@ public class Generator {
         return Arrays.stream(lists)
         		.flatMap(Collection::stream)
         		.collect(Collectors.toList()); 
+	}
+
+	public static List<AdVO> generateIrrelevantAdsVOList(int number) {
+		List<AdVO> ads = new ArrayList<AdVO>();
+		for(int i = 0; i<number; i++) {
+			ads.add(new AdVO(-i, "", "", Collections.emptyList(), 0, 0, 39-i, new Date()));
+		}
+		return ads;
 	}
 	
 }

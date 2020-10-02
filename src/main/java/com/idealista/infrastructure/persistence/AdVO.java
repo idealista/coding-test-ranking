@@ -94,6 +94,6 @@ public class AdVO {
     }
 
 	public boolean isRelevant() {
-		return this.score >= RELEVANT_SCORE_THRESHOLD;
+		return this.score >= RELEVANT_SCORE_THRESHOLD && this.score != null;
 	}
 }

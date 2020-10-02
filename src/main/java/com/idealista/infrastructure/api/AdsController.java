@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.idealista.domain.service.PublicAdService;
+import com.idealista.domain.service.QualityAdService;
 
 @RequestMapping("/ads")
 @RestController
@@ -16,11 +17,13 @@ public class AdsController {
 	
 	@Autowired
 	private PublicAdService publicAdService;
+	
+	@Autowired
+	private QualityAdService qualityAdService;
 
-    //TODO añade url del endpoint
+    @GetMapping("/quality")
     public ResponseEntity<List<QualityAd>> qualityListing() {
-        //TODO rellena el cuerpo del método
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(qualityAdService.getAds());
     }
 
     @GetMapping

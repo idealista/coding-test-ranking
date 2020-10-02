@@ -8,10 +8,11 @@ import org.springframework.stereotype.Component;
 
 import com.idealista.domain.repository.AdRepository;
 import com.idealista.infrastructure.api.PublicAd;
+import com.idealista.infrastructure.api.QualityAd;
 import com.idealista.infrastructure.persistence.AdVO;
 
 @Component
-public class AdVOPublicAdMapperImpl implements AdVOPublicAdMapper {
+public class AdMapperImpl implements AdMapper {
 
 	@Autowired
 	private AdRepository repository;
@@ -28,6 +29,20 @@ public class AdVOPublicAdMapperImpl implements AdVOPublicAdMapper {
 		return publicAd;
 	}
 
+	@Override
+	public QualityAd adVOToQualityAd(AdVO ad) {
+		QualityAd qualityAd = new QualityAd();
+		qualityAd.setId(ad.getId());
+		qualityAd.setTypology(ad.getTypology());
+		qualityAd.setDescription(ad.getDescription());
+		qualityAd.setPictureUrls(getPictureUrls(ad));
+		qualityAd.setHouseSize(ad.getHouseSize());
+		qualityAd.setGardenSize(ad.getGardenSize());
+		qualityAd.setScore(ad.getScore());
+		qualityAd.setIrrelevantSince(ad.getIrrelevantSince());
+		return qualityAd;
+	}
+
 	private List<String> getPictureUrls(AdVO ad) {
 		List<String> pictureUrls = new ArrayList<String>();
 		if(ad.getPictures()!=null) {
@@ -37,5 +52,4 @@ public class AdVOPublicAdMapperImpl implements AdVOPublicAdMapper {
 		}
 		return pictureUrls;
 	}
-
 }

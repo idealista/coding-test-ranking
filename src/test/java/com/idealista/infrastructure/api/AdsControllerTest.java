@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.idealista.domain.service.PublicAdService;
+import com.idealista.domain.service.QualityAdService;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -32,6 +33,9 @@ public class AdsControllerTest {
 	
 	@MockBean
 	private PublicAdService publicAdService;
+	
+	@MockBean
+	private QualityAdService qualityAdService;
 	
 	@Test
 	public void whenPublicListingAndEmptyPublicAds_shouldReturnNoAds() throws Exception{
@@ -55,6 +59,34 @@ public class AdsControllerTest {
 		when(publicAdService.getAds()).thenReturn(publicAds);
 		
 		mock.perform(get("/ads")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$").isArray())
+		.andExpect(jsonPath("$").value(hasSize(2)));
+	}
+	
+	@Test
+	public void whenQualityListingAndEmptyQualityAds_shouldReturnNoAds() throws Exception{
+		List<QualityAd> qualityAds = Collections.emptyList();
+		
+		when(qualityAdService.getAds()).thenReturn(qualityAds);
+		
+		mock.perform(get("/ads/quality")
+				.accept(MediaType.APPLICATION_JSON)
+				.contentType(MediaType.APPLICATION_JSON))
+		.andExpect(jsonPath("$").isArray())
+		.andExpect(jsonPath("$").value(hasSize(EMPTY_LIST_SIZE)));
+		
+	}
+	
+	@Test
+	public void whenQualityListing_shouldListAllTheQualityAds() throws Exception{
+		List<QualityAd> qualityAds = 
+				List.of(new QualityAd[]{new QualityAd(), new QualityAd()});
+		
+		when(qualityAdService.getAds()).thenReturn(qualityAds);
+		
+		mock.perform(get("/ads/quality")
 				.accept(MediaType.APPLICATION_JSON)
 				.contentType(MediaType.APPLICATION_JSON))
 		.andExpect(jsonPath("$").isArray())

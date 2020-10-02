@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.idealista.domain.mapper.AdVOPublicAdMapper;
+import com.idealista.domain.mapper.AdMapper;
 import com.idealista.domain.repository.AdRepository;
 import com.idealista.infrastructure.api.PublicAd;
 
@@ -17,7 +17,7 @@ public class PublicAdServiceImpl implements PublicAdService {
 	private AdRepository repository;
 	
 	@Autowired
-	private AdVOPublicAdMapper mapper;
+	private AdMapper mapper;
 
 	@Override
 	public List<PublicAd> getAds() {
