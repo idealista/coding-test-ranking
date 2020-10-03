@@ -96,4 +96,11 @@ public class AdVO {
 	public boolean isRelevant() {
 		return this.score >= RELEVANT_SCORE_THRESHOLD && this.score != null;
 	}
+
+	public void updateScore(int modifier) {
+		if(this.score == null) {
+			this.score = 0;
+		}
+		this.score += modifier;
+	}
 }

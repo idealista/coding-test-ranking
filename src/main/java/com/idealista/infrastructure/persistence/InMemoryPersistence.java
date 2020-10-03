@@ -50,6 +50,10 @@ public class InMemoryPersistence implements AdRepository{
 				.get();
 	}
 
+	@Override
+	public void saveAd(AdVO ad) {
+		// TODO Auto-generated method stub
+		
+	}
 
-    //TODO crea los métodos que necesites
 }

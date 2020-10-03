@@ -8,6 +8,9 @@ import com.idealista.infrastructure.persistence.PictureVO;
 public interface AdRepository {
 
 	List<AdVO> getAds();
+	
 	PictureVO findPictureById(int picId);
+	
+	void saveAd(AdVO ad);
 
 }
