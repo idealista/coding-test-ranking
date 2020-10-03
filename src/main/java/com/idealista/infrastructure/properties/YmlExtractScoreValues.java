@@ -34,6 +34,17 @@ public class YmlExtractScoreValues implements ExtractScoreValues {
     @Value("${condition.score.long_description_chalet_score}")
     private int longDescriptionChaletScore;
 
+    @Value("${condition.score.initial_length_description_score}")
+    private int initialLengthForMediumDescriptionScore;
+
+    @Value("${condition.score.final_length_description_score}")
+    private int finalLengthForMediumDescription;
+
+    @Value("${condition.score.max_length_flat_description_score}")
+    private int maximumLengthForFlatDescriptionScore;
+
+    @Value("${condition.score.max_length_chalet_description_score}")
+    private int maximumLengthForChaletDescriptionScore;
 
     @Override
     public int getCompleteAdScore() {
@@ -78,6 +89,26 @@ public class YmlExtractScoreValues implements ExtractScoreValues {
     @Override
     public int getLongDescriptionForChaletScore() {
         return longDescriptionChaletScore;
+    }
+
+    @Override
+    public int getInitialLengthForMediumDescription() {
+        return initialLengthForMediumDescriptionScore;
+    }
+
+    @Override
+    public int getFinalLengthForMediumDescription() {
+        return finalLengthForMediumDescription;
+    }
+
+    @Override
+    public int getMaximumLengthForFlatDescription() {
+        return maximumLengthForFlatDescriptionScore;
+    }
+
+    @Override
+    public int getMaximumLengthForChaletDescription() {
+        return maximumLengthForChaletDescriptionScore;
     }
 
 }

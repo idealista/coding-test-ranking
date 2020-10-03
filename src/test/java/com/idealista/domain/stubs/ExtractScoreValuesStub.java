@@ -48,4 +48,24 @@ public class ExtractScoreValuesStub implements ExtractScoreValues {
     public int getLongDescriptionForChaletScore() {
         return 20;
     }
+
+    @Override
+    public int getInitialLengthForMediumDescription() {
+        return 20;
+    }
+
+    @Override
+    public int getFinalLengthForMediumDescription() {
+        return 49;
+    }
+
+    @Override
+    public int getMaximumLengthForFlatDescription() {
+        return 50;
+    }
+
+    @Override
+    public int getMaximumLengthForChaletDescription() {
+        return 50;
+    }
 }

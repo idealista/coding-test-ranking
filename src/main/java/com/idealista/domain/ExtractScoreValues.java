@@ -19,4 +19,12 @@ public interface ExtractScoreValues {
     int getLongDescriptionForFlatScore();
 
     int getLongDescriptionForChaletScore();
+
+    int getInitialLengthForMediumDescription();
+
+    int getFinalLengthForMediumDescription();
+
+    int getMaximumLengthForFlatDescription();
+
+    int getMaximumLengthForChaletDescription();
 }

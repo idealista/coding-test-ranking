@@ -24,14 +24,14 @@ public class DescriptionScoreRule implements Rule {
         }
         switch (ad.getTypology()){
             case FLAT:
-                if (hasDescriptionLengthBetween20And49(ad)) {
+                if (hasDescriptionLengthBetween(extractScoreValues.getInitialLengthForMediumDescription(), extractScoreValues.getFinalLengthForMediumDescription(), ad)) {
                     scoreCounter.getAndAdd(extractScoreValues.getShortDescriptionScore());
-                } else if (hasDescriptionWithLengthGreaterOrEqualsThan50(ad)) {
+                } else if (hasDescriptionWithLengthGreaterOrEqualsThan(extractScoreValues.getMaximumLengthForFlatDescription(), ad)) {
                     scoreCounter.getAndAdd(extractScoreValues.getLongDescriptionForFlatScore());
                 }
                 break;
             case CHALET:
-                if (hasDescriptionWithLengthGreaterThan50(ad)) {
+                if (hasDescriptionWithLengthGreaterThan(extractScoreValues.getMaximumLengthForChaletDescription(), ad)) {
                     scoreCounter.getAndAdd(extractScoreValues.getLongDescriptionForChaletScore());
                 }
         }
@@ -47,16 +47,16 @@ public class DescriptionScoreRule implements Rule {
         return !ad.getDescription().isEmpty();
     }
 
-    private boolean hasDescriptionWithLengthGreaterOrEqualsThan50(Ad ad) {
-        return ad.getDescription().length() >= 50;
+    private boolean hasDescriptionWithLengthGreaterOrEqualsThan(int maximumLength, Ad ad) {
+        return ad.getDescription().length() >= maximumLength;
     }
 
-    private boolean hasDescriptionWithLengthGreaterThan50(Ad ad) {
-        return ad.getDescription().length() > 50;
+    private boolean hasDescriptionWithLengthGreaterThan(int maximumLength, Ad ad) {
+        return ad.getDescription().length() > maximumLength;
     }
 
-    private boolean hasDescriptionLengthBetween20And49(Ad ad) {
-        return ad.getDescription().length() >= 20 && ad.getDescription().length() <= 49;
+    private boolean hasDescriptionLengthBetween(int firstLength, int secondLength, Ad ad) {
+        return ad.getDescription().length() >= firstLength && ad.getDescription().length() <= secondLength;
     }
 
     private void increaseScoreWhenDescriptionContainsSpecialWords(AtomicInteger scoreCounter, Ad ad) {
