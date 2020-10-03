@@ -45,6 +45,10 @@ public final class Ad {
         return new Ad(this.id, this.typology, this.description, this.pictures, this.houseSize, this.gardenSize, score, this.irrelevantSince);
     }
 
+    public Ad withDate(Date irrelevantSince) {
+        return new Ad(this.id, this.typology, this.description, this.pictures, this.houseSize, this.gardenSize, this.score, irrelevantSince);
+    }
+
     public AdIdentifer getId() {
         return id;
     }
@@ -109,5 +113,9 @@ public final class Ad {
                 ", score=" + score +
                 ", irrelevantSince=" + irrelevantSince +
                 '}';
+    }
+
+    public static boolean isIrrelevant(final Ad ad) {
+        return ad.getScore() < 40;
     }
 }

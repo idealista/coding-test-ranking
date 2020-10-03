@@ -1,5 +1,7 @@
 package com.idealista.infrastructure.rest;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+
 import com.idealista.application.CalculateAdsScore;
 import com.idealista.infrastructure.api.inbound.CalculateScoreController;
 import com.idealista.infrastructure.rest.config.Config;
@@ -16,8 +18,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(controllers = CalculateScoreController.class)
@@ -36,7 +36,7 @@ public class CalculateScoreEndpointIT {
     @DisplayName("When the REST endpoint is called Then the score should be calculate for each stored ad")
     void shouldCalculateTheScoreForTheStoredAds() throws Exception {
         //when
-        final ResultActions resultActions = mockMvc.perform(get("/api/1/ad/calculate-score"));
+        final ResultActions resultActions = mockMvc.perform(put("/api/1/ad/calculate-score"));
 
         //then
         resultActions.andExpect(MockMvcResultMatchers.status().isOk());

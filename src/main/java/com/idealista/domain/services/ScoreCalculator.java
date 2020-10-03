@@ -5,13 +5,18 @@ import com.idealista.domain.accumulators.CompleteAdScoreAccumulator;
 import com.idealista.domain.accumulators.DescriptionScoreAccumulator;
 import com.idealista.domain.accumulators.PicturesScoreAccumulator;
 
+import java.time.Clock;
+import java.util.Date;
+
 public final class ScoreCalculator {
 
     private final PicturesScoreAccumulator picturesScoreAccumulator;
     private final DescriptionScoreAccumulator descriptionScoreAccumulator;
     private final CompleteAdScoreAccumulator completeAdScoreAccumulator;
+    private final Clock clock;
 
-    public ScoreCalculator() {
+    public ScoreCalculator(Clock clock) {
+        this.clock = clock;
         this.picturesScoreAccumulator = new PicturesScoreAccumulator();
         this.descriptionScoreAccumulator = new DescriptionScoreAccumulator();
         this.completeAdScoreAccumulator = new CompleteAdScoreAccumulator();
@@ -23,7 +28,19 @@ public final class ScoreCalculator {
                 .andThen(completeAdScoreAccumulator)
                 .apply(ad).getScore();
 
-        return ad.withScore(getFinalScore(calculatedScore));
+        return getAdWithScore(ad, calculatedScore);
+    }
+
+    private Ad getAdWithScore(Ad ad, Integer calculatedScore) {
+        if (isIrrelevantScore(calculatedScore)) {
+            return ad.withDate(Date.from(clock.instant())).withScore(getFinalScore(calculatedScore));
+        } else {
+            return ad.withScore(getFinalScore(calculatedScore));
+        }
+    }
+
+    private boolean isIrrelevantScore(Integer calculatedScore) {
+        return getFinalScore(calculatedScore) < 40;
     }
 
     private int getFinalScore(Integer calculatedScore) {

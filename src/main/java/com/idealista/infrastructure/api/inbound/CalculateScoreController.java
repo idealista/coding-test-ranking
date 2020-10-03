@@ -2,7 +2,7 @@ package com.idealista.infrastructure.api.inbound;
 
 import com.idealista.application.CalculateAdsScore;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,7 +14,7 @@ public class CalculateScoreController {
         this.calculateAdsScore = calculateAdsScore;
     }
 
-    @GetMapping("/api/1/ad/calculate-score")
+    @PutMapping("/api/1/ad/calculate-score")
     public ResponseEntity<Void> calculateScore() {
         calculateAdsScore.execute();
         return ResponseEntity.ok().build();
