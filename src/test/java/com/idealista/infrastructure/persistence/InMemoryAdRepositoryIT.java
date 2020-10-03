@@ -41,7 +41,7 @@ public class InMemoryAdRepositoryIT {
         //then
         final AdVO updatedAd = inMemoryPersistence.findById(1);
         assertNotNull(updatedAd);
-        assertEquals(20, updatedAd.getScore());
+        assertEquals(Integer.valueOf(20), updatedAd.getScore());
     }
 
     @Test
@@ -51,6 +51,6 @@ public class InMemoryAdRepositoryIT {
 
         //then
         assertNotNull(storedPicture);
-        assertEquals(1, storedPicture.getId());
+        assertEquals(Integer.valueOf(1), storedPicture.getId());
     }
 }
