@@ -1,6 +1,7 @@
 package com.idealista.domain.services;
 
 import com.idealista.domain.Ad;
+import com.idealista.domain.ExtractScoreValues;
 import com.idealista.domain.conditions.CompleteAdScoreRule;
 import com.idealista.domain.conditions.DescriptionScoreRule;
 import com.idealista.domain.conditions.PicturesScoreRule;
@@ -13,21 +14,24 @@ import java.util.List;
 
 public final class ScoreCalculator {
 
-    private final List<Rule> accumulators = new ArrayList<Rule>(){
-        {
-            add(new PicturesScoreRule());
-            add(new DescriptionScoreRule());
-            add(new CompleteAdScoreRule());
-        }
-    };
+    private final ExtractScoreValues extractScoreValues;
     private final Clock clock;
+    private final List<Rule> conditions;
 
-    public ScoreCalculator(Clock clock) {
+    public ScoreCalculator(ExtractScoreValues extractScoreValues, Clock clock) {
+        this.extractScoreValues = extractScoreValues;
         this.clock = clock;
+        conditions= new ArrayList<Rule>(){
+            {
+                add(new PicturesScoreRule(extractScoreValues));
+                add(new DescriptionScoreRule(extractScoreValues));
+                add(new CompleteAdScoreRule(ScoreCalculator.this.extractScoreValues));
+            }
+        };
     }
 
     public Ad execute(Ad ad) {
-        for (Rule rule : accumulators) {
+        for (Rule rule : conditions) {
             ad = rule.apply(ad);
         }
         return getAdWithScore(ad);

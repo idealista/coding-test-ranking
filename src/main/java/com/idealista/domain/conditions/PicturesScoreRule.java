@@ -1,29 +1,31 @@
 package com.idealista.domain.conditions;
 
 import com.idealista.domain.Ad;
+import com.idealista.domain.ExtractScoreValues;
 import com.idealista.domain.Picture;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class PicturesScoreRule implements Rule {
 
-    public static final int PICTURE_HD_SCORE = 20;
-    public static final int PICTURE_SD_SCORE = 10;
-    public static final int NEGATIVE_SCORE_FOR_HAS_NOT_PICTURES = -10;
+    private final ExtractScoreValues extractScoreValues;
 
+    public PicturesScoreRule(ExtractScoreValues extractScoreValues) {
+        this.extractScoreValues = extractScoreValues;
+    }
 
     @Override
     public Ad apply(Ad ad) {
         final AtomicInteger scoreCounter = new AtomicInteger();
 
         if (hasNotPictures(ad)) {
-            scoreCounter.getAndAdd(NEGATIVE_SCORE_FOR_HAS_NOT_PICTURES);
+            scoreCounter.getAndAdd(extractScoreValues.getNotPictureScore());
         } else {
             ad.getPictures().forEach(p -> {
                 if (hasHighResolutionPicture(p)) {
-                    scoreCounter.getAndAdd(PICTURE_HD_SCORE);
+                    scoreCounter.getAndAdd(extractScoreValues.getHDPictureScore());
                 } else {
-                    scoreCounter.getAndAdd(PICTURE_SD_SCORE);
+                    scoreCounter.getAndAdd(extractScoreValues.getSDPictureScore());
                 }
             });
         }

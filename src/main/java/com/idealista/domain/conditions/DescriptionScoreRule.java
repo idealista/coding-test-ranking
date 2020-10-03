@@ -1,6 +1,7 @@
 package com.idealista.domain.conditions;
 
 import com.idealista.domain.Ad;
+import com.idealista.domain.ExtractScoreValues;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -8,26 +9,30 @@ import java.util.function.Predicate;
 
 public class DescriptionScoreRule implements Rule {
 
-    public static final int SPECIAL_WORD_SCORE = 5;
+    private final ExtractScoreValues extractScoreValues;
+
+    public DescriptionScoreRule(ExtractScoreValues extractScoreValues) {
+        this.extractScoreValues = extractScoreValues;
+    }
 
     @Override
     public Ad apply(Ad ad) {
         final AtomicInteger scoreCounter = new AtomicInteger(getActualScore(ad));
 
         if (hasDescription(ad)) {
-            scoreCounter.getAndAdd(5);
+            scoreCounter.getAndAdd(extractScoreValues.getHasDescriptionScore());
         }
         switch (ad.getTypology()){
             case FLAT:
                 if (hasDescriptionLengthBetween20And49(ad)) {
-                    scoreCounter.getAndAdd(10);
+                    scoreCounter.getAndAdd(extractScoreValues.getShortDescriptionScore());
                 } else if (hasDescriptionWithLengthGreaterOrEqualsThan50(ad)) {
-                    scoreCounter.getAndAdd(30);
+                    scoreCounter.getAndAdd(extractScoreValues.getLongDescriptionForFlatScore());
                 }
                 break;
             case CHALET:
                 if (hasDescriptionWithLengthGreaterThan50(ad)) {
-                    scoreCounter.getAndAdd(20);
+                    scoreCounter.getAndAdd(extractScoreValues.getLongDescriptionForChaletScore());
                 }
         }
         increaseScoreWhenDescriptionContainsSpecialWords(scoreCounter, ad);
@@ -68,6 +73,6 @@ public class DescriptionScoreRule implements Rule {
                         .or(containsReformado)
                         .or(containsAtico))
                 .count();
-        scoreCounter.getAndAdd(Long.valueOf(specialWordCounter * SPECIAL_WORD_SCORE).intValue());
+        scoreCounter.getAndAdd(Long.valueOf(specialWordCounter * extractScoreValues.getSpecialWordScore()).intValue());
     }
 }
