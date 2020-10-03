@@ -2,6 +2,7 @@ package com.idealista.infrastructure.di;
 
 import com.idealista.application.CalculateAdsScore;
 import com.idealista.application.RetrieveIrrelevantAds;
+import com.idealista.application.RetrievePublicAds;
 import com.idealista.domain.AdsCollection;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +20,10 @@ public class BeanInitializer {
     @Bean
     public RetrieveIrrelevantAds retrieveIrrelevantAds(final AdsCollection adsCollection) {
         return new RetrieveIrrelevantAds(adsCollection);
+    }
+
+    @Bean
+    public RetrievePublicAds retrievePublicAds(final AdsCollection adsCollection) {
+        return new RetrievePublicAds(adsCollection);
     }
 }

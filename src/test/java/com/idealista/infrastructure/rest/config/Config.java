@@ -24,4 +24,10 @@ public class Config {
     RetrieveIrrelevantAds retrieveIrrelevantAds() {
         return Mockito.mock(RetrieveIrrelevantAds.class);
     }
+
+    @Bean
+    @ConditionalOnMissingBean(name = "retrievePublicAds")
+    RetrievePublicAds retrievePublicAds() {
+        return Mockito.mock(RetrievePublicAds.class);
+    }
 }
