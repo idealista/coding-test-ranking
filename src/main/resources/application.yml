@@ -1,0 +1,7 @@
+condition:
+  score:
+    complete_ad_score: 40
+    special_word_score: 5
+    high_definition_picture_score: 20
+    standard_definition_picture_score: 10
+    not_picture_score: -10
