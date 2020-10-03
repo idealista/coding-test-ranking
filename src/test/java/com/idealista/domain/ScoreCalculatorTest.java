@@ -65,7 +65,7 @@ public class ScoreCalculatorTest {
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(20, calculatedScoreAd.getScore());
+        assertEquals(Integer.valueOf(20), calculatedScoreAd.getScore());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class ScoreCalculatorTest {
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(10, calculatedScoreAd.getScore());
+        assertEquals(Integer.valueOf(10), calculatedScoreAd.getScore());
     }
 
     @Test
