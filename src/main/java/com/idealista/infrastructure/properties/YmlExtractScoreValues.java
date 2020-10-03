@@ -22,6 +22,19 @@ public class YmlExtractScoreValues implements ExtractScoreValues {
     @Value("${condition.score.not_picture_score}")
     private int notPictureScore;
 
+    @Value("${condition.score.has_description_score}")
+    private int hasDescriptionScore;
+
+    @Value("${condition.score.short_description_score}")
+    private int shortDescriptionScore;
+
+    @Value("${condition.score.long_description_flat_score}")
+    private int longDescriptionFlatScore;
+
+    @Value("${condition.score.long_description_chalet_score}")
+    private int longDescriptionChaletScore;
+
+
     @Override
     public int getCompleteAdScore() {
         return completeAdScore;
@@ -45,6 +58,26 @@ public class YmlExtractScoreValues implements ExtractScoreValues {
     @Override
     public int getNotPictureScore() {
         return notPictureScore;
+    }
+
+    @Override
+    public int getHasDescriptionScore() {
+        return hasDescriptionScore;
+    }
+
+    @Override
+    public int getShortDescriptionScore() {
+        return shortDescriptionScore;
+    }
+
+    @Override
+    public int getLongDescriptionForFlatScore() {
+        return longDescriptionFlatScore;
+    }
+
+    @Override
+    public int getLongDescriptionForChaletScore() {
+        return longDescriptionChaletScore;
     }
 
 }

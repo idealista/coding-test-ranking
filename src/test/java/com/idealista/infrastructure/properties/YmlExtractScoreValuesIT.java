@@ -53,11 +53,38 @@ public class YmlExtractScoreValuesIT {
     }
 
     @Test
-    void shouldExtractNotPictureScoreValuesFromPropertyFile() {
+    void shouldExtractHasDescriptionScoreValuesFromPropertyFile() {
         //when
-        final int notPictureScore = extractScoreValues.getNotPictureScore();
+        final int hasDescriptionScore = extractScoreValues.getHasDescriptionScore();
 
         //then
-        assertEquals(-10, notPictureScore);
+        assertEquals(5, hasDescriptionScore);
+    }
+
+    @Test
+    void shouldExtractShorDescriptionScoreValuesFromPropertyFile() {
+        //when
+        final int shortDescriptionScore = extractScoreValues.getShortDescriptionScore();
+
+        //then
+        assertEquals(10, shortDescriptionScore);
+    }
+
+    @Test
+    void shouldExtractLongDescriptionForFlatScoreValuesFromPropertyFile() {
+        //when
+        final int longDescriptionForFlatScore = extractScoreValues.getLongDescriptionForFlatScore();
+
+        //then
+        assertEquals(30, longDescriptionForFlatScore);
+    }
+
+    @Test
+    void shouldExtractNotPictureScoreValuesFromPropertyFile() {
+        //when
+        final int longDescriptionForChaletScore = extractScoreValues.getLongDescriptionForChaletScore();
+
+        //then
+        assertEquals(20, longDescriptionForChaletScore);
     }
 }

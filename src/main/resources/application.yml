@@ -5,3 +5,7 @@ condition:
     high_definition_picture_score: 20
     standard_definition_picture_score: 10
     not_picture_score: -10
+    has_description_score: 5
+    short_description_score: 10
+    long_description_flat_score: 30
+    long_description_chalet_score: 20

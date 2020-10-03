@@ -11,4 +11,12 @@ public interface ExtractScoreValues {
     int getSDPictureScore();
 
     int getNotPictureScore();
+
+    int getHasDescriptionScore();
+
+    int getShortDescriptionScore();
+
+    int getLongDescriptionForFlatScore();
+
+    int getLongDescriptionForChaletScore();
 }
