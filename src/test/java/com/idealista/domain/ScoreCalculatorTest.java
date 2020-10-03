@@ -1,5 +1,6 @@
 package com.idealista.domain;
 
+import com.idealista.domain.stubs.ExtractScoreValuesStub;
 import com.idealista.domain.mothers.AdMother;
 import com.idealista.domain.services.ScoreCalculator;
 import org.junit.jupiter.api.DisplayName;
@@ -9,8 +10,6 @@ import java.sql.Date;
 import java.time.Clock;
 import java.time.Instant;
 
-import static com.idealista.domain.accumulators.PicturesScoreAccumulator.PICTURE_HD_SCORE;
-import static com.idealista.domain.accumulators.PicturesScoreAccumulator.PICTURE_SD_SCORE;
 import static com.idealista.domain.mothers.AdMother.*;
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +20,8 @@ import static org.mockito.Mockito.when;
 public class ScoreCalculatorTest {
 
     private final Clock clock = mock(Clock.class);
-    private final ScoreCalculator scoreCalculator = new ScoreCalculator(clock);
+    private final ExtractScoreValues extractScoreValues = new ExtractScoreValuesStub();
+    private final ScoreCalculator scoreCalculator = new ScoreCalculator(extractScoreValues, clock);
 
     @Test
     @DisplayName("Given an ad without properties to obtain score and without pictures When the score is calculated Then The score should be 0")
@@ -65,7 +65,7 @@ public class ScoreCalculatorTest {
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(PICTURE_HD_SCORE), calculatedScoreAd.getScore());
+        assertEquals(20, calculatedScoreAd.getScore());
     }
 
     @Test
@@ -94,7 +94,7 @@ public class ScoreCalculatorTest {
 
         //then
         assertNotNull(calculatedScoreAd);
-        assertEquals(Integer.valueOf(PICTURE_SD_SCORE), calculatedScoreAd.getScore());
+        assertEquals(10, calculatedScoreAd.getScore());
     }
 
     @Test

@@ -1,0 +1,21 @@
+ads:
+  conditionsScores:
+    complete_ad_score: 40
+    special_word_score: 5
+    high_definition_picture_score: 20
+    standard_definition_picture_score: 10
+    not_picture_score: -10
+    hasDescriptionScore: 5
+    short_description_score: 10
+    long_description_flat_score: 30
+    long_description_chalet_score: 20
+    initial_length_description_score: 20
+    final_length_description_score: 49
+    max_length_flat_description_score: 50
+    max_length_chalet_description_score: 50
+  specialWords:
+    - Luminoso
+    - Nuevo
+    - Céntrico
+    - Reformado
+    - Ático

@@ -1,41 +1,47 @@
 package com.idealista.domain.services;
 
 import com.idealista.domain.Ad;
-import com.idealista.domain.accumulators.CompleteAdScoreAccumulator;
-import com.idealista.domain.accumulators.DescriptionScoreAccumulator;
-import com.idealista.domain.accumulators.PicturesScoreAccumulator;
+import com.idealista.domain.ExtractScoreValues;
+import com.idealista.domain.conditions.CompleteAdScoreRule;
+import com.idealista.domain.conditions.DescriptionScoreRule;
+import com.idealista.domain.conditions.PicturesScoreRule;
+import com.idealista.domain.conditions.Rule;
 
 import java.time.Clock;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public final class ScoreCalculator {
 
-    private final PicturesScoreAccumulator picturesScoreAccumulator;
-    private final DescriptionScoreAccumulator descriptionScoreAccumulator;
-    private final CompleteAdScoreAccumulator completeAdScoreAccumulator;
+    private final ExtractScoreValues extractScoreValues;
     private final Clock clock;
+    private final List<Rule> conditions;
 
-    public ScoreCalculator(Clock clock) {
+    public ScoreCalculator(ExtractScoreValues extractScoreValues, Clock clock) {
+        this.extractScoreValues = extractScoreValues;
         this.clock = clock;
-        this.picturesScoreAccumulator = new PicturesScoreAccumulator();
-        this.descriptionScoreAccumulator = new DescriptionScoreAccumulator();
-        this.completeAdScoreAccumulator = new CompleteAdScoreAccumulator();
+        conditions= new ArrayList<Rule>(){
+            {
+                add(new PicturesScoreRule(extractScoreValues));
+                add(new DescriptionScoreRule(extractScoreValues));
+                add(new CompleteAdScoreRule(ScoreCalculator.this.extractScoreValues));
+            }
+        };
     }
 
     public Ad execute(Ad ad) {
-        final Integer calculatedScore = picturesScoreAccumulator
-                .andThen(descriptionScoreAccumulator)
-                .andThen(completeAdScoreAccumulator)
-                .apply(ad).getScore();
-
-        return getAdWithScore(ad, calculatedScore);
+        for (Rule rule : conditions) {
+            ad = rule.apply(ad);
+        }
+        return getAdWithScore(ad);
     }
 
-    private Ad getAdWithScore(Ad ad, Integer calculatedScore) {
-        if (isIrrelevantScore(calculatedScore)) {
-            return ad.withDate(Date.from(clock.instant())).withScore(getFinalScore(calculatedScore));
+    private Ad getAdWithScore(Ad ad) {
+        if (isIrrelevantScore(ad.getScore())) {
+            return ad.withDate(Date.from(clock.instant())).withScore(getFinalScore(ad.getScore()));
         } else {
-            return ad.withScore(getFinalScore(calculatedScore));
+            return ad.withScore(getFinalScore(ad.getScore()));
         }
     }
 

@@ -1,14 +1,18 @@
-package com.idealista.domain.accumulators;
+package com.idealista.domain.conditions;
 
 import com.idealista.domain.Ad;
+import com.idealista.domain.ExtractScoreValues;
 import com.idealista.domain.Typology;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.UnaryOperator;
 
-public class CompleteAdScoreAccumulator implements UnaryOperator<Ad> {
+public class CompleteAdScoreRule implements Rule {
 
-    public static final int COMPLETE_AD_SCORE = 40;
+    private final ExtractScoreValues extractScoreValues;
+
+    public CompleteAdScoreRule(ExtractScoreValues extractScoreValues) {
+        this.extractScoreValues = extractScoreValues;
+    }
 
     @Override
     public Ad apply(Ad ad) {
@@ -17,20 +21,24 @@ public class CompleteAdScoreAccumulator implements UnaryOperator<Ad> {
         if (containsPictures(ad)) {
             if (hasFlatTypology(ad) && hasDescription(ad)) {
                 if (hasHouseSize(ad)) {
-                    scoreCounter.getAndAdd(COMPLETE_AD_SCORE);
+                    scoreCounter.getAndAdd(getCompleteAdScore());
                 }
             }
             if (hasChaletTypology(ad) && hasDescription(ad)) {
                 if (hasHouseSize(ad) && hasGardenSize(ad)) {
-                    scoreCounter.getAndAdd(COMPLETE_AD_SCORE);
+                    scoreCounter.getAndAdd(getCompleteAdScore());
                 }
             }
             if (hasGarageTypology(ad)) {
-                scoreCounter.getAndAdd(COMPLETE_AD_SCORE);
+                scoreCounter.getAndAdd(getCompleteAdScore());
             }
         }
 
         return ad.withScore(scoreCounter.get());
+    }
+
+    private int getCompleteAdScore() {
+        return extractScoreValues.getCompleteAdScore();
     }
 
     private Integer getActualScore(Ad ad) {
@@ -65,4 +73,5 @@ public class CompleteAdScoreAccumulator implements UnaryOperator<Ad> {
     private boolean hasGarageTypology(Ad ad) {
         return ad.getTypology().equals(Typology.GARAGE);
     }
+
 }

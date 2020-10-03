@@ -81,6 +81,14 @@ public final class Ad {
         return irrelevantSince;
     }
 
+    public static boolean isIrrelevant(final Ad ad) {
+        return ad.getScore() < 40;
+    }
+
+    public static boolean isNotIrrelevant(final Ad ad) {
+        return ad.getScore() >= 40;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -113,9 +121,5 @@ public final class Ad {
                 ", score=" + score +
                 ", irrelevantSince=" + irrelevantSince +
                 '}';
-    }
-
-    public static boolean isIrrelevant(final Ad ad) {
-        return ad.getScore() < 40;
     }
 }

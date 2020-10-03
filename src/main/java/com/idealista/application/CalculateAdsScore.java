@@ -1,6 +1,7 @@
 package com.idealista.application;
 
 import com.idealista.domain.AdsCollection;
+import com.idealista.domain.ExtractScoreValues;
 import com.idealista.domain.services.ScoreCalculator;
 
 import java.time.Clock;
@@ -11,11 +12,13 @@ public class CalculateAdsScore {
     private final ScoreCalculator scoreCalculator;
     private final AdsCollection adsCollection;
     private final Clock clock;
+    private final ExtractScoreValues extractScoreValues;
 
-    public CalculateAdsScore(AdsCollection adsCollection, Clock clock) {
+    public CalculateAdsScore(AdsCollection adsCollection, Clock clock, ExtractScoreValues extractScoreValues) {
         this.clock = clock;
-        this.scoreCalculator = new ScoreCalculator(clock);
+        this.extractScoreValues = extractScoreValues;
         this.adsCollection = adsCollection;
+        this.scoreCalculator = new ScoreCalculator(extractScoreValues, clock);
     }
 
     public void execute() {
