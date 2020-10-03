@@ -1,15 +1,14 @@
 package com.idealista.application;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.idealista.application.stubs.InMemoryCollectionStub;
 import com.idealista.domain.Ad;
 import com.idealista.domain.AdsCollection;
-import org.junit.jupiter.api.Test;
-
 import java.time.Clock;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.Test;
 
 public class CalculateAdScoreTest {
 

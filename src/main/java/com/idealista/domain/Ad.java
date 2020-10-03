@@ -114,4 +114,8 @@ public final class Ad {
                 ", irrelevantSince=" + irrelevantSince +
                 '}';
     }
+
+    public static boolean isIrrelevant(final Ad ad) {
+        return ad.getScore() < 40;
+    }
 }
