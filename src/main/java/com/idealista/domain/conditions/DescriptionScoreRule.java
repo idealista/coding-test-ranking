@@ -2,10 +2,13 @@ package com.idealista.domain.conditions;
 
 import com.idealista.domain.Ad;
 import com.idealista.domain.ExtractScoreValues;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Predicate;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class DescriptionScoreRule implements Rule {
 
@@ -35,7 +38,7 @@ public class DescriptionScoreRule implements Rule {
                     scoreCounter.getAndAdd(extractScoreValues.getLongDescriptionForChaletScore());
                 }
         }
-        increaseScoreWhenDescriptionContainsSpecialWords(scoreCounter, ad);
+        increaseScoreWhenDescriptionContainsSpecialWords(extractScoreValues.getSpecialWords(), scoreCounter, ad);
         return ad.withScore(scoreCounter.get());
     }
 
@@ -59,20 +62,21 @@ public class DescriptionScoreRule implements Rule {
         return ad.getDescription().length() >= firstLength && ad.getDescription().length() <= secondLength;
     }
 
-    private void increaseScoreWhenDescriptionContainsSpecialWords(AtomicInteger scoreCounter, Ad ad) {
-        final Predicate<String> containsLuminoso = s -> s.equalsIgnoreCase("LUMINOSO");
-        final Predicate<String> containsNuevo = s -> s.equalsIgnoreCase("NUEVO");
-        final Predicate<String> containsCentrico = s -> s.equalsIgnoreCase("CENTRICO");
-        final Predicate<String> containsReformado = s -> s.equalsIgnoreCase("REFORMADO");
-        final Predicate<String> containsAtico = s -> s.equalsIgnoreCase("ATICO");
-        final long specialWordCounter = Arrays.stream(ad.getDescription().split(" "))
-                .distinct()
-                .filter(containsLuminoso
-                        .or(containsNuevo)
-                        .or(containsCentrico)
-                        .or(containsReformado)
-                        .or(containsAtico))
-                .count();
+    private void increaseScoreWhenDescriptionContainsSpecialWords(List<String> specialWords, AtomicInteger scoreCounter, Ad ad) {
+        final String description = removeDuplicatedWordsFormDescription(ad);
+        final long specialWordCounter = specialWords.stream().map(normalizeWord()).filter(description::contains).count();
+
         scoreCounter.getAndAdd(Long.valueOf(specialWordCounter * extractScoreValues.getSpecialWordScore()).intValue());
+    }
+
+    private String removeDuplicatedWordsFormDescription(Ad ad) {
+        return Arrays.stream(ad.getDescription().split(" ")).map(normalizeWord()).distinct().collect(Collectors.joining(" "));
+    }
+
+    private Function<String, String> normalizeWord() {
+        return word -> {
+            final String withOutAccents = StringUtils.stripAccents(word);
+            return withOutAccents.toLowerCase();
+        };
     }
 }
