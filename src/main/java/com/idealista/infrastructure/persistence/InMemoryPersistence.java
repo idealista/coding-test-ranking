@@ -1,12 +1,14 @@
 package com.idealista.infrastructure.persistence;
 
-import org.springframework.stereotype.Repository;
-
-import java.util.*;
-
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class InMemoryPersistence {
