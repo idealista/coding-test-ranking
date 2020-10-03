@@ -2,6 +2,10 @@ package com.idealista.application.stubs;
 
 import com.idealista.domain.ExtractScoreValues;
 
+import java.util.List;
+
+import static java.util.Arrays.asList;
+
 public class ExtractScoreValuesStub implements ExtractScoreValues {
     @Override
     public int getCompleteAdScore() {
@@ -66,5 +70,10 @@ public class ExtractScoreValuesStub implements ExtractScoreValues {
     @Override
     public int getMaximumLengthForChaletDescription() {
         return 50;
+    }
+
+    @Override
+    public List<String> getSpecialWords() {
+        return asList("Luminoso", "Nuevo", "Céntrico", "Reformado", "Ático");
     }
 }

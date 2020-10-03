@@ -7,7 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -86,5 +92,21 @@ public class YmlExtractScoreValuesIT {
 
         //then
         assertEquals(20, longDescriptionForChaletScore);
+    }
+
+    @Test
+    void shouldExtractSpecialWordsValuesFromPropertyFile() {
+        //when
+        final List<String> longDescriptionForChaletScore = extractScoreValues.getSpecialWords();
+
+        //then
+        assertNotNull(longDescriptionForChaletScore);
+
+        assertThat(longDescriptionForChaletScore, hasSize(5));
+        assertThat(longDescriptionForChaletScore.get(0), is("Luminoso"));
+        assertThat(longDescriptionForChaletScore.get(1), is("Nuevo"));
+        assertThat(longDescriptionForChaletScore.get(2), is("Céntrico"));
+        assertThat(longDescriptionForChaletScore.get(3), is("Reformado"));
+        assertThat(longDescriptionForChaletScore.get(4), is("Ático"));
     }
 }

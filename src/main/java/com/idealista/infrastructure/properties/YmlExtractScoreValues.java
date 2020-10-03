@@ -1,114 +1,230 @@
 package com.idealista.infrastructure.properties;
 
 import com.idealista.domain.ExtractScoreValues;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
+@EnableConfigurationProperties
+@ConfigurationProperties(prefix = "ads")
 public class YmlExtractScoreValues implements ExtractScoreValues {
 
-    @Value("${condition.score.complete_ad_score}")
-    private int completeAdScore;
+    private Conditions conditionsScores;
 
-    @Value("${condition.score.special_word_score}")
-    private int specialWordScore;
+    private List<String> specialWords;
 
-    @Value("${condition.score.high_definition_picture_score}")
-    private int highDefinitionPictureScore;
+    public void setConditionsScores(Conditions conditionsScores) {
+        this.conditionsScores = conditionsScores;
+    }
 
-    @Value("${condition.score.standard_definition_picture_score}")
-    private int standardDefinitionPictureScore;
-
-    @Value("${condition.score.not_picture_score}")
-    private int notPictureScore;
-
-    @Value("${condition.score.has_description_score}")
-    private int hasDescriptionScore;
-
-    @Value("${condition.score.short_description_score}")
-    private int shortDescriptionScore;
-
-    @Value("${condition.score.long_description_flat_score}")
-    private int longDescriptionFlatScore;
-
-    @Value("${condition.score.long_description_chalet_score}")
-    private int longDescriptionChaletScore;
-
-    @Value("${condition.score.initial_length_description_score}")
-    private int initialLengthForMediumDescriptionScore;
-
-    @Value("${condition.score.final_length_description_score}")
-    private int finalLengthForMediumDescription;
-
-    @Value("${condition.score.max_length_flat_description_score}")
-    private int maximumLengthForFlatDescriptionScore;
-
-    @Value("${condition.score.max_length_chalet_description_score}")
-    private int maximumLengthForChaletDescriptionScore;
+    public void setSpecialWords(List<String> specialWords) {
+        this.specialWords = specialWords;
+    }
 
     @Override
     public int getCompleteAdScore() {
-        return completeAdScore;
+        return conditionsScores.getCompleteAdScore();
     }
 
     @Override
     public int getSpecialWordScore() {
-        return specialWordScore;
+        return conditionsScores.getSpecialWordScore();
     }
 
     @Override
     public int getHDPictureScore() {
-        return highDefinitionPictureScore;
+        return conditionsScores.getHighDefinitionPictureScore();
     }
 
     @Override
     public int getSDPictureScore() {
-        return standardDefinitionPictureScore;
+        return conditionsScores.getStandardDefinitionPictureScore();
     }
 
     @Override
     public int getNotPictureScore() {
-        return notPictureScore;
+        return conditionsScores.getNotPictureScore();
     }
 
     @Override
     public int getHasDescriptionScore() {
-        return hasDescriptionScore;
+        return conditionsScores.getHasDescriptionScore();
     }
 
     @Override
     public int getShortDescriptionScore() {
-        return shortDescriptionScore;
+        return conditionsScores.getShortDescriptionScore();
     }
 
     @Override
     public int getLongDescriptionForFlatScore() {
-        return longDescriptionFlatScore;
+        return conditionsScores.getLongDescriptionFlatScore();
     }
 
     @Override
     public int getLongDescriptionForChaletScore() {
-        return longDescriptionChaletScore;
+        return conditionsScores.getLongDescriptionChaletScore();
     }
 
     @Override
     public int getInitialLengthForMediumDescription() {
-        return initialLengthForMediumDescriptionScore;
+        return conditionsScores.getInitialLengthForMediumDescriptionScore();
     }
 
     @Override
     public int getFinalLengthForMediumDescription() {
-        return finalLengthForMediumDescription;
+        return conditionsScores.getFinalLengthForMediumDescription();
     }
 
     @Override
     public int getMaximumLengthForFlatDescription() {
-        return maximumLengthForFlatDescriptionScore;
+        return conditionsScores.getMaximumLengthForFlatDescriptionScore();
     }
 
     @Override
     public int getMaximumLengthForChaletDescription() {
-        return maximumLengthForChaletDescriptionScore;
+        return conditionsScores.getMaximumLengthForChaletDescriptionScore();
+    }
+
+    @Override
+    public List<String> getSpecialWords() {
+        return specialWords;
+    }
+
+    static class Conditions{
+
+        private int completeAdScore;
+
+        private int specialWordScore;
+
+        private int highDefinitionPictureScore;
+
+        private int standardDefinitionPictureScore;
+
+        private int notPictureScore;
+
+        private int hasDescriptionScore;
+
+        private int shortDescriptionScore;
+
+        private int longDescriptionFlatScore;
+
+        private int longDescriptionChaletScore;
+
+        private int initialLengthForMediumDescriptionScore;
+
+        private int finalLengthForMediumDescription;
+
+        private int maximumLengthForFlatDescriptionScore;
+
+        private int maximumLengthForChaletDescriptionScore;
+
+        public int getCompleteAdScore() {
+            return completeAdScore;
+        }
+
+        public void setCompleteAdScore(int completeAdScore) {
+            this.completeAdScore = completeAdScore;
+        }
+
+        public int getSpecialWordScore() {
+            return specialWordScore;
+        }
+
+        public void setSpecialWordScore(int specialWordScore) {
+            this.specialWordScore = specialWordScore;
+        }
+
+        public int getHighDefinitionPictureScore() {
+            return highDefinitionPictureScore;
+        }
+
+        public void setHighDefinitionPictureScore(int highDefinitionPictureScore) {
+            this.highDefinitionPictureScore = highDefinitionPictureScore;
+        }
+
+        public int getStandardDefinitionPictureScore() {
+            return standardDefinitionPictureScore;
+        }
+
+        public void setStandardDefinitionPictureScore(int standardDefinitionPictureScore) {
+            this.standardDefinitionPictureScore = standardDefinitionPictureScore;
+        }
+
+        public int getNotPictureScore() {
+            return notPictureScore;
+        }
+
+        public void setNotPictureScore(int notPictureScore) {
+            this.notPictureScore = notPictureScore;
+        }
+
+        public int getHasDescriptionScore() {
+            return hasDescriptionScore;
+        }
+
+        public void setHasDescriptionScore(int hasDescriptionScore) {
+            this.hasDescriptionScore = hasDescriptionScore;
+        }
+
+        public int getShortDescriptionScore() {
+            return shortDescriptionScore;
+        }
+
+        public void setShortDescriptionScore(int shortDescriptionScore) {
+            this.shortDescriptionScore = shortDescriptionScore;
+        }
+
+        public int getLongDescriptionFlatScore() {
+            return longDescriptionFlatScore;
+        }
+
+        public void setLongDescriptionFlatScore(int longDescriptionFlatScore) {
+            this.longDescriptionFlatScore = longDescriptionFlatScore;
+        }
+
+        public int getLongDescriptionChaletScore() {
+            return longDescriptionChaletScore;
+        }
+
+        public void setLongDescriptionChaletScore(int longDescriptionChaletScore) {
+            this.longDescriptionChaletScore = longDescriptionChaletScore;
+        }
+
+        public int getInitialLengthForMediumDescriptionScore() {
+            return initialLengthForMediumDescriptionScore;
+        }
+
+        public void setInitialLengthForMediumDescriptionScore(int initialLengthForMediumDescriptionScore) {
+            this.initialLengthForMediumDescriptionScore = initialLengthForMediumDescriptionScore;
+        }
+
+        public int getFinalLengthForMediumDescription() {
+            return finalLengthForMediumDescription;
+        }
+
+        public void setFinalLengthForMediumDescription(int finalLengthForMediumDescription) {
+            this.finalLengthForMediumDescription = finalLengthForMediumDescription;
+        }
+
+        public int getMaximumLengthForFlatDescriptionScore() {
+            return maximumLengthForFlatDescriptionScore;
+        }
+
+        public void setMaximumLengthForFlatDescriptionScore(int maximumLengthForFlatDescriptionScore) {
+            this.maximumLengthForFlatDescriptionScore = maximumLengthForFlatDescriptionScore;
+        }
+
+        public int getMaximumLengthForChaletDescriptionScore() {
+            return maximumLengthForChaletDescriptionScore;
+        }
+
+        public void setMaximumLengthForChaletDescriptionScore(int maximumLengthForChaletDescriptionScore) {
+            this.maximumLengthForChaletDescriptionScore = maximumLengthForChaletDescriptionScore;
+        }
     }
 
 }

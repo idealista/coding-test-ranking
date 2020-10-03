@@ -1,5 +1,7 @@
 package com.idealista.domain;
 
+import java.util.List;
+
 public interface ExtractScoreValues {
 
     int getCompleteAdScore();
@@ -27,4 +29,6 @@ public interface ExtractScoreValues {
     int getMaximumLengthForFlatDescription();
 
     int getMaximumLengthForChaletDescription();
+
+    List<String> getSpecialWords();
 }
