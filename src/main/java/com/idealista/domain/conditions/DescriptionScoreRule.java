@@ -1,13 +1,12 @@
-package com.idealista.domain.accumulators;
+package com.idealista.domain.conditions;
 
 import com.idealista.domain.Ad;
 
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
 
-public class DescriptionScoreAccumulator implements UnaryOperator<Ad> {
+public class DescriptionScoreRule implements Rule {
 
     public static final int SPECIAL_WORD_SCORE = 5;
 

@@ -1,12 +1,11 @@
-package com.idealista.domain.accumulators;
+package com.idealista.domain.conditions;
 
 import com.idealista.domain.Ad;
 import com.idealista.domain.Picture;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.UnaryOperator;
 
-public class PicturesScoreAccumulator implements UnaryOperator<Ad> {
+public class PicturesScoreRule implements Rule {
 
     public static final int PICTURE_HD_SCORE = 20;
     public static final int PICTURE_SD_SCORE = 10;

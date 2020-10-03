@@ -1,12 +1,11 @@
-package com.idealista.domain.accumulators;
+package com.idealista.domain.conditions;
 
 import com.idealista.domain.Ad;
 import com.idealista.domain.Typology;
 
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.UnaryOperator;
 
-public class CompleteAdScoreAccumulator implements UnaryOperator<Ad> {
+public class CompleteAdScoreRule implements Rule {
 
     public static final int COMPLETE_AD_SCORE = 40;
 
@@ -65,4 +64,5 @@ public class CompleteAdScoreAccumulator implements UnaryOperator<Ad> {
     private boolean hasGarageTypology(Ad ad) {
         return ad.getTypology().equals(Typology.GARAGE);
     }
+
 }

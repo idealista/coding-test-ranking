@@ -9,8 +9,8 @@ import java.sql.Date;
 import java.time.Clock;
 import java.time.Instant;
 
-import static com.idealista.domain.accumulators.PicturesScoreAccumulator.PICTURE_HD_SCORE;
-import static com.idealista.domain.accumulators.PicturesScoreAccumulator.PICTURE_SD_SCORE;
+import static com.idealista.domain.conditions.PicturesScoreRule.PICTURE_HD_SCORE;
+import static com.idealista.domain.conditions.PicturesScoreRule.PICTURE_SD_SCORE;
 import static com.idealista.domain.mothers.AdMother.*;
 import static java.util.Collections.emptyList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
