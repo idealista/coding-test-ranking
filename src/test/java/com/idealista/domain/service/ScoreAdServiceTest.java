@@ -1,11 +1,12 @@
 package com.idealista.domain.service;
 
-import static com.idealista.domain.score.CriterionType.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
+import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,20 +30,46 @@ public class ScoreAdServiceTest {
 	private AdRepository repository;
 	
 	@MockBean
-	private ScoreCriterionFactory scoreCriterionFactory;
+	private CompletedCriterion completedCriterion;
+	
+	@MockBean
+	private DescriptionCriterion descriptionCriterion;
+	
+	@MockBean
+	private DescriptionKeyWordsCriterion descriptionKeyWordsCriterion;
+	
+	@MockBean
+	private DescriptionLengthByTypologyCriterion descriptionLengthByTypologyCriterion;
+	
+	@MockBean
+	private PictureQualityCriterion pictureQualityCriterion;
+	
+	@MockBean
+	private PicturesCriterion picturesCriterion;
+	
+	private Set<ScoreCriterion> criteria;
+	
+	@Before
+	public void setUp() {
+			criteria = Set.of(completedCriterion, 
+					descriptionCriterion, 
+					descriptionKeyWordsCriterion,
+					descriptionLengthByTypologyCriterion,
+					pictureQualityCriterion,
+					picturesCriterion);
+	}
 	
 	@Test
 	public void whenCalculateScore_shouldUpdateAllAdsScores() {
 		List<AdVO> ads = Generator.generateAdVOList(3);
 
 		when(repository.getAds()).thenReturn(ads);
-		when(scoreCriterionFactory.getCriterion(PICTURES_CRITERION)).thenReturn(new PicturesCriterion());
-		when(scoreCriterionFactory.getCriterion(DESCRIPTION_CRITERION)).thenReturn(new DescriptionCriterion());
-		when(scoreCriterionFactory.getCriterion(COMPLETED_CRITERION)).thenReturn(new CompletedCriterion());
 		scoreAdService.calculateScore();
 		
 		verify(repository, times(1)).getAds();
-		verify(scoreCriterionFactory, times(ads.size() * CriterionType.values().length)).getCriterion(any());
+		for(ScoreCriterion criterion: criteria) {
+			verify(criterion, times(ads.size())).getPartialScore(any());
+		}
 		verify(repository, times(ads.size())).saveAd(any());
 	}
 	

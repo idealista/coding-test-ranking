@@ -103,4 +103,44 @@ public class AdVO {
 		}
 		this.score += modifier;
 	}
+	
+	public int getDescriptionWordsLength() {
+		return description.split("\\s+").length;
+	}
+	
+	public boolean isFlatAd() {
+		return typology.equals("FLAT");
+	}
+	
+	public boolean isChaletAd() {
+		return typology.equals("CHALET");
+	}
+
+	public boolean isGarageAd() {
+		return typology.equals("GARAGE");
+	}
+
+	public boolean hasPictures() {
+		return pictures !=null && pictures.size()>0;
+	}
+
+	public boolean hasDescription() {
+		return description != null && !description.isBlank();
+	}
+
+	public boolean isCompleted() {
+		if(isFlatAd()) {
+			return hasDescription() 
+					&& hasPictures()
+					&& houseSize>0;
+		} else if(isChaletAd()) {
+			return hasDescription()
+					&& hasPictures()
+					&& houseSize>0
+					&& gardenSize>0;
+		} else if(isGarageAd()) {
+			return hasPictures();
+		}
+		return false;
+	}
 }

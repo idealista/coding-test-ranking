@@ -12,6 +12,9 @@ import com.idealista.infrastructure.persistence.AdVO;
 
 public class Generator {
 	
+	public static final String TWENTY_WORDS_STRING = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum dictum vehicula sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+	public static final String FIFTY_WORDS_STRING = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed mauris ornare, consectetur ipsum tempus, vehicula quam. Vestibulum efficitur libero erat, id ultrices velit efficitur ut. Curabitur rhoncus arcu sed augue hendrerit, eget ultrices tellus fermentum. Vestibulum viverra dolor ut lacinia maximus. Proin sollicitudin convallis urna sed viverra. Phasellus at.";
+	
 	public static AdVO generateNullAdVO() {
 		return new AdVO();
 	}

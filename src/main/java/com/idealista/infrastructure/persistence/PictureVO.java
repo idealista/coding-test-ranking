@@ -37,4 +37,12 @@ public class PictureVO {
     public void setQuality(String quality) {
         this.quality = quality;
     }
+
+	public boolean isSD() {
+		return quality.equals("SD");
+	}
+
+	public boolean isHD() {
+		return quality.equals("HD");
+	}
 }

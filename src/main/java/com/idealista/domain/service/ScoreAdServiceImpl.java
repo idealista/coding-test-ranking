@@ -16,7 +16,7 @@ public class ScoreAdServiceImpl implements ScoreAdService {
 	private AdRepository repository;
 	
 	@Autowired
-	private ScoreCriterionFactory scoreCriterionFactory;
+	private List<ScoreCriterion> criteria;
 	
 	@Override
 	public void calculateScore() {
@@ -28,11 +28,10 @@ public class ScoreAdServiceImpl implements ScoreAdService {
 	}
 
 	private void updateAdScore(AdVO ad) {
-		for(CriterionType criterionType: CriterionType.values()) {
-			ScoreCriterion criterion = scoreCriterionFactory.getCriterion(criterionType);
-			int partialScore = criterion.getParcialScore();
-			ad.updateScore(partialScore);
+		for(ScoreCriterion criterion: criteria) {
+			ad.updateScore(criterion.getPartialScore(ad));
 		}
+		
 	}
 
 }

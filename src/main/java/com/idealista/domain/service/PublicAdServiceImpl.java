@@ -1,5 +1,6 @@
 package com.idealista.domain.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.idealista.domain.mapper.AdMapper;
 import com.idealista.domain.repository.AdRepository;
 import com.idealista.infrastructure.api.PublicAd;
+import com.idealista.infrastructure.persistence.AdVO;
 
 @Service
 public class PublicAdServiceImpl implements PublicAdService {
@@ -23,6 +25,7 @@ public class PublicAdServiceImpl implements PublicAdService {
 	public List<PublicAd> getAds() {
 		return repository.getAds().stream()
 				.filter(ad -> ad.isRelevant())
+				.sorted(Comparator.comparingInt(AdVO::getScore))
 				.map(ad -> mapper.adVOToPublicAd(ad))
 				.collect(Collectors.toList());
 	}
