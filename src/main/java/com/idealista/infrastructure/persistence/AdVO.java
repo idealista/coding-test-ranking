@@ -5,7 +5,9 @@ import java.util.List;
 
 public class AdVO {
 
-    private static final int RELEVANT_SCORE_THRESHOLD = 40;
+    private static final int MAX_SCORE = 100;
+	private static final int MIN_SCORE = 0;
+	private static final int RELEVANT_SCORE_THRESHOLD = 40;
     
 	private Integer id;
     private String typology;
@@ -106,10 +108,10 @@ public class AdVO {
 	}
 
 	private void fitScoreToBoundaries() {
-		if(score<0) {
-			score = 0;
-		} else if (score>100) {
-			score = 100;
+		if(score<MIN_SCORE) {
+			score = MIN_SCORE;
+		} else if (score>MAX_SCORE) {
+			score = MAX_SCORE;
 		}
 	}
 	
