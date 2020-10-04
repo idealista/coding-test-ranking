@@ -22,16 +22,15 @@ public class ScoreAdServiceImpl implements ScoreAdService {
 	public void calculateScore() {
 		List<AdVO> ads = repository.getAds();
 		for(AdVO ad: ads) {
-			updateAdScore(ad);
-			repository.saveAd(ad);
+			updateWithCriteria(ad);
 		}
 	}
 
-	private void updateAdScore(AdVO ad) {
+	private void updateWithCriteria(AdVO ad) {
 		for(ScoreCriterion criterion: criteria) {
 			ad.updateScore(criterion.getPartialScore(ad));
 		}
-		
 	}
+
 
 }

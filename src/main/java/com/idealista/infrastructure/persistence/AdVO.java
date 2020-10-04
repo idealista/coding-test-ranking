@@ -94,14 +94,23 @@ public class AdVO {
     }
 
 	public boolean isRelevant() {
-		return this.score >= RELEVANT_SCORE_THRESHOLD && this.score != null;
+		return this.score != null && this.score >= RELEVANT_SCORE_THRESHOLD;
 	}
 
 	public void updateScore(int modifier) {
-		if(this.score == null) {
-			this.score = 0;
+		if(score == null) {
+			score = 0;
 		}
-		this.score += modifier;
+		score += modifier;
+		fitScoreToBoundaries();
+	}
+
+	private void fitScoreToBoundaries() {
+		if(score<0) {
+			score = 0;
+		} else if (score>100) {
+			score = 100;
+		}
 	}
 	
 	public int getDescriptionWordsLength() {
@@ -132,12 +141,12 @@ public class AdVO {
 		if(isFlatAd()) {
 			return hasDescription() 
 					&& hasPictures()
-					&& houseSize>0;
+					&& houseSize!=null && houseSize>0;
 		} else if(isChaletAd()) {
 			return hasDescription()
 					&& hasPictures()
-					&& houseSize>0
-					&& gardenSize>0;
+					&& houseSize!=null && houseSize>0
+					&& gardenSize!=null && gardenSize>0;
 		} else if(isGarageAd()) {
 			return hasPictures();
 		}
