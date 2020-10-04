@@ -52,8 +52,21 @@ public class InMemoryPersistence implements AdRepository{
 
 	@Override
 	public void saveAd(AdVO ad) {
-		// TODO Auto-generated method stub
-		
+		if(getIndex(ad) != -1) {
+			ads.add(getIndex(ad), ad);
+		} else {
+			ads.add(ad);
+		}
+	}
+
+	private int getIndex(AdVO ad) {
+		int index = -1;
+		for(AdVO actualAd: ads) {
+			if(actualAd.getId() == ad.getId()) {
+				index = ads.indexOf(actualAd);
+			}
+		}
+		return index;
 	}
 
 }
